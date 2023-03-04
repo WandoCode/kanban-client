@@ -51,3 +51,11 @@ body {
     color: var(--clr-primary-400);
   }
 }
+
+.input-check {
+  font-weight: 700;
+  input:checked ~ &__label {
+    color: var(--clr-neutral-450);
+    text-decoration: line-through;
+  }
+}

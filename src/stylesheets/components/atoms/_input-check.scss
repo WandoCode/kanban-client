@@ -1,0 +1,42 @@
+@use '../../abstracts/' as *;
+
+.input-check {
+  &__check {
+    height: 1rem;
+    width: 1rem;
+
+    border: 1px solid var(--clr-neutral-350);
+    border-radius: 2px;
+    background-color: var(--clr-neutral-100);
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: var(--clr-neutral-200);
+    border-radius: rem(4);
+    padding: rem(12);
+    &:hover {
+      background-color: var(--clr-primary-250);
+    }
+  }
+
+  input:checked ~ &__label:hover {
+    background-color: var(--clr-primary-200);
+  }
+
+  input:checked ~ &__label &__check {
+    position: relative;
+    background-color: var(--clr-primary-400);
+    border: none;
+    &::after {
+      position: absolute;
+      content: url('icon-check.svg');
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+    }
+  }
+}

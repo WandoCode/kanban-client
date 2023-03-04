@@ -1,10 +1,15 @@
 import './stylesheets/main.scss'
-import Button from './components/atoms/button/Button'
+import InputCheck from './components/atoms/Input/InputCheck'
 
 function App() {
   return (
-    <div className="app heading-s">
-      <Button text="Test" type="destructive" onClick={() => {}} />
+    <div className="app">
+      <InputCheck
+        text="Value"
+        id="value-a"
+        isChecked={false}
+        onChange={() => {}}
+      />
     </div>
   )
 }
