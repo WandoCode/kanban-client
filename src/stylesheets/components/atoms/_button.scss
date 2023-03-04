@@ -1,0 +1,50 @@
+@use '../../abstracts/' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: rem(40);
+  padding-inline: rem(17);
+  border: none;
+  border-radius: rem(20);
+
+  cursor: pointer;
+  user-select: none;
+
+  &--primary-l {
+    min-height: rem(48);
+    border-radius: rem(24);
+
+    background-color: var(--clr-primary-400);
+
+    &:hover {
+      background-color: var(--clr-primary-300);
+    }
+  }
+
+  &--primary-s {
+    background-color: var(--clr-primary-400);
+
+    &:hover {
+      background-color: var(--clr-primary-300);
+    }
+  }
+
+  &--secondary {
+    background-color: var(--clr-primary-200);
+
+    &:hover {
+      background-color: var(--clr-primary-250);
+    }
+  }
+
+  &--destructive {
+    background-color: var(--clr-primary-800);
+
+    &:hover {
+      background-color: var(--clr-primary-700);
+    }
+  }
+}

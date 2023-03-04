@@ -37,3 +37,17 @@ body {
   font-size: var(--fs-200);
   font-weight: 700;
 }
+
+.btn {
+  color: var(--clr-neutral-100);
+  font-weight: 700;
+  font-size: var(--fs-300);
+
+  &--primary-l {
+    font-size: var(--fs-400);
+  }
+
+  &--secondary {
+    color: var(--clr-primary-400);
+  }
+}
