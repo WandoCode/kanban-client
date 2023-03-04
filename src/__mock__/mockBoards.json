@@ -1,0 +1,16 @@
+{
+  "boards": [
+    {
+      "name": "Platform Launch",
+      "columns": ["Todo", "Doing", "Done"]
+    },
+    {
+      "name": "Marketing Plan",
+      "columns": ["Todo", "Doing", "Done"]
+    },
+    {
+      "name": "Roadmap",
+      "columns": ["Now", "Next", "Later"]
+    }
+  ]
+}
