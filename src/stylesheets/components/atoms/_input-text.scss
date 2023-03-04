@@ -8,9 +8,12 @@
 
   &__input {
     width: 100%;
+
     padding: rem(8) $padding-inline;
-    border-radius: rem(4);
+
     border: 1px solid var(--clr-neutral-350);
+
+    border-radius: rem(4);
 
     &:focus {
       border-color: var(--clr-primary-400);
@@ -37,8 +40,9 @@
     right: 0;
     left: 100%;
     translate: -100% 50%;
+
     width: max-content;
+
     padding-right: calc($padding-inline + 1px);
-    color: var(--clr-primary-800);
   }
 }

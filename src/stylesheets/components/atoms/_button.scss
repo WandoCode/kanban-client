@@ -6,7 +6,9 @@
   justify-content: center;
 
   min-height: rem(40);
+
   padding-inline: rem(17);
+
   border: none;
   border-radius: rem(20);
 
@@ -15,8 +17,8 @@
 
   &--primary-l {
     min-height: rem(48);
-    border-radius: rem(24);
 
+    border-radius: rem(24);
     background-color: var(--clr-primary-400);
 
     &:hover {

@@ -54,6 +54,7 @@ body {
 
 .input-check {
   font-weight: 700;
+
   input:checked ~ &__label {
     color: var(--clr-neutral-450);
     text-decoration: line-through;
@@ -63,5 +64,9 @@ body {
 .input-text {
   &__input::placeholder {
     color: var(--clr-neutral-475);
+  }
+
+  &__error {
+    color: var(--clr-primary-800);
   }
 }
