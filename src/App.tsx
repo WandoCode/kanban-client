@@ -1,14 +1,18 @@
 import './stylesheets/main.scss'
-import InputCheck from './components/atoms/Input/InputCheck'
+import InputText from './components/atoms/Input/InputText'
 
 function App() {
   return (
     <div className="app">
-      <InputCheck
-        text="Value"
+      <InputText
+        value=""
         id="value-a"
-        isChecked={false}
+        hasError={false}
         onChange={() => {}}
+        placeholder="Enter task name"
+        errorText="Can't be empty"
+        label="Title"
+        showLabel={true}
       />
     </div>
   )

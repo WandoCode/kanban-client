@@ -14,6 +14,7 @@ $colors: (
     350: hsla(216, 15%, 57%, 0.24),
     400: hsl(216, 15%, 57%),
     450: hsl(231, 6%, 51%),
+    475: hsla(237, 100%, 4%, 0.25),
     500: hsl(236, 11%, 27%),
     600: hsl(235, 12%, 19%),
     700: hsl(235, 16%, 15%),
@@ -22,14 +23,14 @@ $colors: (
 );
 
 :root {
-  /// Build css custom variables for colors
+  // Build css custom variables for colors
   @each $color-type, $shades in $colors {
     @each $shade, $color in $shades {
       --clr-#{$color-type}-#{$shade}: #{$color};
     }
   }
 
-  /// Build css utility for colors
+  // Build css utility for colors
   @each $color-type, $shades in $colors {
     @each $shade, $color in $shades {
       .fc-#{$color-type}-#{$shade} {
