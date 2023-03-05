@@ -15,10 +15,6 @@ function Home() {
   const userDatas = useAppSelector((state: RootState) => state.session)
 
   useEffect(() => {
-    console.log(userDatas)
-  }, [userDatas])
-
-  useEffect(() => {
     dispatch(fetchUserById(12))
     dispatch(setCurrentBoard(120))
   }, [])

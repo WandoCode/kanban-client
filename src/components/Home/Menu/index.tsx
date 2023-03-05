@@ -1,8 +1,11 @@
-import { useSelector } from 'react-redux/es/exports'
-import { RootState } from '../../../features/app.store'
+import { RootState, useAppSelector } from '../../../features/app.store'
 import Menu from './Menu'
 
 export default function () {
-  const { menuIsOpen } = useSelector((state: RootState) => state.generalState)
-  return <Menu menuIsOpen={menuIsOpen} />
+  const { menuIsOpen } = useAppSelector(
+    (state: RootState) => state.generalState
+  )
+  const session = useAppSelector((state: RootState) => state.session)
+
+  return <Menu menuIsOpen={menuIsOpen} session={session} />
 }

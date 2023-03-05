@@ -73,16 +73,15 @@ body {
   }
 }
 
-.menu {
-  &__board-item {
-    color: var(--clr-neutral-400);
+.boards-list__item {
+  color: var(--clr-neutral-400);
 
-    &--current {
-      color: var(--clr-neutral-100);
-    }
+  &--current {
+    color: var(--clr-neutral-100);
+  }
 
-    &--btn-add {
-      color: var(--clr-primary-400);
-    }
+  &--btn-add {
+    color: var(--clr-primary-400);
+    font-weight: 700;
   }
 }

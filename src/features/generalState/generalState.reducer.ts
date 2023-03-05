@@ -12,8 +12,6 @@ const generalStateReducer = createReducer(initialState, (builder) => {
       state.theme = action.payload.newTheme
     })
     .addCase(openMenu, (state) => {
-      console.log(true)
-
       state.menuIsOpen = true
     })
 

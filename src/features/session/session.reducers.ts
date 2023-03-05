@@ -12,7 +12,7 @@ export interface UserDatas {
   boards: Board[]
 }
 
-interface Session extends UserDatas {
+export interface Session extends UserDatas {
   currentBoardID: number | null
 }
 

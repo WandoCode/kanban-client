@@ -55,36 +55,6 @@
   &__heading {
     padding-left: var(--padding-inline);
   }
-
-  &__board-item {
-    display: flex;
-    align-items: center;
-    gap: rem(12);
-
-    width: 100%;
-    min-height: rem(48);
-
-    padding-left: var(--padding-inline);
-
-    border-radius: 0 1.5rem 1.5rem 0;
-
-    &--current {
-      background-color: var(--clr-primary-400);
-
-      & > img {
-        filter: brightness(200%);
-      }
-    }
-
-    &--btn-add {
-      padding-right: 0;
-
-      & > img {
-        filter: brightness(0) saturate(100%) invert(47%) sepia(15%)
-          saturate(2464%) hue-rotate(204deg) brightness(82%) contrast(88%);
-      }
-    }
-  }
 }
 
 @keyframes delay-close {
