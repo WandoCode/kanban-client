@@ -1,0 +1,58 @@
+@use '../../abstracts/' as *;
+
+.select {
+  position: relative;
+
+  display: grid;
+  gap: $label-gap;
+
+  &__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid var(--clr-neutral-350);
+
+    background-color: var(--clr-neutral-100);
+    cursor: pointer;
+
+    & > img {
+      transition: 0.5s;
+    }
+
+    &--open {
+      border-color: var(--clr-primary-400);
+
+      & > img {
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+  &__options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    padding-block: rem(16);
+
+    border-radius: 0 0 rem(4) rem(4);
+    background-color: var(--clr-neutral-100);
+    cursor: default;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+
+    min-height: rem(31);
+
+    padding-inline: $padding-inline-box;
+
+    &:hover {
+      background-color: var(--clr-primary-250);
+      color: var(--clr-neutral-500);
+    }
+  }
+}

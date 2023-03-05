@@ -27,7 +27,7 @@ function InputText({
   }
 
   const inputClassName = () => {
-    const base = 'input-text__input'
+    const base = 'input-text__input box'
     return hasError ? `${base} ${base}--error` : base
   }
 

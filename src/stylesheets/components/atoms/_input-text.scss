@@ -1,19 +1,11 @@
 @use '../../abstracts/' as *;
 
 .input-text {
-  $padding-inline: rem(16);
-
   display: grid;
-  gap: rem(7);
+  gap: $label-gap;
 
   &__input {
     width: 100%;
-
-    padding: rem(8) $padding-inline;
-
-    border: 1px solid var(--clr-neutral-350);
-
-    border-radius: rem(4);
 
     &:focus {
       border-color: var(--clr-primary-400);
@@ -43,6 +35,6 @@
 
     width: max-content;
 
-    padding-right: calc($padding-inline + 1px);
+    padding-right: calc(rem(16) + 1px);
   }
 }

@@ -45,3 +45,13 @@
   position: absolute;
   width: 1px;
 }
+
+.box {
+  padding: rem(8) $padding-inline-box;
+
+  border: 1px solid var(--clr-neutral-350);
+
+  border-radius: rem(4);
+
+  font-weight: 700;
+}

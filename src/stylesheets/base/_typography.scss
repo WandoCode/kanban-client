@@ -38,6 +38,10 @@ body {
   font-weight: 700;
 }
 
+.box {
+  font-weight: 700;
+}
+
 .btn {
   color: var(--clr-neutral-100);
   font-weight: 700;
@@ -53,8 +57,6 @@ body {
 }
 
 .input-check {
-  font-weight: 700;
-
   input:checked ~ &__label {
     color: var(--clr-neutral-450);
     text-decoration: line-through;
