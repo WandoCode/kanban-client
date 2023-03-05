@@ -1,16 +1,28 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import ellipsis from '../../../assets/icon-vertical-ellipsis.svg'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux/es/exports'
+import { RootState } from '../../../features/app.store'
+import {
+  closeMenu,
+  openMenu,
+} from '../../../features/generalState/generalState.actions'
 
-interface Props {
-  sideIsOpen?: boolean
-}
+function Header() {
+  const dispatch = useDispatch()
+  const { menuIsOpen } = useSelector((state: RootState) => state.generalState)
 
-function Header({ sideIsOpen = true }: Props) {
+  const toogleModalMenu = () => {
+    menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
+  }
   return (
     <div className="header">
       {/* Only mobile */}
-      <button className="header__right hide-desktop btn--transparent">
+      <button
+        className="header__right hide-desktop btn--transparent"
+        onClick={toogleModalMenu}
+      >
         <div className="header__logo-container"></div>
         <h1 className="heading-xl">Platform Launch</h1>
         <img src={chevron} alt="Chevron" />

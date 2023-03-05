@@ -5,8 +5,11 @@
   justify-content: space-between;
 
   min-height: var(--header-height);
+
   padding-right: var(--padding-inline);
+
   border-bottom: 1px solid var(--clr-neutral-300);
+
   &__right {
     align-items: center;
     gap: var(--padding-inline);
@@ -17,13 +20,16 @@
   &__logo-container {
     width: 25px;
     height: 100%;
+
     background-image: url('../../../../public/logo-mobile.svg');
     background-repeat: no-repeat;
     background-position: 0 50%;
 
     @include breakpoint(medium) {
-      border-right: 1px solid var(--clr-neutral-300);
       min-width: calc(rem(200) - var(--padding-inline));
+
+      border-right: 1px solid var(--clr-neutral-300);
+
       background-image: url('../../../../public/logo-dark.svg');
     }
 
@@ -41,10 +47,12 @@
 
   &__add-task {
     min-height: rem(32);
+
     padding-inline: rem(18);
 
     @include breakpoint(medium) {
       min-height: rem(48);
+
       padding-inline: rem(25);
     }
   }
