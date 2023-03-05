@@ -55,3 +55,23 @@
 
   font-weight: 700;
 }
+
+.hide-mobile {
+  display: flex;
+
+  @include breakpoint-down(medium) {
+    display: none;
+  }
+}
+
+.hide-desktop {
+  display: flex;
+  @include breakpoint(medium) {
+    display: none;
+  }
+}
+
+.btn--transparent {
+  background-color: transparent;
+  border: none;
+}

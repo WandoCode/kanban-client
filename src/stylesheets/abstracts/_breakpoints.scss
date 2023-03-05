@@ -2,7 +2,8 @@
 
 /// Breakpoints map
 $breakpoints: (
-  'small': rem(320),
-  'medium': rem(768),
+  'small': rem(330),
+  'medium': rem(700),
   'large': rem(1024),
+  'xl': rem(1440),
 );

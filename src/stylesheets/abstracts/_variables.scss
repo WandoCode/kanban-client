@@ -1,3 +1,5 @@
+@use '../abstracts/mixins' as *;
+
 /// Regular font family
 $text-font-stack: 'Plus Jakarta Sans', sans-serif;
 
@@ -6,3 +8,20 @@ $max-width: 1180px;
 
 $label-gap: 0.4375rem;
 $padding-inline-box: 1rem;
+
+:root {
+  --padding-inline: 1rem;
+  --header-height: 4rem;
+
+  @include breakpoint(medium) {
+    --padding-inline: 1.5rem;
+    --header-height: 5rem;
+    --side-width-open: 16.25rem;
+  }
+
+  @include breakpoint(large) {
+    --padding-inline: 2rem;
+    --header-height: 6rem;
+    --side-width-open: 18.75rem;
+  }
+}
