@@ -1,0 +1,24 @@
+{
+  "usersDatas": [
+    {
+      "userID": 12,
+      "boards": [
+        {
+          "uniqid": 120,
+          "name": "Platform Launch",
+          "columns": ["Todo", "Doing", "Done"]
+        },
+        {
+          "uniqid": 121,
+          "name": "Marketing Plan",
+          "columns": ["Todo", "Doing", "Done"]
+        },
+        {
+          "uniqid": 122,
+          "name": "Roadmap",
+          "columns": ["Now", "Next", "Later"]
+        }
+      ]
+    }
+  ]
+}
