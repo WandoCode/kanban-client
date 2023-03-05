@@ -72,3 +72,17 @@ body {
     color: var(--clr-primary-800);
   }
 }
+
+.menu {
+  &__board-item {
+    color: var(--clr-neutral-400);
+
+    &--current {
+      color: var(--clr-neutral-100);
+    }
+
+    &--btn-add {
+      color: var(--clr-primary-400);
+    }
+  }
+}

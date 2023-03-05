@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setUserDatas } from './session.actions'
+import { setUserDatas, setCurrentBoard } from './session.actions'
 
 export interface Board {
   uniqid: number
@@ -12,20 +12,29 @@ export interface UserDatas {
   boards: Board[]
 }
 
-const initialSessionState: UserDatas = {
+interface Session extends UserDatas {
+  currentBoardID: number | null
+}
+
+const initialSessionState: Session = {
   userID: null,
   boards: [],
+  currentBoardID: null,
 }
 
 const sessionReducer = createReducer(initialSessionState, (builder) => {
-  builder.addCase(setUserDatas, (state, action) => {
-    if (action.payload) {
-      state.userID = action.payload.userID
-      state.boards = action.payload.boards
-    } else {
-      state = initialSessionState
-    }
-  })
+  builder
+    .addCase(setUserDatas, (state, action) => {
+      if (action.payload) {
+        state.userID = action.payload.userID
+        state.boards = action.payload.boards
+      } else {
+        state = initialSessionState
+      }
+    })
+    .addCase(setCurrentBoard, (state, action) => {
+      state.currentBoardID = action.payload
+    })
 })
 
 export default sessionReducer

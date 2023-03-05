@@ -3,15 +3,21 @@ import plus from '../../../assets/icon-add-task-mobile.svg'
 import ellipsis from '../../../assets/icon-vertical-ellipsis.svg'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux/es/exports'
-import { RootState } from '../../../features/app.store'
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../features/app.store'
 import {
   closeMenu,
   openMenu,
 } from '../../../features/generalState/generalState.actions'
 
 function Header() {
-  const dispatch = useDispatch()
-  const { menuIsOpen } = useSelector((state: RootState) => state.generalState)
+  const dispatch = useAppDispatch()
+  const { menuIsOpen } = useAppSelector(
+    (state: RootState) => state.generalState
+  )
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())

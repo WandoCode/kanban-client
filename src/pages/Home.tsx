@@ -8,6 +8,7 @@ import {
   useAppSelector,
 } from '../features/app.store'
 import { useEffect } from 'react'
+import { setCurrentBoard } from '../features/session/session.actions'
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -19,6 +20,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchUserById(12))
+    dispatch(setCurrentBoard(120))
   }, [])
 
   return (
