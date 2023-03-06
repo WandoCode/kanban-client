@@ -1,8 +1,8 @@
 import iconBoard from '../../../assets/icon-board.svg'
-import { Board } from '../../../features/session/session.reducers'
+import { BoardShort } from '../../../features/session/session.reducers'
 
 interface Props {
-  board: Board
+  board: BoardShort
   currentBoardID: number | null
 }
 

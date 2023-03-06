@@ -8,6 +8,7 @@ import {
 } from '../features/app.store'
 import { useEffect } from 'react'
 import { setCurrentBoard } from '../features/session/session.actions'
+import Board from '../components/Home/Board/Board'
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -20,8 +21,9 @@ function Home() {
 
   return (
     <div className="home">
-      <Header />
       <Menu />
+      <Header />
+      <Board />
     </div>
   )
 }

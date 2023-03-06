@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import generalStateReducer from './generalState/generalState.reducer'
 import sessionReducer from './session/session.reducers'
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
+import boardReducer from './board/board.reducers'
 
 const store = configureStore({
   reducer: {
     generalState: generalStateReducer,
     session: sessionReducer,
+    board: boardReducer,
   },
 })
 
