@@ -18,11 +18,10 @@ function BoardsList({ session }: Props) {
   }
 
   return (
-    // <ul className="menu__board-list fs-400">
     <ul className="boards-list fs-400">
       {boardList()}
       <li>
-        <button className="boards-list__item--btn-add boards-list__item btn btn--primary-l btn--transparent">
+        <button className="board-btn--btn-add board-btn btn btn--primary-l btn--transparent">
           <img src={iconBoard} alt="Board" />+ Create New Board
         </button>
       </li>

@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { Session } from '../../../features/session/session.reducers'
 import BoardsList from './BoardsList'
-
+import iconEyeHide from '../../../assets/icon-hide-sidebar.svg'
 import ThemeSwitch from './ThemeSwitch'
 
 interface Props {
@@ -27,6 +27,11 @@ function Menu({ menuIsOpen, session, onClick }: Props) {
           </div>
           <div className="menu__inf">
             <ThemeSwitch />
+            <div className="hide-mobile">
+              <button className="board-btn board-btn  btn btn--primary-l btn--transparent">
+                <img src={iconEyeHide} alt="Board" />+ Create New Board
+              </button>
+            </div>
           </div>
         </div>
       </div>

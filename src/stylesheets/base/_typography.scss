@@ -73,8 +73,9 @@ body {
   }
 }
 
-.boards-list__item {
-  &,
+.board-btn {
+  color: var(--clr-neutral-400);
+
   &:hover {
     color: var(--clr-primary-400);
   }
