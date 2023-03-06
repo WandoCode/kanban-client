@@ -1,0 +1,8 @@
+.floating-show-sidebar {
+  position: fixed;
+  bottom: 32px;
+  &__btn {
+    padding-left: 10rem;
+    transform: translateX(calc(18px - 10rem));
+  }
+}

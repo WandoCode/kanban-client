@@ -9,8 +9,8 @@ interface Props {
 function BoardItem({ board, currentBoardID }: Props) {
   const liClassName = (boardID: number) => {
     const base = 'board-btn'
-
     let name = base
+
     if (boardID === currentBoardID) name += ` ${base}--current`
 
     return name + ' btn btn--primary-l btn--transparent heading-m'

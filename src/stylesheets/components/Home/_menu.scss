@@ -11,6 +11,7 @@
   background-color: var(--clr-neutral-850);
 
   overflow: hidden;
+  z-index: 1;
 
   @include breakpoint(medium) {
     --padding-inline: 1.5rem;
@@ -51,6 +52,7 @@
       height: 100%;
 
       margin-inline: 0;
+      padding-block: rem(32);
 
       border-radius: 0;
     }
@@ -65,7 +67,6 @@
 
     @include breakpoint(medium) {
       top: 0;
-
       transform: translateX(-100%);
       transition: transform $opening-duration;
     }
@@ -87,8 +88,6 @@
 
     @include breakpoint(medium) {
       top: 0;
-
-      opacity: 1;
 
       transform: translateX(0);
       transition: transform $opening-duration;
