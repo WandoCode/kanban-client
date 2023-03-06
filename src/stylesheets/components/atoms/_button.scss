@@ -21,6 +21,9 @@
     border-radius: rem(24);
     background-color: var(--clr-primary-400);
 
+    &:disabled {
+      background-color: var(--clr-primary-250);
+    }
     &:hover {
       background-color: var(--clr-primary-300);
     }

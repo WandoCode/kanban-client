@@ -1,6 +1,7 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import ellipsis from '../../../assets/icon-vertical-ellipsis.svg'
+import Button from '../../atoms/Button/Button'
 import {
   RootState,
   useAppDispatch,
@@ -13,6 +14,8 @@ import {
 
 function Header() {
   const dispatch = useAppDispatch()
+  const nbrColumns = useAppSelector((state) => state.board.columnsNames.length)
+
   const { menuIsOpen } = useAppSelector(
     (state: RootState) => state.generalState
   )
@@ -48,16 +51,23 @@ function Header() {
       <div className="header__left ">
         {/* Only mobile  */}
         <div className="hide-desktop">
-          <button className="header__add-task btn btn--primary-s ">
-            <img src={plus} alt="More" />
-          </button>
+          <Button
+            imgRef={plus}
+            className="header__add-task"
+            text=""
+            type="primary-s"
+            onClick={() => {}}
+          />
         </div>
 
         {/* Only NOT mobile  */}
         <div className="hide-mobile">
-          <button className="header__add-task btn btn--primary-l ">
-            <div>+ Add New Task</div>
-          </button>
+          <Button
+            className="header__add-task"
+            text="+ Add New Task"
+            type="primary-l"
+            onClick={() => {}}
+          />
         </div>
 
         {/* All screen sizes */}

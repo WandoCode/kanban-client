@@ -1,5 +1,6 @@
 import iconBoard from '../../../assets/icon-board.svg'
 import { BoardShort } from '../../../features/session/session.reducers'
+import Button from '../../atoms/Button/Button'
 
 interface Props {
   board: BoardShort
@@ -13,15 +14,18 @@ function BoardItem({ board, currentBoardID }: Props) {
 
     if (boardID === currentBoardID) name += ` ${base}--current`
 
-    return name + ' btn btn--primary-l btn--transparent heading-m'
+    return name + ' btn--transparent heading-m'
   }
 
   return (
     <li key={board.uniqid}>
-      <button className={liClassName(board.uniqid)}>
-        <img src={iconBoard} alt="Board" />
-        {board.name}
-      </button>
+      <Button
+        className={liClassName(board.uniqid)}
+        text={board.name}
+        type="primary-l"
+        imgRef={iconBoard}
+        onClick={() => {}}
+      />
     </li>
   )
 }

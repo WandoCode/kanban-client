@@ -75,6 +75,8 @@
   &__misc-action > img {
     height: rem(16);
 
+    cursor: pointer;
+
     @include breakpoint(medium) {
       height: rem(20);
     }

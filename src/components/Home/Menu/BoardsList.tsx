@@ -1,6 +1,7 @@
 import BoardItem from './BoardItem'
 import { Session } from '../../../features/session/session.reducers'
 import iconBoard from '../../../assets/icon-board.svg'
+import Button from '../../atoms/Button/Button'
 
 interface Props {
   session: Session
@@ -21,9 +22,13 @@ function BoardsList({ session }: Props) {
     <ul className="boards-list fs-400">
       {boardList()}
       <li>
-        <button className="board-btn--btn-add board-btn btn btn--primary-l btn--transparent">
-          <img src={iconBoard} alt="Board" />+ Create New Board
-        </button>
+        <Button
+          className="board-btn board-btn--btn-add btn--transparent"
+          text="+ Create New Board"
+          type="primary-l"
+          imgRef={iconBoard}
+          onClick={() => {}}
+        />
       </li>
     </ul>
   )

@@ -8,6 +8,7 @@ import {
   useAppSelector,
   RootState,
 } from '../../../features/app.store'
+import Button from '../../atoms/Button/Button'
 
 export default function () {
   const dispatch = useAppDispatch()
@@ -39,13 +40,13 @@ export default function () {
           <div className="menu__inf">
             <ThemeSwitch />
             <div className="hide-mobile">
-              <button
-                className="board-btn  btn btn--primary-l btn--transparent"
+              <Button
+                className="board-btn btn--transparent"
+                text="Hide Sidebar"
+                type="primary-l"
+                imgRef={iconEyeHide}
                 onClick={() => dispatch(closeMenu())}
-              >
-                <img src={iconEyeHide} alt="Board" />
-                Hide Sidebar
-              </button>
+              />
             </div>
           </div>
         </div>
