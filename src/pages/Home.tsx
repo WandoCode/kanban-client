@@ -9,6 +9,7 @@ import {
 import { useEffect } from 'react'
 import { setCurrentBoard } from '../features/session/session.actions'
 import Board from '../components/Home/Board/Board'
+import { fetchBoardDatasById } from '../features/board/board.thunk'
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -17,6 +18,7 @@ function Home() {
   useEffect(() => {
     dispatch(fetchUserById(12))
     dispatch(setCurrentBoard(120))
+    dispatch(fetchBoardDatasById(120))
   }, [])
 
   return (

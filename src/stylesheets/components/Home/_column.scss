@@ -1,0 +1,16 @@
+@use '../../abstracts/' as *;
+
+.column {
+  width: rem(280);
+  &__color {
+    height: 10px;
+    width: 10px;
+    border-radius: 50px;
+  }
+}
+
+.task {
+  width: rem(280);
+  height: rem(80);
+  background-color: white;
+}

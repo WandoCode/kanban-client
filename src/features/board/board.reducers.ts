@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setBoard } from './board.actions'
+import { setBoardDatas } from './board.actions'
 
 interface Note {
   title: string
@@ -13,7 +13,9 @@ interface Note {
 }
 
 interface Column {
-  [x: string]: Note[]
+  name: string
+  color: string
+  datas: Note[] | undefined
 }
 
 export interface BoardDatas {
@@ -34,10 +36,10 @@ const initialBoardState: BoardDatas = {
 }
 
 const boardReducer = createReducer(initialBoardState, (builder) => {
-  builder.addCase(setBoard, (state, action) => {
+  builder.addCase(setBoardDatas, (state, action) => {
     if (action.payload) {
       state.boardID = action.payload.uniqid
-      state.columnsNames = Object.keys(action.payload.columns)
+      state.columnsNames = action.payload.columns.map((col) => col.name)
       state.columnsDatas = action.payload.columns
     } else {
       state = initialBoardState
