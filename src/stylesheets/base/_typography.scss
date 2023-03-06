@@ -74,14 +74,17 @@ body {
 }
 
 .boards-list__item {
-  color: var(--clr-neutral-400);
+  &,
+  &:hover {
+    color: var(--clr-primary-400);
+  }
 
-  &--current {
+  &--current,
+  &--current:hover {
     color: var(--clr-neutral-100);
   }
 
   &--btn-add {
     color: var(--clr-primary-400);
-    font-weight: 700;
   }
 }

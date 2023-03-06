@@ -13,7 +13,7 @@ function BoardItem({ board, currentBoardID }: Props) {
     let name = base
     if (boardID === currentBoardID) name += ` ${base}--current`
 
-    return name + ' btn--transparent heading-m'
+    return name + ' btn btn--primary-l btn--transparent heading-m'
   }
 
   return (

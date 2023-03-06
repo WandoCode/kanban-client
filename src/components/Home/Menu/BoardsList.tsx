@@ -22,7 +22,7 @@ function BoardsList({ session }: Props) {
     <ul className="boards-list fs-400">
       {boardList()}
       <li>
-        <button className="boards-list__item--btn-add boards-list__item btn--transparent">
+        <button className="boards-list__item--btn-add boards-list__item btn btn--primary-l btn--transparent">
           <img src={iconBoard} alt="Board" />+ Create New Board
         </button>
       </li>
