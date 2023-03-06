@@ -89,3 +89,9 @@ body {
     color: var(--clr-primary-400);
   }
 }
+
+.board {
+  &__empty {
+    text-align: center;
+  }
+}

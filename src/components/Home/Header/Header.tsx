@@ -55,11 +55,7 @@ function Header() {
 
         {/* Only NOT mobile  */}
         <div className="hide-mobile">
-          <button
-            className="header__add-task btn btn--primary-l "
-            onClick={toogleModalMenu}
-          >
-            {/* TODO: retirer le onclick qui est juste la pour tester le menu */}
+          <button className="header__add-task btn btn--primary-l ">
             <div>+ Add New Task</div>
           </button>
         </div>

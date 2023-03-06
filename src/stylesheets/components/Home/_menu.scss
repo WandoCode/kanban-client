@@ -19,6 +19,7 @@
     right: calc(100% - var(--side-width-open));
     border-right: 1px solid var(--clr-neutral-300);
     background-color: transparent;
+    transition: transform $opening-duration;
   }
 
   &__event-close {
@@ -62,20 +63,24 @@
     top: var(--header-height);
 
     opacity: 1;
+    transform: translateY(0);
 
-    animation: fade-out $opening-duration forwards;
+    animation: fade-out calc($opening-duration / 2) calc($opening-duration / 2)
+        forwards,
+      slide-out 1ms $opening-duration forwards;
 
     @include breakpoint(medium) {
       top: 0;
+      animation: none;
+
       transform: translateX(-100%);
-      transition: transform $opening-duration;
     }
 
     .menu__wrapper {
       transform: translateY(-100%);
 
       @include breakpoint(medium) {
-        transform: translateX(0);
+        transform: translateY(0);
       }
     }
   }
@@ -84,13 +89,15 @@
     top: var(--header-height);
     opacity: 0;
 
-    animation: fade-in $opening-duration forwards;
+    animation: fade-in calc($opening-duration / 2) forwards;
 
     @include breakpoint(medium) {
       top: 0;
+      opacity: 1;
+
+      animation: none;
 
       transform: translateX(0);
-      transition: transform $opening-duration;
     }
 
     .menu__wrapper {
@@ -110,6 +117,16 @@
 
   &__heading {
     padding-left: calc(var(--padding-inline) + 0.5rem);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-120%);
   }
 }
 
