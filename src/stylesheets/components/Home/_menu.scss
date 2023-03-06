@@ -1,8 +1,8 @@
 @use '../../abstracts/' as *;
 
 .menu {
-  --padding-inline: 1.5rem;
-  $opening-duration: 0.2s;
+  --padding-inline: 1rem;
+  --flow: 1rem;
 
   position: fixed;
   left: 0;
@@ -12,32 +12,70 @@
 
   overflow: hidden;
 
+  @include breakpoint(medium) {
+    --padding-inline: 1.5rem;
+
+    right: calc(100% - var(--side-width-open));
+    border-right: 1px solid var(--clr-neutral-300);
+    background-color: transparent;
+  }
+
+  &__event-close {
+    height: 100%;
+
+    @include breakpoint(medium) {
+      height: calc(100% - var(--header-height) + 1px);
+
+      margin-top: calc(var(--header-height) - 1px);
+    }
+  }
+
   &__wrapper {
     display: grid;
-    gap: 1rem;
+    gap: var(--flow);
+    align-content: space-between;
 
     max-width: rem(300);
 
+    margin-inline: rem(55);
     padding-block: 1rem;
     padding-right: var(--padding-inline);
-    margin-inline: rem(55);
 
     border-radius: rem(8);
     background-color: var(--clr-neutral-100);
 
     transform: translateY(-100%);
     transition: transform $opening-duration;
+
+    @include breakpoint(medium) {
+      height: 100%;
+
+      margin-inline: 0;
+
+      border-radius: 0;
+    }
   }
 
   &--close {
     top: var(--header-height);
+
     opacity: 1;
-    animation: delay-close 0s $opening-duration forwards;
-    animation: fade-out calc($opening-duration * 0.5)
-      calc($opening-duration * 0.75) forwards;
+
+    animation: fade-out $opening-duration forwards;
+
+    @include breakpoint(medium) {
+      top: 0;
+
+      transform: translateX(-100%);
+      transition: transform $opening-duration;
+    }
 
     .menu__wrapper {
       transform: translateY(-100%);
+
+      @include breakpoint(medium) {
+        transform: translateX(0);
+      }
     }
   }
 
@@ -45,27 +83,34 @@
     top: var(--header-height);
     opacity: 0;
 
-    animation: fade-in calc($opening-duration * 0.5) forwards;
+    animation: fade-in $opening-duration forwards;
+
+    @include breakpoint(medium) {
+      top: 0;
+
+      opacity: 1;
+
+      transform: translateX(0);
+      transition: transform $opening-duration;
+    }
 
     .menu__wrapper {
       transform: translateY(1rem);
+
+      @include breakpoint(medium) {
+        transform: none;
+      }
     }
   }
 
+  &__sup,
+  &__inf {
+    display: grid;
+    gap: var(--flow);
+  }
+
   &__heading {
-    padding-left: var(--padding-inline);
-  }
-}
-
-@keyframes delay-close {
-  0% {
-    top: var(--header-height);
-    opacity: 1;
-  }
-
-  100% {
-    top: 101%;
-    opacity: 0;
+    padding-left: calc(var(--padding-inline) + 0.5rem);
   }
 }
 

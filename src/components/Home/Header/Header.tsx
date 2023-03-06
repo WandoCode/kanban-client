@@ -1,8 +1,6 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import ellipsis from '../../../assets/icon-vertical-ellipsis.svg'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux/es/exports'
 import {
   RootState,
   useAppDispatch,
@@ -22,6 +20,7 @@ function Header() {
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
   }
+
   return (
     <div className="header">
       {/* Only mobile */}
@@ -36,7 +35,13 @@ function Header() {
 
       {/* Only NOT mobile */}
       <div className="header__right hide-mobile">
-        <div className="header__logo-container"></div>
+        <div
+          className={
+            menuIsOpen
+              ? 'header__logo-container header__logo-container--menuOpen'
+              : 'header__logo-container'
+          }
+        ></div>
         <h1 className="heading-xl">Platform Launch</h1>
       </div>
 
@@ -50,7 +55,11 @@ function Header() {
 
         {/* Only NOT mobile  */}
         <div className="hide-mobile">
-          <button className="header__add-task btn btn--primary-l ">
+          <button
+            className="header__add-task btn btn--primary-l "
+            onClick={toogleModalMenu}
+          >
+            {/* TODO: retirer le onclick qui est juste la pour tester le menu */}
             <div>+ Add New Task</div>
           </button>
         </div>

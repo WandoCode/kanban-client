@@ -1,7 +1,6 @@
 import Header from '../components/Home/Header/Header'
 import Menu from '../components/Home/Menu'
 import { fetchUserById } from '../features/session/session.thunks'
-import { useSelector } from 'react-redux/es/exports'
 import {
   RootState,
   useAppDispatch,

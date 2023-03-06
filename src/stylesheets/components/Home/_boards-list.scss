@@ -9,7 +9,7 @@
     width: 100%;
     min-height: rem(48);
 
-    padding-left: var(--padding-inline);
+    padding-left: calc(var(--padding-inline) + 0.5rem);
 
     border-radius: 0 1.5rem 1.5rem 0;
 

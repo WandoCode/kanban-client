@@ -6,14 +6,14 @@
 
   min-height: var(--header-height);
 
-  padding-right: var(--padding-inline);
+  padding-right: calc(var(--padding-inline) + 0.5rem);
 
   border-bottom: 1px solid var(--clr-neutral-300);
 
   &__right {
     align-items: center;
-    gap: var(--padding-inline);
-
+    gap: calc(var(--padding-inline) + 0.5rem);
+    padding: 0;
     margin-left: var(--padding-inline);
   }
 
@@ -31,10 +31,21 @@
       border-right: 1px solid var(--clr-neutral-300);
 
       background-image: url('../../../../public/logo-dark.svg');
+      transition: min-width $opening-duration;
     }
 
     @include breakpoint(large) {
       min-width: calc(rem(210) - var(--padding-inline));
+    }
+
+    &--menuOpen {
+      @include breakpoint(medium) {
+        min-width: calc(var(--side-width-open) - var(--padding-inline));
+      }
+
+      @include breakpoint(large) {
+        min-width: calc(var(--side-width-open) - var(--padding-inline));
+      }
     }
   }
 
@@ -43,6 +54,10 @@
     align-items: center;
     justify-content: flex-end;
     gap: rem(10);
+
+    @include breakpoint(medium) {
+      gap: rem(24);
+    }
   }
 
   &__add-task {
@@ -59,5 +74,9 @@
 
   &__misc-action > img {
     height: rem(16);
+
+    @include breakpoint(medium) {
+      height: rem(20);
+    }
   }
 }
