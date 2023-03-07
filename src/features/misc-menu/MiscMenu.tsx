@@ -21,7 +21,12 @@ function MiscMenu() {
           miscMenuIsOpen ? 'open' : 'close'
         } options`}
       >
-        <button className="options__option btn--transparent">Edit Board</button>
+        <button
+          className="options__option btn--transparent"
+          onClick={() => console.log(1)}
+        >
+          Edit Board
+        </button>
         <button className="options__option btn--transparent">
           Delete Board
         </button>

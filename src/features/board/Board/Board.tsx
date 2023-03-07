@@ -1,11 +1,10 @@
 import { useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
-import { useEffect } from 'react'
 import Column from './Column'
 
 function Board() {
   const { columnsNames, columnsDatas } = useAppSelector((state) => state.board)
-  const { menuIsOpen } = useAppSelector((state) => state.generalState)
+  const { menuIsOpen } = useAppSelector((state) => state.sidebar)
   const { currentBoardID, currentColumns } = useAppSelector(
     (state) => state.session
   )

@@ -9,7 +9,7 @@
   padding-right: calc(var(--padding-inline) + 0.5rem);
 
   border-bottom: 1px solid var(--clr-neutral-300);
-  isolation: isolate;
+  background-color: var(--clr-neutral-100);
 
   &__right {
     align-items: center;
@@ -56,8 +56,6 @@
     align-items: center;
     justify-content: flex-end;
     gap: rem(10);
-
-    background-color: var(--clr-neutral-100);
 
     @include breakpoint(medium) {
       gap: rem(24);
