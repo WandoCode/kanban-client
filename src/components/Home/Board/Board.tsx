@@ -19,7 +19,12 @@ function Board() {
   return (
     <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
       {columnsNames.length > 0 ? (
-        <div className="board__columns">{columnsDOM()}</div>
+        <div className="board__columns">
+          {columnsDOM()}
+          <button className="board__column-add">
+            <div className="heading-xl">+ New Column</div>
+          </button>
+        </div>
       ) : (
         <div className="board__empty">
           <h2 className="heading-l fc-neutral-400">

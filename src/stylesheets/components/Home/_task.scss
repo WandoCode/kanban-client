@@ -3,7 +3,8 @@
 .task {
   display: grid;
   gap: rem(8);
-  width: rem(280);
+
+  width: $column-width;
   min-height: rem(80);
 
   padding: rem(23) rem(16);
