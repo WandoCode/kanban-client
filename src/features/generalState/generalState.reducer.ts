@@ -14,7 +14,6 @@ const generalStateReducer = createReducer(initialState, (builder) => {
     .addCase(openMenu, (state) => {
       state.menuIsOpen = true
     })
-
     .addCase(closeMenu, (state) => {
       state.menuIsOpen = false
     })

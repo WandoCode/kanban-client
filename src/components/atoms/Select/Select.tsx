@@ -1,7 +1,8 @@
 import { MouseEvent, useState } from 'react'
 import chevron from '../../../assets/icon-chevron-down.svg'
+import Options from './Options'
 
-interface Choice {
+export interface Choice {
   value: string
   text: string
 }
@@ -21,19 +22,6 @@ function Select({ onChoice, currValue, label, choices }: Props) {
 
     const newValue = elem.getAttribute('data-value')
     if (newValue) onChoice(newValue)
-  }
-
-  const options = () => {
-    return choices.map((choice) => (
-      <li
-        key={choice.value}
-        className="select__option fc-neutral-400"
-        data-value={choice.value}
-        onClick={handleClick}
-      >
-        {choice.text}
-      </li>
-    ))
   }
 
   const toogleMenu = () => {
@@ -64,7 +52,7 @@ function Select({ onChoice, currValue, label, choices }: Props) {
         <span>{getText()}</span>
         <img src={chevron} alt="chevron" />
       </button>
-      {isOpen && <ul className="select__options"> {options()}</ul>}
+      {isOpen && <Options choices={choices} handleClick={handleClick} />}
     </div>
   )
 }

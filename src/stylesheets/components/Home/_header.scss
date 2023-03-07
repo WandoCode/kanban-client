@@ -9,6 +9,7 @@
   padding-right: calc(var(--padding-inline) + 0.5rem);
 
   border-bottom: 1px solid var(--clr-neutral-300);
+  isolation: isolate;
 
   &__right {
     align-items: center;
@@ -50,10 +51,13 @@
   }
 
   &__left {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: rem(10);
+
+    background-color: var(--clr-neutral-100);
 
     @include breakpoint(medium) {
       gap: rem(24);
@@ -69,16 +73,6 @@
       min-height: rem(48);
 
       padding-inline: rem(25);
-    }
-  }
-
-  &__misc-action > img {
-    height: rem(16);
-
-    cursor: pointer;
-
-    @include breakpoint(medium) {
-      height: rem(20);
     }
   }
 }

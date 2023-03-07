@@ -1,7 +1,7 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
-import ellipsis from '../../../assets/icon-vertical-ellipsis.svg'
 import Button from '../../atoms/Button/Button'
+
 import {
   RootState,
   useAppDispatch,
@@ -12,12 +12,16 @@ import {
   openMenu,
 } from '../../../features/generalState/generalState.actions'
 
+import MiscMenu from '../../../features/misc-menu/MiscMenu'
+
 function Header() {
   const dispatch = useAppDispatch()
-  const nbrColumns = useAppSelector((state) => state.board.columnsNames.length)
 
   const { menuIsOpen } = useAppSelector(
     (state: RootState) => state.generalState
+  )
+  const { miscMenuIsOpen } = useAppSelector(
+    (state: RootState) => state.miscMenu
   )
 
   const toogleModalMenu = () => {
@@ -71,9 +75,7 @@ function Header() {
         </div>
 
         {/* All screen sizes */}
-        <button className="header__misc-action btn--transparent">
-          <img src={ellipsis} alt="Ellipsis" />
-        </button>
+        <MiscMenu />
       </div>
     </div>
   )

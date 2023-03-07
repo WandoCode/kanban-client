@@ -1,0 +1,35 @@
+@use '../../abstracts/' as *;
+
+.misc-menu {
+  &__action > img {
+    height: rem(16);
+
+    padding-inline: 0.5rem;
+
+    cursor: pointer;
+
+    @include breakpoint(medium) {
+      height: rem(20);
+
+      padding-inline: 1rem;
+    }
+  }
+
+  &__menu {
+    width: rem(192);
+
+    left: 100%;
+
+    z-index: -1;
+
+    transition: transform $opening-duration;
+  }
+
+  &__menu--close {
+    transform: translate(-100%, -100%);
+  }
+
+  &__menu--open {
+    transform: translate(-100%, 0);
+  }
+}
