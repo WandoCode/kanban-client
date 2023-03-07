@@ -20,9 +20,22 @@
 
     left: 100%;
 
+    padding-block: 0.5rem;
+
     z-index: -1;
 
     transition: transform $opening-duration;
+
+    & > * {
+      cursor: pointer;
+    }
+    & > *:last-child {
+      color: var(--clr-primary-700);
+
+      &:hover {
+        color: var(--clr-primary-800);
+      }
+    }
   }
 
   &__menu--close {

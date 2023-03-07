@@ -111,3 +111,13 @@ body {
     }
   }
 }
+
+.options {
+  &__option {
+    color: var(--clr-neutral-400);
+
+    &:hover {
+      color: var(--clr-neutral-500);
+    }
+  }
+}
