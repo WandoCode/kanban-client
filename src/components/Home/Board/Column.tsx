@@ -3,9 +3,10 @@ import Task from './Task'
 
 interface Props {
   column: ColumnType
+  handleOpenTask: () => void
 }
 
-function Column({ column }: Props) {
+function Column({ column, handleOpenTask }: Props) {
   return (
     <div className="column">
       <div className="column__header">
@@ -18,7 +19,7 @@ function Column({ column }: Props) {
         </h2>
       </div>
       {column.datas?.map((task) => (
-        <Task task={task} key={task.position} />
+        <Task task={task} key={task.position} openTask={handleOpenTask} />
       ))}
     </div>
   )

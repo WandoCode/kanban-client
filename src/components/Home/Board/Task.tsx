@@ -2,9 +2,10 @@ import { TaskType } from '../../../features/board/board.reducers'
 
 interface Props {
   task: TaskType
+  openTask: () => void
 }
 
-function Task({ task }: Props) {
+function Task({ task, openTask }: Props) {
   const getNbrCompletedSubtask = () => {
     return task.subtasks.reduce((nbrCompletedSubtask, subtask) => {
       if (subtask.isCompleted) return nbrCompletedSubtask + 1
@@ -13,12 +14,12 @@ function Task({ task }: Props) {
   }
 
   return (
-    <div className="task" key={task.position}>
+    <button className="task" key={task.position} onClick={openTask}>
       <div className="task__heading heading-m">{task.title}</div>
       <div className="task__subtask text-bold fc-neutral-400">
         {getNbrCompletedSubtask()} of {task.subtasks.length} subtasks
       </div>
-    </div>
+    </button>
   )
 }
 

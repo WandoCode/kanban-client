@@ -94,4 +94,20 @@ body {
   &__empty {
     text-align: center;
   }
+
+  &__column-add {
+    color: var(--clr-neutral-400);
+    &:hover {
+      color: var(--clr-primary-400);
+    }
+  }
+}
+
+.task {
+  text-align: left;
+  &:hover {
+    .task__heading {
+      color: var(--clr-primary-400);
+    }
+  }
 }

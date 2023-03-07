@@ -10,9 +10,15 @@ function Board() {
     (state) => state.session
   )
 
+  const handleOpenTask = () => {}
+
   const columnsDOM = () => {
     return columnsDatas.map((column) => (
-      <Column column={column} key={column.name} />
+      <Column
+        column={column}
+        key={column.name}
+        handleOpenTask={handleOpenTask}
+      />
     ))
   }
 
