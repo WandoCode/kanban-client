@@ -1,7 +1,7 @@
 import iconEyeShow from '../../assets/icon-show-sidebar.svg'
-import { useAppDispatch } from '../../features/app.store'
-import { openMenu } from '../../features/generalState/generalState.actions'
-import Button from '../atoms/Button/Button'
+import { useAppDispatch } from '../app.store'
+import Button from '../../components/atoms/Button/Button'
+import { openMenu } from './sidebar.actions'
 
 function FloatingShowSidebar() {
   const dispatch = useAppDispatch()

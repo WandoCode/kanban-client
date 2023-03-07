@@ -1,5 +1,4 @@
 import Header from '../components/Home/Header/Header'
-import Menu from '../components/Home/Menu'
 import { fetchUserById } from '../features/session/session.thunks'
 import {
   RootState,
@@ -8,8 +7,9 @@ import {
 } from '../features/app.store'
 import { useEffect } from 'react'
 import { setCurrentBoard } from '../features/session/session.actions'
-import Board from '../components/Home/Board/Board'
+import Board from '../features/board/Board/Board'
 import { fetchBoardDatasById } from '../features/board/board.thunk'
+import Sidebar from '../features/sidebar/Sidebar/Sidebar'
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -23,7 +23,7 @@ function Home() {
 
   return (
     <div className="home">
-      <Menu />
+      <Sidebar />
       <Header />
       <Board />
     </div>

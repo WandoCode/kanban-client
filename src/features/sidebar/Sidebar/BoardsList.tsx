@@ -1,7 +1,7 @@
 import BoardItem from './BoardItem'
-import { Session } from '../../../features/session/session.reducers'
+import { Session } from '../../session/session.reducers'
 import iconBoard from '../../../assets/icon-board.svg'
-import Button from '../../atoms/Button/Button'
+import Button from '../../../components/atoms/Button/Button'
 
 interface Props {
   session: Session

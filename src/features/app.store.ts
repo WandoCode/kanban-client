@@ -4,10 +4,12 @@ import sessionReducer from './session/session.reducers'
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
 import boardReducer from './board/board.reducers'
 import miscMenuReducer from './misc-menu/miscMenu.reducers'
+import sidebarReducer from './sidebar/sidebar.reducers'
 
 const store = configureStore({
   reducer: {
     generalState: generalStateReducer,
+    sidebar: sidebarReducer,
     session: sessionReducer,
     board: boardReducer,
     miscMenu: miscMenuReducer,

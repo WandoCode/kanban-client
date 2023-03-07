@@ -1,4 +1,4 @@
-import { ColumnType } from '../../../features/board/board.reducers'
+import { ColumnType } from '../board.reducers'
 import Task from './Task'
 
 interface Props {

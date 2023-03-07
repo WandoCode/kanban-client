@@ -1,4 +1,4 @@
-import { TaskType } from '../../../features/board/board.reducers'
+import { TaskType } from '../board.reducers'
 
 interface Props {
   task: TaskType

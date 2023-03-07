@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../../features/app.store'
-import Button from '../../atoms/Button/Button'
+import { useAppSelector } from '../../app.store'
+import Button from '../../../components/atoms/Button/Button'
 import { useEffect } from 'react'
 import Column from './Column'
 

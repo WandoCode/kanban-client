@@ -2,20 +2,15 @@ import { MouseEvent } from 'react'
 import BoardsList from './BoardsList'
 import iconEyeHide from '../../../assets/icon-hide-sidebar.svg'
 import ThemeSwitch from './ThemeSwitch'
-import { closeMenu } from '../../../features/generalState/generalState.actions'
-import {
-  useAppDispatch,
-  useAppSelector,
-  RootState,
-} from '../../../features/app.store'
-import Button from '../../atoms/Button/Button'
 
-export default function () {
+import { useAppDispatch, useAppSelector, RootState } from '../../app.store'
+import Button from '../../../components/atoms/Button/Button'
+import { closeMenu } from '../sidebar.actions'
+
+export default function Sidebar() {
   const dispatch = useAppDispatch()
   const session = useAppSelector((state: RootState) => state.session)
-  const { menuIsOpen } = useAppSelector(
-    (state: RootState) => state.generalState
-  )
+  const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
 
   const menuClassName = () => {
     return menuIsOpen ? 'menu menu--open' : 'menu menu--close'

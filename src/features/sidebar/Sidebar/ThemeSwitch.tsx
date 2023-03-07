@@ -1,4 +1,4 @@
-import Switch from '../../atoms/Select/Switch'
+import Switch from '../../../components/atoms/Select/Switch'
 import lightIcon from '../../../assets/icon-light-theme.svg'
 import darkIcon from '../../../assets/icon-dark-theme.svg'
 

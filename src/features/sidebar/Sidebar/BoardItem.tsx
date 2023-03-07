@@ -1,6 +1,6 @@
 import iconBoard from '../../../assets/icon-board.svg'
-import { BoardShort } from '../../../features/session/session.reducers'
-import Button from '../../atoms/Button/Button'
+import { BoardShort } from '../../session/session.reducers'
+import Button from '../../../components/atoms/Button/Button'
 
 interface Props {
   board: BoardShort

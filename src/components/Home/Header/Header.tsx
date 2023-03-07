@@ -7,22 +7,14 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../features/app.store'
-import {
-  closeMenu,
-  openMenu,
-} from '../../../features/generalState/generalState.actions'
 
 import MiscMenu from '../../../features/misc-menu/MiscMenu'
+import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 
 function Header() {
   const dispatch = useAppDispatch()
 
-  const { menuIsOpen } = useAppSelector(
-    (state: RootState) => state.generalState
-  )
-  const { miscMenuIsOpen } = useAppSelector(
-    (state: RootState) => state.miscMenu
-  )
+  const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
