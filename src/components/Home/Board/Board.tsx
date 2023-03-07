@@ -1,6 +1,7 @@
 import { useAppSelector } from '../../../features/app.store'
 import Button from '../../atoms/Button/Button'
 import { useEffect } from 'react'
+import Column from './Column'
 
 function Board() {
   const { columnsNames, columnsDatas } = useAppSelector((state) => state.board)
@@ -9,25 +10,10 @@ function Board() {
     (state) => state.session
   )
 
-  useEffect(() => {
-    console.log(columnsDatas)
-  }, [columnsDatas])
-
   const columnsDOM = () => {
-    return columnsDatas.map((column) => {
-      return (
-        <div className="column" key={column.name}>
-          <div
-            className="column__color"
-            style={{ backgroundColor: column.color }}
-          ></div>
-          <h2>{column.name}</h2>
-          <div className="column__task-container">
-            <div className="task"></div>
-          </div>
-        </div>
-      )
-    })
+    return columnsDatas.map((column) => (
+      <Column column={column} key={column.name} />
+    ))
   }
 
   return (

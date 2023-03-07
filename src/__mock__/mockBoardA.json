@@ -3,7 +3,7 @@
   "columns": [
     {
       "name": "Todo",
-      "color": "#123123",
+      "color": "#49c4e5",
       "datas": [
         {
           "title": "Build UI for onboarding flow",
@@ -74,7 +74,7 @@
     },
     {
       "name": "Doing",
-      "color": "#123123",
+      "color": "#8471f2",
       "datas": [
         {
           "title": "Design settings and search pages",
@@ -192,7 +192,7 @@
     },
     {
       "name": "Done",
-      "color": "#123123",
+      "color": "#67e2ae",
       "datas": [
         {
           "title": "Conduct 5 wireframe tests",

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setBoardDatas } from './board.actions'
+import { setBoardDatas, setNoBoardDatas } from './board.actions'
 
-interface Note {
+export interface TaskType {
   title: string
   description: string
   status: string
@@ -12,21 +12,21 @@ interface Note {
   }[]
 }
 
-interface Column {
+export interface ColumnType {
   name: string
   color: string
-  datas: Note[] | undefined
+  datas: TaskType[] | undefined
 }
 
 export interface BoardDatas {
   columnsNames: string[]
   boardID: number | null
-  columnsDatas: Column[]
+  columnsDatas: ColumnType[]
 }
 
 export interface BoardRawDatas {
   uniqid: number
-  columns: Column[]
+  columns: ColumnType[]
 }
 
 const initialBoardState: BoardDatas = {
@@ -37,17 +37,13 @@ const initialBoardState: BoardDatas = {
 
 const boardReducer = createReducer(initialBoardState, (builder) => {
   builder.addCase(setBoardDatas, (state, action) => {
-    if (action.payload) {
-      state.boardID = action.payload.uniqid
-      state.columnsNames = action.payload.columns.map((col) => col.name)
-      state.columnsDatas = action.payload.columns
-    } else {
-      state = initialBoardState
-      // TODO : A l'effet escompté? ie. reinitialise le board?
-    }
+    state.boardID = action.payload.uniqid
+    state.columnsNames = action.payload.columns.map((col) => col.name)
+    state.columnsDatas = action.payload.columns
   })
+  builder.addCase(setNoBoardDatas, () => initialBoardState)
 })
 
 export default boardReducer
 
-// TODO: en mobile, le cevron dans le header doit tourner quand le menu est ouvert
+// TODO: en mobile, le chevron dans le header doit tourner quand le menu est ouvert

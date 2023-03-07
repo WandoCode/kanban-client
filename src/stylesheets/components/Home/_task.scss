@@ -1,0 +1,13 @@
+@use '../../abstracts/' as *;
+
+.task {
+  display: grid;
+  gap: rem(8);
+  width: rem(280);
+  min-height: rem(80);
+
+  padding: rem(23) rem(16);
+
+  border-radius: rem(8);
+  background-color: white;
+}

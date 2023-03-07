@@ -1,16 +1,28 @@
 @use '../../abstracts/' as *;
 
 .column {
+  display: grid;
+  gap: rem(20);
+
   width: rem(280);
+  height: fit-content;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+
+    height: min-content;
+
+    margin-bottom: rem(4);
+  }
+
+  &__heading {
+    line-height: 100%;
+  }
   &__color {
-    height: 10px;
-    width: 10px;
+    height: 15px;
+    width: 15px;
     border-radius: 50px;
   }
-}
-
-.task {
-  width: rem(280);
-  height: rem(80);
-  background-color: white;
 }

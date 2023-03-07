@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk'
 import { RootState } from '../app.store'
 import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
-import { setBoardDatas } from './board.actions'
+import { setBoardDatas, setNoBoardDatas } from './board.actions'
 
 export function fetchBoardDatasById(
   boardId: number
@@ -10,6 +10,7 @@ export function fetchBoardDatasById(
   return async function fetchBoardDatasByIdThunk(dispatch) {
     const boardDatas = await boardsStore.getBoard(boardId)
 
-    dispatch(setBoardDatas(boardDatas))
+    if (boardDatas) dispatch(setBoardDatas(boardDatas))
+    else dispatch(setNoBoardDatas())
   }
 }
