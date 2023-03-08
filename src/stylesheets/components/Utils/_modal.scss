@@ -1,0 +1,22 @@
+@use '../../abstracts/' as *;
+
+#modal-root {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  padding: rem(24);
+
+  box-shadow: 0 0 10000px 10000px var(--clr-neutral-850);
+  border-radius: rem(6);
+  background-color: var(--clr-neutral-100);
+
+  @include breakpoint(medium) {
+    padding: rem(32);
+  }
+}
