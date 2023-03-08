@@ -19,6 +19,11 @@
         border-color: var(--clr-primary-400);
       }
     }
+
+    &--textarea {
+      height: rem(112);
+      resize: none;
+    }
   }
 
   &__input-wrapper {

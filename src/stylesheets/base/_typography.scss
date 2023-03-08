@@ -63,8 +63,7 @@ body {
   }
 }
 
-.input-text,
-.textarea {
+.input-text {
   &__input::placeholder {
     color: var(--clr-neutral-475);
   }
