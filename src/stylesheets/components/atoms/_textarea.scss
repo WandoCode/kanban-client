@@ -1,0 +1,41 @@
+@use '../../abstracts/' as *;
+
+.textarea {
+  display: grid;
+  gap: $label-gap;
+
+  &__input {
+    width: 100%;
+    height: rem(112);
+    resize: none;
+    &:focus {
+      border-color: var(--clr-primary-400);
+      outline: none;
+    }
+
+    &--error {
+      border-color: var(--clr-primary-800);
+
+      &:focus {
+        border-color: var(--clr-primary-400);
+      }
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__error {
+    position: absolute;
+    top: -50%;
+    bottom: 0;
+    right: 0;
+    left: 100%;
+    translate: -100% 50%;
+
+    width: max-content;
+
+    padding-right: calc(rem(16) + 1px);
+  }
+}
