@@ -4,11 +4,11 @@ interface Props {
   value: string
   placeholder: string
   label?: string
-  showLabel: boolean
+  showLabel?: boolean
   id: string
   errorText: string
   hasError: boolean
-  onChange: (e: ChangeEvent) => void
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 function InputText({

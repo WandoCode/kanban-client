@@ -22,21 +22,21 @@ function Textarea({
   onChange,
 }: Props) {
   const labelClassName = () => {
-    const base = 'textarea__label text-bold fc-neutral-450'
+    const base = 'input-text__label text-bold fc-neutral-450'
     return showLabel ? base : `${base} visually-hidden`
   }
 
   const inputClassName = () => {
-    const base = 'textarea__input box'
+    const base = 'input-text__input input-text__input--textarea box'
     return hasError ? `${base} ${base}--error` : base
   }
 
   return (
-    <div className="textarea">
+    <div className="input-text">
       <label htmlFor={id} className={labelClassName()}>
         {label}
       </label>
-      <div className="textarea__wrapper">
+      <div className="input-text__wrapper">
         <textarea
           className={inputClassName()}
           name={id}
@@ -46,7 +46,7 @@ function Textarea({
         >
           {value}
         </textarea>
-        {hasError && <div className="textarea__error">{errorText}</div>}
+        {hasError && <div className="input-text__error">{errorText}</div>}
       </div>
     </div>
   )

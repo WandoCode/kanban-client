@@ -18,13 +18,16 @@ function Select({ onChoice, currValue, label, choices }: Props) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleClick = (e: MouseEvent<HTMLLIElement>) => {
+    e.preventDefault()
     const elem = e.target as HTMLLIElement
 
     const newValue = elem.getAttribute('data-value')
     if (newValue) onChoice(newValue)
   }
 
-  const toogleMenu = () => {
+  const toogleMenu = (e: MouseEvent) => {
+    e.preventDefault()
+
     setIsOpen((old) => !old)
   }
 

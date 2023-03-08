@@ -1,10 +1,14 @@
 import Button from '../../atoms/Button/Button'
 import Select from '../../atoms/Select/Select'
 import Modal from '../../utils/Modal'
-import { useAppSelector } from '../../../features/app.store'
+import { useAppSelector, useAppDispatch } from '../../../features/app.store'
 import InputText from '../../atoms/Input/InputText'
+import { updateInput } from '../../../features/add-new-task/addNewTask.actions'
+import Textarea from '../../atoms/Input/Textarea'
 
 function ModalAddNewTask() {
+  const dispatch = useAppDispatch()
+  const { formDatas } = useAppSelector((state) => state.addNewTask)
   const { columnsNames } = useAppSelector((state) => state.board)
 
   const statusChoices = () => {
@@ -23,21 +27,21 @@ function ModalAddNewTask() {
           id="title"
           errorText="Incorrect value"
           hasError={false}
+          onChange={(e) => dispatch(updateInput('title', e.target.value))}
+          value={formDatas.title}
         />
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          placeholder="e.g. Take coffee break"
-        />
-        <label htmlFor="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
+
+        <Textarea
           placeholder="e.g. It’s always good to take a break. This 15 minute break will 
-recharge the batteries a little."
+          recharge the batteries a little."
+          label="Description"
+          id="description"
+          errorText="Incorrect value"
+          hasError={false}
+          onChange={(e) => dispatch(updateInput('description', e.target.value))}
+          value={formDatas.description}
         />
+
         <fieldset>
           <legend>Subtasks</legend>
           <label htmlFor="subtask-1"></label>

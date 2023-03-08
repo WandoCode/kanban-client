@@ -1,9 +1,11 @@
+import { MouseEvent } from 'react'
+
 interface Props {
   text: string
   type: 'primary-l' | 'primary-s' | 'secondary' | 'destructive'
   className?: string
   imgRef?: string
-  onClick: () => void
+  onClick: (e: MouseEvent) => void
 }
 
 function Button({ text, className, type, onClick, imgRef }: Props) {
