@@ -1,4 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
+import { updateSubtask, setChoices } from './addNewTask.actions'
+import { Choice } from '../../components/atoms/Select/Select'
 import {
   openAddNewTaskModal,
   closeAddNewTaskModal,
@@ -7,6 +9,8 @@ import {
 
 interface AddNewTaskType {
   addNewTaskModalIsOpen: boolean
+  choices: Choice[]
+
   formDatas: {
     title: string
     description: string
@@ -23,6 +27,7 @@ const initialState: AddNewTaskType = {
     subtasks: ['', ''],
     status: '',
   },
+  choices: [],
 }
 
 const addNewTaskReducer = createReducer(initialState, (builder) => {
@@ -31,12 +36,25 @@ const addNewTaskReducer = createReducer(initialState, (builder) => {
       state.addNewTaskModalIsOpen = true
     })
     .addCase(closeAddNewTaskModal, (state) => {
+      console.log(1)
+
       state.addNewTaskModalIsOpen = false
     })
     .addCase(updateInput, (state, action) => {
       const { fieldName, value } = action.payload
 
       state.formDatas[fieldName] = value
+    })
+    .addCase(updateSubtask, (state, action) => {
+      const { subtaskIndex, value } = action.payload
+
+      state.formDatas.subtasks[subtaskIndex] = value
+    })
+    .addCase(setChoices, (state, action) => {
+      const { choices } = action.payload
+
+      state.choices = choices
+      state.formDatas.status = choices[0].value
     })
 })
 

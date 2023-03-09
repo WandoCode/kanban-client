@@ -12,24 +12,23 @@ import MiscMenu from '../../../features/misc-menu/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 import { useState } from 'react'
 import ModalAddNewTask from '../Task/ModalAddNewTask'
+import { openAddNewTaskModal } from '../../../features/add-new-task/addNewTask.actions'
 
 function Header() {
-  const [modalNewTaskIsOpen, setModalNewTaskIsOpen] = useState(false)
   const dispatch = useAppDispatch()
 
   const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
+  const { addNewTaskModalIsOpen } = useAppSelector(
+    (state: RootState) => state.addNewTask
+  )
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
   }
 
-  const openModal = () => {
-    setModalNewTaskIsOpen(true)
-  }
-
   return (
     <>
-      {modalNewTaskIsOpen && <ModalAddNewTask />}
+      {addNewTaskModalIsOpen && <ModalAddNewTask />}
 
       <div className="header">
         {/* Only mobile */}
@@ -72,7 +71,7 @@ function Header() {
               className="header__add-task"
               text="+ Add New Task"
               type="primary-l"
-              onClick={openModal}
+              onClick={() => dispatch(openAddNewTaskModal())}
             />
           </div>
 

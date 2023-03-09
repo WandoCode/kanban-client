@@ -43,9 +43,8 @@ function Textarea({
           id={id}
           placeholder={placeholder}
           onChange={onChange}
-        >
-          {value}
-        </textarea>
+          value={value}
+        />
         {hasError && <div className="input-text__error">{errorText}</div>}
       </div>
     </div>

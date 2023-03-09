@@ -22,6 +22,7 @@ function Select({ onChoice, currValue, label, choices }: Props) {
     const elem = e.target as HTMLLIElement
 
     const newValue = elem.getAttribute('data-value')
+
     if (newValue) onChoice(newValue)
   }
 
