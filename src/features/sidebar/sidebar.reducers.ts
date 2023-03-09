@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit'
 import { openMenu, closeMenu } from './sidebar.actions'
 
 const initialState = {
-  menuIsOpen: false,
+  menuIsOpen: true,
 }
 
 const sidebarReducer = createReducer(initialState, (builder) => {

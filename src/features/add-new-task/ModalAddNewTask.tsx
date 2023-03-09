@@ -1,18 +1,12 @@
-import Button from '../../atoms/Button/Button'
-import Select from '../../atoms/Select/Select'
-import Modal from '../../utils/Modal'
-import { useAppSelector, useAppDispatch } from '../../../features/app.store'
-import InputText from '../../atoms/Input/InputText'
-import {
-  updateInput,
-  updateSubtask,
-} from '../../../features/add-new-task/addNewTask.actions'
-import Textarea from '../../atoms/Input/Textarea'
+import Button from '../../components/atoms/Button/Button'
+import Select from '../../components/atoms/Select/Select'
+import Modal from '../../components/utils/Modal'
+import { useAppSelector, useAppDispatch } from '../app.store'
+import InputText from '../../components/atoms/Input/InputText'
+import { updateInput, updateSubtask } from './addNewTask.actions'
+import Textarea from '../../components/atoms/Input/Textarea'
 import { useEffect } from 'react'
-import {
-  setChoices,
-  closeAddNewTaskModal,
-} from '../../../features/add-new-task/addNewTask.actions'
+import { setChoices, closeAddNewTaskModal } from './addNewTask.actions'
 
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()

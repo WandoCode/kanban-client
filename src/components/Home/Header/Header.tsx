@@ -11,7 +11,7 @@ import {
 import MiscMenu from '../../../features/misc-menu/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 import { useState } from 'react'
-import ModalAddNewTask from '../Task/ModalAddNewTask'
+import ModalAddNewTask from '../../../features/add-new-task/ModalAddNewTask'
 import { openAddNewTaskModal } from '../../../features/add-new-task/addNewTask.actions'
 
 function Header() {

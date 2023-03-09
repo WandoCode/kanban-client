@@ -8,6 +8,8 @@
 
   overflow: auto;
 
+  z-index: 2;
+
   @include breakpoint(medium) {
     display: flex;
     align-items: center;
