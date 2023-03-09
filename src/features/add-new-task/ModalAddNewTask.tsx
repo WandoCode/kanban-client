@@ -11,7 +11,7 @@ import { setChoices, closeAddNewTaskModal } from './addNewTask.actions'
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()
   const { formDatas, choices } = useAppSelector((state) => state.addNewTask)
-  const { columnsNames } = useAppSelector((state) => state.board)
+  const { currentBoardcolumnsNames } = useAppSelector((state) => state.session)
 
   useEffect(() => {
     document.body.addEventListener('click', handleCloseModal)
@@ -20,7 +20,7 @@ function ModalAddNewTask() {
   }, [])
 
   useEffect(() => {
-    const choices = columnsNames.map((name) => {
+    const choices = currentBoardcolumnsNames.map((name) => {
       return {
         text: name,
         value: name.toLowerCase(),
@@ -28,13 +28,15 @@ function ModalAddNewTask() {
     })
 
     dispatch(setChoices(choices))
-  }, [columnsNames])
+  }, [currentBoardcolumnsNames])
 
   const handleCloseModal = (e: MouseEvent) => {
     const target = e.target as HTMLElement
 
     if (target.classList.contains('modal')) dispatch(closeAddNewTaskModal())
   }
+
+  const handleSubmit = () => {}
 
   return (
     <Modal>
@@ -97,13 +99,7 @@ function ModalAddNewTask() {
           choices={choices}
           onChoice={(choice) => dispatch(updateInput('status', choice))}
         />
-        <Button
-          text="Create Task"
-          type="primary-s"
-          onClick={(e) => {
-            e.preventDefault()
-          }}
-        />
+        <Button text="Create Task" type="primary-s" onClick={handleSubmit} />
       </form>
     </Modal>
   )

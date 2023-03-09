@@ -1,5 +1,5 @@
-import { ColumnType } from '../board.reducers'
 import Task from './Task'
+import { ColumnType } from '../session.reducers'
 
 interface Props {
   column: ColumnType

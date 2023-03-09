@@ -1,18 +1,25 @@
 import { useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import Column from './Column'
+import { useEffect } from 'react'
 
 function Board() {
-  const { columnsNames, columnsDatas } = useAppSelector((state) => state.board)
   const { menuIsOpen } = useAppSelector((state) => state.sidebar)
-  const { currentBoardID, currentColumns } = useAppSelector(
+  const { currentBoardcolumnsNames, boards, currentBoardID } = useAppSelector(
     (state) => state.session
   )
+
+  useEffect(() => {
+    console.log(currentBoardcolumnsNames)
+    console.log(currentBoardID)
+  }, [currentBoardID, currentBoardcolumnsNames])
 
   const handleOpenTask = () => {}
 
   const columnsDOM = () => {
-    return columnsDatas.map((column) => (
+    const currentBoard = boards.find((board) => board.uniqid === currentBoardID)
+
+    return currentBoard?.columns.map((column) => (
       <Column
         column={column}
         key={column.name}
@@ -23,7 +30,7 @@ function Board() {
 
   return (
     <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
-      {columnsNames.length > 0 ? (
+      {currentBoardcolumnsNames.length > 0 ? (
         <div className="board__columns">
           {columnsDOM()}
           <button className="board__column-add">

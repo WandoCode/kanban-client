@@ -1,11 +1,17 @@
-import boardA from '../__mock__/mockBoardA.json'
-import boardB from '../__mock__/mockBoardB.json'
-import { BoardRawDatas } from '../features/board/board.reducers'
+import boardsJSON from '../__mock__/mockBoards.json'
+import { BoardType } from '../features/session/session.reducers'
+import axios from 'axios'
 
 export const boardsStore = {
-  getBoard: async (boardId: number): Promise<BoardRawDatas | undefined> => {
-    if (boardId === boardA.uniqid) return boardA
-    if (boardId === boardB.uniqid) return boardB
+  getUserBoards: async (userID: number): Promise<BoardType[] | undefined> => {
+    try {
+      const rep = await axios.get('http://localhost:3000/boards')
+
+      if (rep.data.userID === userID) return boardsJSON.boards.boards
+      else throw new Error('The given userid does not match any mocked boards')
+    } catch (error) {
+      console.error('Error loading moched boards datas: ', error)
+    }
     return undefined
   },
 }

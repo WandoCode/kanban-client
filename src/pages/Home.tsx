@@ -7,18 +7,17 @@ import {
 } from '../features/app.store'
 import { useEffect } from 'react'
 import { setCurrentBoard } from '../features/session/session.actions'
-import Board from '../features/board/Board/Board'
-import { fetchBoardDatasById } from '../features/board/board.thunk'
+import Board from '../features/session/Board/Board'
+
 import Sidebar from '../features/sidebar/Sidebar/Sidebar'
 
 function Home() {
   const dispatch = useAppDispatch()
-  const userDatas = useAppSelector((state: RootState) => state.session)
+  const mockUserId = 12
 
   useEffect(() => {
-    dispatch(fetchUserById(12))
-    dispatch(setCurrentBoard(120))
-    dispatch(fetchBoardDatasById(120))
+    dispatch(fetchUserById(mockUserId))
+    // dispatch(setCurrentBoard(120))
   }, [])
 
   return (
