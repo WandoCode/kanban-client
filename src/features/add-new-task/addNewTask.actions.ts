@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit'
-import { Choice } from '../../components/atoms/Select/Select'
 
 export const openAddNewTaskModal = createAction(
   'addNewTask/openAddNewTaskModal'
@@ -16,14 +15,14 @@ export const updateInput = createAction(
 
 export const updateSubtask = createAction(
   'addNewTask/updateSubtask',
-  (subtaskIndex: number, value: string) => ({
-    payload: { subtaskIndex, value },
+  (subtaskIndex: number, value: string, subtaskIsCompleted: boolean) => ({
+    payload: { subtaskIndex, value, subtaskIsCompleted },
   })
 )
 
-export const setChoices = createAction(
-  'addNewTask/setChoices',
-  (choices: Choice[]) => ({
-    payload: { choices },
+export const setErrors = createAction(
+  'addNewTask/setErrors',
+  (errors: string[]) => ({
+    payload: { errors },
   })
 )

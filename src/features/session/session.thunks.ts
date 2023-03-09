@@ -50,6 +50,7 @@ export function addTask(
       (column) => column.name === task.status
     )
 
+    console.log(task.status)
     boards[taskBoardIndex].columns[taskColumnIndex].datas?.push(task)
 
     await boardsStore.addTask(userID, boards)

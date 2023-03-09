@@ -1,15 +1,7 @@
 import boardsJSON from '../__mock__/mockBoards.json'
-import { BoardType, TaskType } from '../features/session/session.reducers'
+import { BoardType } from '../features/session/session.reducers'
 import db from './firebase'
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  runTransaction,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore'
+import { doc, getDoc, runTransaction, updateDoc } from 'firebase/firestore'
 
 export const boardsStore = {
   getUserBoards: async (userID: string): Promise<BoardType[] | undefined> => {
@@ -30,36 +22,24 @@ export const boardsStore = {
     }
     return undefined
   },
-  addTask: async (userID: string, boardID: number, taskDatas: TaskType) => {
+  addTask: async (userID: string, newBoards: BoardType[]) => {
     try {
-      await runTransaction(db, async (transaction) => {
-        const docRef = doc(db, 'boards', userID)
-
-        const boardsSnap = await transaction.get(docRef)
-        if (!boardsSnap.exists()) {
-          throw 'Document does not exist!'
-        }
-
-        const boards = boardsSnap.data().boards as BoardType[]
-
-        const taskBoardIndex = boards.findIndex(
-          (board: BoardType) => board.id === boardID
-        )
-        const taskColumnIndex = boards[taskBoardIndex].columns.findIndex(
-          (column) => column.name === taskDatas.status
-        )
-
-        boards[taskBoardIndex].columns[taskColumnIndex].datas?.push(taskDatas)
-
-        transaction.update(docRef, { boards })
-      })
+      const docRef = doc(db, 'boards', userID)
+      updateDoc(docRef, { boards: newBoards })
     } catch (error) {
       console.error(error)
     }
   },
   initMockDatas: async () => {
     try {
-      await setDoc(doc(db, 'boards', 'userA'), boardsJSON)
+      await runTransaction(db, async (transaction) => {
+        const docRef = doc(db, 'boards', 'userA')
+
+        const boardsSnap = await transaction.get(docRef)
+        if (!boardsSnap.exists()) {
+          await transaction.set(doc(db, 'boards', 'userA'), boardsJSON)
+        }
+      })
     } catch (error) {
       console.error('Error adding mocked boards datas: ', error)
     }

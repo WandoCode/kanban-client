@@ -2,15 +2,10 @@ import { MouseEvent, useState } from 'react'
 import chevron from '../../../assets/icon-chevron-down.svg'
 import Options from './Options'
 
-export interface Choice {
-  value: string
-  text: string
-}
-
 interface Props {
   currValue: string
   label: string
-  choices: Choice[]
+  choices: string[]
   onChoice: (newValue: string) => void
 }
 
@@ -35,12 +30,6 @@ function Select({ onChoice, currValue, label, choices }: Props) {
     setIsOpen((old) => !old)
   }
 
-  const getText = () => {
-    const currChoice = choices.find((choice) => choice.value === currValue)
-    if (currChoice) return currChoice.text
-    else return 'NaN'
-  }
-
   const btnClassName = () => {
     const base = 'box select__btn'
 
@@ -56,7 +45,7 @@ function Select({ onChoice, currValue, label, choices }: Props) {
         {label}
       </label>
       <button className={btnClassName()} id="select-btn" onClick={toogleMenu}>
-        <span>{getText()}</span>
+        <span>{currValue}</span>
         <img src={chevron} alt="chevron" />
       </button>
       {isOpen && <Options choices={choices} handleClick={handleClick} />}

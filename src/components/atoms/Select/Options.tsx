@@ -1,8 +1,7 @@
 import { MouseEvent } from 'react'
-import { Choice } from './Select'
 
 interface Props {
-  choices: Choice[]
+  choices: string[]
   handleClick: (e: MouseEvent<HTMLLIElement>) => void
 }
 
@@ -11,12 +10,12 @@ function Options({ choices, handleClick }: Props) {
     <ul className="options">
       {choices.map((choice) => (
         <li
-          key={choice.value}
+          key={choice}
           className="options__option fc-neutral-400"
-          data-value={choice.value}
+          data-value={choice}
           onClick={handleClick}
         >
-          {choice.text}
+          {choice}
         </li>
       ))}
     </ul>

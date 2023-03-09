@@ -1,15 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { setUserDatas, setCurrentBoard, setBoards } from './session.actions'
 
+export interface SubtaskType {
+  title: string
+  isCompleted: boolean
+}
+
 export interface TaskType {
   title: string
   description: string
   status: string
   position: number
-  subtasks: {
-    title: string
-    isCompleted: boolean
-  }[]
+  subtasks: SubtaskType[]
 }
 
 export interface ColumnType {

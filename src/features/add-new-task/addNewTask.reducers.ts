@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { updateSubtask, setChoices } from './addNewTask.actions'
-import { Choice } from '../../components/atoms/Select/Select'
+import { updateSubtask, setErrors } from './addNewTask.actions'
+import { SubtaskType } from '../session/session.reducers'
 import {
   openAddNewTaskModal,
   closeAddNewTaskModal,
@@ -9,25 +9,30 @@ import {
 
 interface AddNewTaskType {
   addNewTaskModalIsOpen: boolean
-  choices: Choice[]
-
+  formErrors: string[]
   formDatas: {
     title: string
     description: string
-    subtasks: string[]
+    subtasks: SubtaskType[]
     status: string
     [key: string]: any
   }
 }
+
+const initialFormDatas = {
+  title: '',
+  description: '',
+  subtasks: [
+    { title: '', isCompleted: false },
+    { title: '', isCompleted: false },
+  ],
+  status: '',
+}
+
 const initialState: AddNewTaskType = {
   addNewTaskModalIsOpen: false,
-  formDatas: {
-    title: '',
-    description: '',
-    subtasks: ['', ''],
-    status: '',
-  },
-  choices: [],
+  formErrors: [],
+  formDatas: initialFormDatas,
 }
 
 const addNewTaskReducer = createReducer(initialState, (builder) => {
@@ -36,9 +41,9 @@ const addNewTaskReducer = createReducer(initialState, (builder) => {
       state.addNewTaskModalIsOpen = true
     })
     .addCase(closeAddNewTaskModal, (state) => {
-      console.log(1)
-
       state.addNewTaskModalIsOpen = false
+      state.formErrors = []
+      state.formDatas = initialFormDatas
     })
     .addCase(updateInput, (state, action) => {
       const { fieldName, value } = action.payload
@@ -46,15 +51,17 @@ const addNewTaskReducer = createReducer(initialState, (builder) => {
       state.formDatas[fieldName] = value
     })
     .addCase(updateSubtask, (state, action) => {
-      const { subtaskIndex, value } = action.payload
+      const { subtaskIndex, value, subtaskIsCompleted } = action.payload
 
-      state.formDatas.subtasks[subtaskIndex] = value
+      state.formDatas.subtasks[subtaskIndex] = {
+        title: value,
+        isCompleted: subtaskIsCompleted,
+      }
     })
-    .addCase(setChoices, (state, action) => {
-      const { choices } = action.payload
+    .addCase(setErrors, (state, action) => {
+      const { errors } = action.payload
 
-      state.choices = choices
-      state.formDatas.status = choices[0].value
+      state.formErrors = errors
     })
 })
 

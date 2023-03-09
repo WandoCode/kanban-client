@@ -3,16 +3,15 @@ import Select from '../../components/atoms/Select/Select'
 import Modal from '../../components/utils/Modal'
 import { useAppSelector, useAppDispatch } from '../app.store'
 import InputText from '../../components/atoms/Input/InputText'
-import { updateInput, updateSubtask } from './addNewTask.actions'
+import { updateInput, updateSubtask, setErrors } from './addNewTask.actions'
 import Textarea from '../../components/atoms/Input/Textarea'
 import { useEffect } from 'react'
-import { setChoices, closeAddNewTaskModal } from './addNewTask.actions'
-import { boardsStore } from '../../store/boardsStore'
+import { closeAddNewTaskModal } from './addNewTask.actions'
 import { addTask } from '../session/session.thunks'
 
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()
-  const { formDatas, choices } = useAppSelector((state) => state.addNewTask)
+  const { formDatas } = useAppSelector((state) => state.addNewTask)
   const { currentBoardcolumnsNames } = useAppSelector((state) => state.session)
 
   useEffect(() => {
@@ -22,14 +21,7 @@ function ModalAddNewTask() {
   }, [])
 
   useEffect(() => {
-    const choices = currentBoardcolumnsNames.map((name) => {
-      return {
-        text: name,
-        value: name.toLowerCase(),
-      }
-    })
-
-    dispatch(setChoices(choices))
+    dispatch(updateInput('status', currentBoardcolumnsNames[0]))
   }, [currentBoardcolumnsNames])
 
   const handleCloseModal = (e: MouseEvent) => {
@@ -38,43 +30,31 @@ function ModalAddNewTask() {
     if (target.classList.contains('modal')) dispatch(closeAddNewTaskModal())
   }
 
-  const task = {
-    title: 'test',
-    description: 'test',
-    status: 'Todo',
-    position: 1,
-    subtasks: [
-      {
-        title: 'test',
-        isCompleted: false,
-      },
-      {
-        title: 'test2',
-        isCompleted: false,
-      },
-      {
-        title: 'test3',
-        isCompleted: false,
-      },
-    ],
-  }
-
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
 
-    // TODO: faire la validation
-    // validateNewTaskForm()
-    dispatch(addTask('userA', 120, task))
+    const invalidFields = validateNewTaskForm()
+
+    if (invalidFields.length !== 0) {
+      dispatch(setErrors(invalidFields))
+    } else {
+      const task = { ...formDatas, position: 1 }
+      dispatch(addTask('userA', 120, task))
+      dispatch(closeAddNewTaskModal())
+    }
   }
 
-  // const validateNewTaskForm = () => {
-  //   for (const fieldNAme in formDatas) {
-  //     const input = formDatas[fieldNAme]
+  const validateNewTaskForm = () => {
+    const invalidFields: string[] = []
+    for (const fieldName in formDatas) {
+      const input = formDatas[fieldName]
 
-  //     if (input !== 'subtasks' && input.length > 0) {
-  //     }
-  //   }
-  // }
+      if (input !== 'subtasks' && input.length === 0) {
+        invalidFields.push(fieldName)
+      }
+    }
+    return invalidFields
+  }
 
   return (
     <Modal>
@@ -110,8 +90,8 @@ function ModalAddNewTask() {
             id="subtask-0"
             errorText="Incorrect value"
             hasError={false}
-            onChange={(e) => dispatch(updateSubtask(0, e.target.value))}
-            value={formDatas.subtasks[0]}
+            onChange={(e) => dispatch(updateSubtask(0, e.target.value, false))}
+            value={formDatas.subtasks[0].title}
           />
           <InputText
             placeholder="e.g. Drink coffee & smile"
@@ -120,8 +100,8 @@ function ModalAddNewTask() {
             id="subtask-1"
             errorText="Incorrect value"
             hasError={false}
-            onChange={(e) => dispatch(updateSubtask(1, e.target.value))}
-            value={formDatas.subtasks[1]}
+            onChange={(e) => dispatch(updateSubtask(1, e.target.value, false))}
+            value={formDatas.subtasks[1].title}
           />
           <Button
             text="+ Add New Subtask"
@@ -134,7 +114,7 @@ function ModalAddNewTask() {
         <Select
           currValue={formDatas.status}
           label="Status"
-          choices={choices}
+          choices={currentBoardcolumnsNames}
           onChoice={(choice) => dispatch(updateInput('status', choice))}
         />
         <Button text="Create Task" type="primary-s" onClick={handleSubmit} />

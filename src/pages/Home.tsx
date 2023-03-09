@@ -17,8 +17,6 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchUserById(mockUserId))
-
-    // dispatch(setCurrentBoard(120))
   }, [])
 
   return (
