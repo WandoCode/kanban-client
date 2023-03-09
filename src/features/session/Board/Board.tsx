@@ -9,15 +9,10 @@ function Board() {
     (state) => state.session
   )
 
-  useEffect(() => {
-    console.log(currentBoardcolumnsNames)
-    console.log(currentBoardID)
-  }, [currentBoardID, currentBoardcolumnsNames])
-
   const handleOpenTask = () => {}
 
   const columnsDOM = () => {
-    const currentBoard = boards.find((board) => board.uniqid === currentBoardID)
+    const currentBoard = boards.find((board) => board.id === currentBoardID)
 
     return currentBoard?.columns.map((column) => (
       <Column

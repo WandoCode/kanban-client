@@ -12,7 +12,7 @@ function BoardsList({ session, onClickOpenBoard }: Props) {
   const boardList = () => {
     return session.boards.map((board) => (
       <BoardItem
-        key={board.uniqid}
+        key={board.id}
         board={board}
         currentBoardID={session.currentBoardID}
         onClick={onClickOpenBoard}

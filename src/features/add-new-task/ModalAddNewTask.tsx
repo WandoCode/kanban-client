@@ -7,6 +7,8 @@ import { updateInput, updateSubtask } from './addNewTask.actions'
 import Textarea from '../../components/atoms/Input/Textarea'
 import { useEffect } from 'react'
 import { setChoices, closeAddNewTaskModal } from './addNewTask.actions'
+import { boardsStore } from '../../store/boardsStore'
+import { addTask } from '../session/session.thunks'
 
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()
@@ -36,7 +38,43 @@ function ModalAddNewTask() {
     if (target.classList.contains('modal')) dispatch(closeAddNewTaskModal())
   }
 
-  const handleSubmit = () => {}
+  const task = {
+    title: 'test',
+    description: 'test',
+    status: 'Todo',
+    position: 1,
+    subtasks: [
+      {
+        title: 'test',
+        isCompleted: false,
+      },
+      {
+        title: 'test2',
+        isCompleted: false,
+      },
+      {
+        title: 'test3',
+        isCompleted: false,
+      },
+    ],
+  }
+
+  const handleSubmit = (e: React.MouseEvent) => {
+    e.preventDefault()
+
+    // TODO: faire la validation
+    // validateNewTaskForm()
+    dispatch(addTask('userA', 120, task))
+  }
+
+  // const validateNewTaskForm = () => {
+  //   for (const fieldNAme in formDatas) {
+  //     const input = formDatas[fieldNAme]
+
+  //     if (input !== 'subtasks' && input.length > 0) {
+  //     }
+  //   }
+  // }
 
   return (
     <Modal>

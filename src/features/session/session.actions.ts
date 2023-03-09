@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import { Session } from './session.reducers'
+import { Session, TaskType, BoardType } from './session.reducers'
 
 export const setUserDatas = createAction(
   'session/setUserDatas',
@@ -9,4 +9,11 @@ export const setUserDatas = createAction(
 export const setCurrentBoard = createAction(
   'session/setCurrentBoard',
   (currentBoardID: number) => ({ payload: currentBoardID })
+)
+
+export const setBoards = createAction(
+  'session/addTask',
+  (newBoards: BoardType[]) => ({
+    payload: newBoards,
+  })
 )

@@ -1,7 +1,14 @@
 import './stylesheets/main.scss'
 import Home from './pages/Home'
+import { useEffect } from 'react'
+import { boardsStore } from './store/boardsStore'
 
 function App() {
+  useEffect(() => {
+    const env = process.env.NODE_ENV
+
+    if (env === 'development') boardsStore.initMockDatas()
+  }, [])
   return (
     <div className="app">
       <Home />

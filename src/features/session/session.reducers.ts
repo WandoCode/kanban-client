@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setUserDatas, setCurrentBoard } from './session.actions'
+import { setUserDatas, setCurrentBoard, setBoards } from './session.actions'
 
 export interface TaskType {
   title: string
@@ -19,13 +19,13 @@ export interface ColumnType {
 }
 
 export interface BoardType {
-  uniqid: number
+  id: number
   name: string
   columns: ColumnType[]
 }
 
 export interface Session {
-  userID: number | null
+  userID: string | null
   boards: BoardType[]
   currentBoardID: number | null
   currentBoardcolumnsNames: string[]
@@ -52,12 +52,15 @@ const sessionReducer = createReducer(initialSessionState, (builder) => {
     })
     .addCase(setCurrentBoard, (state, action) => {
       const currentBoardDatas = state.boards.find(
-        (board) => board.uniqid === action.payload
+        (board) => board.id === action.payload
       )
 
       state.currentBoardID = action.payload
       state.currentBoardcolumnsNames =
         currentBoardDatas?.columns.map((column) => column.name) || []
+    })
+    .addCase(setBoards, (state, action) => {
+      state.boards = action.payload
     })
 })
 

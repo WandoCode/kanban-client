@@ -19,12 +19,12 @@ function BoardItem({ board, onClick, currentBoardID }: Props) {
   }
 
   const handleClick = () => {
-    onClick(board.uniqid)
+    onClick(board.id)
   }
   return (
-    <li key={board.uniqid}>
+    <li key={board.id}>
       <Button
-        className={liClassName(board.uniqid)}
+        className={liClassName(board.id)}
         text={board.name}
         type="primary-l"
         imgRef={iconBoard}

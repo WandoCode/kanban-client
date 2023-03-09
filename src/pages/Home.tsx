@@ -10,13 +10,14 @@ import { setCurrentBoard } from '../features/session/session.actions'
 import Board from '../features/session/Board/Board'
 
 import Sidebar from '../features/sidebar/Sidebar/Sidebar'
-
+import { boardsStore } from '../store/boardsStore'
 function Home() {
   const dispatch = useAppDispatch()
-  const mockUserId = 12
+  const mockUserId = 'userA'
 
   useEffect(() => {
     dispatch(fetchUserById(mockUserId))
+
     // dispatch(setCurrentBoard(120))
   }, [])
 
