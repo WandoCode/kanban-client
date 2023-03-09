@@ -36,6 +36,7 @@
 
     padding: 1.5rem 1rem;
 
+    min-height: 100%;
     @include breakpoint(medium) {
       padding: 1.5rem;
     }
