@@ -5,9 +5,10 @@ import { BoardType } from '../../session/session.reducers'
 interface Props {
   board: BoardType
   currentBoardID: number | null
+  onClick: (boardID: number) => void
 }
 
-function BoardItem({ board, currentBoardID }: Props) {
+function BoardItem({ board, onClick, currentBoardID }: Props) {
   const liClassName = (boardID: number) => {
     const base = 'board-btn'
     let name = base
@@ -17,6 +18,9 @@ function BoardItem({ board, currentBoardID }: Props) {
     return name + ' btn--transparent heading-m'
   }
 
+  const handleClick = () => {
+    onClick(board.uniqid)
+  }
   return (
     <li key={board.uniqid}>
       <Button
@@ -24,7 +28,7 @@ function BoardItem({ board, currentBoardID }: Props) {
         text={board.name}
         type="primary-l"
         imgRef={iconBoard}
-        onClick={() => {}}
+        onClick={handleClick}
       />
     </li>
   )

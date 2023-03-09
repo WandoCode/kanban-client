@@ -5,15 +5,17 @@ import Button from '../../../components/atoms/Button/Button'
 
 interface Props {
   session: Session
+  onClickOpenBoard: (boardID: number) => void
 }
 
-function BoardsList({ session }: Props) {
+function BoardsList({ session, onClickOpenBoard }: Props) {
   const boardList = () => {
     return session.boards.map((board) => (
       <BoardItem
         key={board.uniqid}
         board={board}
         currentBoardID={session.currentBoardID}
+        onClick={onClickOpenBoard}
       />
     ))
   }

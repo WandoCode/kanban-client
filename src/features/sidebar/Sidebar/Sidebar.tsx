@@ -6,6 +6,7 @@ import ThemeSwitch from './ThemeSwitch'
 import { useAppDispatch, useAppSelector, RootState } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
+import { setCurrentBoard } from '../../session/session.actions'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
@@ -21,6 +22,9 @@ export default function Sidebar() {
 
     if (target.classList.contains('menu__event-close')) dispatch(closeMenu())
   }
+  const onClickOpenBoard = (boardID: number) => {
+    dispatch(setCurrentBoard(boardID))
+  }
 
   return (
     <nav className={menuClassName()}>
@@ -30,7 +34,7 @@ export default function Sidebar() {
             <h2 className="menu__heading heading-s">
               All boards ({session.boards.length})
             </h2>
-            <BoardsList session={session} />
+            <BoardsList session={session} onClickOpenBoard={onClickOpenBoard} />
           </div>
           <div className="menu__inf">
             <ThemeSwitch />
