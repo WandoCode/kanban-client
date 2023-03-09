@@ -47,6 +47,8 @@
 }
 
 .box {
+  height: rem(40);
+
   padding: rem(8) $padding-inline-box;
 
   border: 1px solid var(--clr-neutral-350);

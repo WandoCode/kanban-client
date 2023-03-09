@@ -23,7 +23,10 @@ function Select({ onChoice, currValue, label, choices }: Props) {
 
     const newValue = elem.getAttribute('data-value')
 
-    if (newValue) onChoice(newValue)
+    if (newValue) {
+      onChoice(newValue)
+      setIsOpen(false)
+    }
   }
 
   const toogleMenu = (e: MouseEvent) => {

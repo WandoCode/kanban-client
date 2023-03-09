@@ -61,7 +61,7 @@ function Header() {
               className="header__add-task"
               text=""
               type="primary-s"
-              onClick={() => {}}
+              onClick={() => dispatch(openAddNewTaskModal())}
             />
           </div>
 

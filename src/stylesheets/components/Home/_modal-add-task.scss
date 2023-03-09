@@ -1,0 +1,15 @@
+@use '../../abstracts/' as *;
+
+.modal-add-task {
+  display: grid;
+  gap: 1.5rem;
+
+  & > fieldset {
+    display: grid;
+    gap: 0.75rem;
+
+    & > legend {
+      margin-bottom: rem(8);
+    }
+  }
+}

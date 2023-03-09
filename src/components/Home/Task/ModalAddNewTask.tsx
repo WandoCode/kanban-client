@@ -67,7 +67,7 @@ function ModalAddNewTask() {
         />
 
         <fieldset>
-          <legend>Subtasks</legend>
+          <legend className="text-bold fc-neutral-450">Subtasks</legend>
 
           <InputText
             placeholder="e.g. Make coffee"
