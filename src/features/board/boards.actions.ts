@@ -29,3 +29,10 @@ export const setColumnsArrayByStatus = createAction(
     payload: { columnsArrayByStatus },
   })
 )
+
+export const updateBoards = createAction(
+  'boards/updateBoards',
+  (boards: BoardsDatasType, currentBoardID: string) => ({
+    payload: { boards, currentBoardID },
+  })
+)

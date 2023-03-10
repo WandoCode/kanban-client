@@ -3,7 +3,6 @@ import Home from './pages/Home'
 import { useEffect } from 'react'
 import { boardsStore } from './store/boardsStore'
 import { useAppSelector, useAppDispatch } from './features/app.store'
-import { saveBoards } from './features/session/session.thunks'
 
 function App() {
   const { boards } = useAppSelector((state) => state.boards)
@@ -14,10 +13,6 @@ function App() {
 
     if (env === 'development') boardsStore.initMockDatas()
   }, [])
-
-  useEffect(() => {
-    dispatch(saveBoards())
-  }, [boards])
 
   return (
     <div className="app">

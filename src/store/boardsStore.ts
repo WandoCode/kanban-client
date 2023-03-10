@@ -1,8 +1,18 @@
 import boardsJSON from '../__mock__/mockUser.json'
 import db from './firebase'
-import { collection, doc, getDoc, runTransaction } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  getDoc,
+  runTransaction,
+  updateDoc,
+} from 'firebase/firestore'
 import { Session, BoardShort } from '../features/session/session.reducers'
-import { BoardsDatasType, BoardType } from '../features/board/boards.reducer'
+import {
+  BoardsDatasType,
+  BoardType,
+  TaskType,
+} from '../features/board/boards.reducer'
 
 export const boardsStore = {
   getUserDetails: async (userID: string): Promise<Session | undefined> => {
@@ -48,14 +58,14 @@ export const boardsStore = {
     }
     return undefined
   },
-  // updateBoards: async (userID: string, newBoards: BoardType[]) => {
-  //   try {
-  //     const docRef = doc(db, 'boards', userID)
-  //     updateDoc(docRef, { boards: newBoards })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // },
+  updateTask: async (userID: string, boardID: string, newTasks: TaskType[]) => {
+    try {
+      const docRef = doc(db, userID, boardID)
+      updateDoc(docRef, { tasks: newTasks })
+    } catch (error) {
+      console.error(error)
+    }
+  },
   initMockDatas: async () => {
     try {
       await runTransaction(db, async (transaction) => {

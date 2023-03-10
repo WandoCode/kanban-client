@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { applyChangeBoard } from './boards.actions'
+import { applyChangeBoard, updateBoards } from './boards.actions'
 import { setBoards, setColumnsArrayByStatus } from './boards.actions'
 
 export interface ColumnType {
@@ -68,6 +68,27 @@ const boardsReducer = createReducer(initialState, (builder) => {
     .addCase(setColumnsArrayByStatus, (state, action) => {
       state.columnsArrayByStatus = action.payload.columnsArrayByStatus
     })
+    .addCase(updateBoards, (state, action) => {
+      const newBoards = action.payload.boards
+      const currentBoardID = action.payload.currentBoardID
+      state.boards = newBoards
+      state.columnsArrayByStatus = getColumnsArrayByStatus(
+        newBoards[currentBoardID].tasks
+      )
+    })
 })
 
 export default boardsReducer
+
+const getColumnsArrayByStatus = (tasks: TaskType[]) => {
+  let rep: Record<string, TaskType[]> = {}
+
+  tasks.forEach((task) => {
+    const column = task.status
+
+    if (!rep[column]) rep[column] = []
+    rep[column].push(task)
+  })
+
+  return rep
+}

@@ -8,6 +8,7 @@ import Textarea from '../../components/atoms/Input/Textarea'
 import { useEffect } from 'react'
 import { closeAddNewTaskModal } from './addNewTask.actions'
 import { addTask } from '../session/session.thunks'
+import { addTaskAndSave } from '../board/boards.thunk'
 
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()
@@ -39,7 +40,8 @@ function ModalAddNewTask() {
       dispatch(setErrors(invalidFields))
     } else {
       const task = { ...formDatas, position: 1 }
-      //TODO : AJOUT d'une tache
+      dispatch(addTaskAndSave(task))
+      dispatch(closeAddNewTaskModal())
     }
   }
 

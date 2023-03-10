@@ -2,8 +2,9 @@ import { ThunkAction } from 'redux-thunk'
 import { RootState } from '../app.store'
 import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
-import { setBoards, applyChangeBoard } from './boards.actions'
+import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
 import { BoardsDatasType, BoardsType, TaskType } from './boards.reducer'
+import { addTask } from '../session/session.thunks'
 
 export function fetchUserBoards(): ThunkAction<
   void,
@@ -55,17 +56,42 @@ export function changeBoard(
   }
 }
 
+export function addTaskAndSave(
+  task: TaskType
+): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async function addTaskAndSaveThunk(dispatch, getState) {
+    const state = getState()
+    const userID = state.session.userID
+    const { boards, currentBoardId } = state.boards
+
+    if (!boards || !userID) return
+
+    const copyBoards = JSON.parse(JSON.stringify(boards))
+
+    copyBoards[currentBoardId].tasks.push(task)
+
+    try {
+      await boardsStore.updateTask(
+        userID,
+        currentBoardId,
+        copyBoards[currentBoardId].tasks
+      )
+      dispatch(updateBoards(copyBoards, currentBoardId))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 const getColumnsArrayByStatus = (tasks: TaskType[]) => {
   let rep: Record<string, TaskType[]> = {}
 
   tasks.forEach((task) => {
     const column = task.status
-    console.log(column)
 
     if (!rep[column]) rep[column] = []
     rep[column].push(task)
   })
-  console.log(rep)
 
   return rep
 }

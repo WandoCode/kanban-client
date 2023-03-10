@@ -15,19 +15,6 @@ export function fetchUserDetails(
   }
 }
 
-// TODO: utiliser un custom hook ou fonction au lieu d'un thunk non?
-export function saveBoards(): ThunkAction<void, RootState, unknown, AnyAction> {
-  return async function addTaskThunk(dispatch, getState) {
-    // const state = getState()
-    // const boards = JSON.parse(
-    //   JSON.stringify(state.session.boards)
-    // ) as BoardType[]
-    // const userID = state.session.userID
-    // if (!userID) return
-    // await boardsStore.updateBoards(userID, boards)
-  }
-}
-
 export function updateTask(): ThunkAction<void, RootState, unknown, AnyAction> {
   return async function addTaskThunk(dispatch, getState) {
     // const state = getState()
