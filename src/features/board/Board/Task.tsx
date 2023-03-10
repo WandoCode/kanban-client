@@ -3,13 +3,12 @@ import { TaskType } from '../boards.reducer'
 
 interface Props {
   task: TaskType
-  openTask: (task: TaskType, taskIndex: number) => void
-  taskIndex: number
+  openTask: (task: TaskType) => void
 }
 
-function Task({ task, taskIndex, openTask }: Props) {
+function Task({ task, openTask }: Props) {
   const handleOpenTask = () => {
-    openTask(task, taskIndex)
+    openTask(task)
   }
 
   return (

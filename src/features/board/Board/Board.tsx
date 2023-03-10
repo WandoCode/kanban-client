@@ -19,8 +19,8 @@ function Board() {
   const { columnsArrayByStatus, currentColumnsNames, currentColumns } =
     useAppSelector((state) => state.boards)
 
-  const handleOpenTask = (task: TaskType, taskIndex: number) => {
-    dispatch(setTaskDetails(task, taskIndex))
+  const handleOpenTask = (task: TaskType) => {
+    dispatch(setTaskDetails(task))
     dispatch(openModalTaskDetails())
   }
 

@@ -4,7 +4,7 @@ import { ColumnType, TaskType } from '../boards.reducer'
 interface Props {
   tasks: TaskType[]
   columnDetails: ColumnType
-  handleOpenTask: (task: TaskType, taskIndex: number) => void
+  handleOpenTask: (task: TaskType) => void
 }
 
 function Column({ tasks, columnDetails, handleOpenTask }: Props) {
@@ -19,13 +19,8 @@ function Column({ tasks, columnDetails, handleOpenTask }: Props) {
           {columnDetails.name} ({tasks?.length || 0})
         </h2>
       </div>
-      {tasks?.map((task, i) => (
-        <Task
-          taskIndex={i}
-          task={task}
-          key={task.title}
-          openTask={handleOpenTask}
-        />
+      {tasks?.map((task) => (
+        <Task task={task} key={task.title} openTask={handleOpenTask} />
       ))}
     </div>
   )

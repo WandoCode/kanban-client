@@ -13,6 +13,7 @@ export interface SubtaskType {
 }
 
 export interface TaskType {
+  taskId: string
   title: string
   description: string
   status: string

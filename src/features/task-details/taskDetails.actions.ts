@@ -3,7 +3,7 @@ import { TaskType } from '../board/boards.reducer'
 
 export const setTaskDetails = createAction(
   'taskDetails/setTaskDetails',
-  (task: TaskType, taskIndex: number) => ({ payload: { task, taskIndex } })
+  (task: TaskType) => ({ payload: { task } })
 )
 
 export const openModalTaskDetails = createAction(

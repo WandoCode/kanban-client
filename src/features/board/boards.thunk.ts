@@ -83,6 +83,44 @@ export function addTaskAndSave(
   }
 }
 
+export function updateTaskAndSave(): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> {
+  return async function updateTaskAndSaveThunk(dispatch, getState) {
+    const state = getState()
+    const task = state.taskDetails.task
+    const userID = state.session.userID
+    const { boards, currentBoardId } = state.boards
+
+    if (!boards || !userID) return
+
+    const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
+
+    const taskIndex = copyBoards[currentBoardId].tasks.findIndex((t) => {
+      console.log(task.taskId)
+
+      return t.taskId === task.taskId
+    })
+
+    copyBoards[currentBoardId].tasks[taskIndex] = task
+    console.log(taskIndex)
+
+    try {
+      await boardsStore.updateTask(
+        userID,
+        currentBoardId,
+        copyBoards[currentBoardId].tasks
+      )
+      dispatch(updateBoards(copyBoards, currentBoardId))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 const getColumnsArrayByStatus = (tasks: TaskType[]) => {
   let rep: Record<string, TaskType[]> = {}
 

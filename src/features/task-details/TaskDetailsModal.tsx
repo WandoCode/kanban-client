@@ -8,14 +8,12 @@ import {
 } from './taskDetails.actions'
 import Select from '../../components/atoms/Select/Select'
 import { useEffect } from 'react'
-import { removeTask, updateTask } from '../session/session.thunks'
+import { updateTaskAndSave } from '../board/boards.thunk'
 
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
   const { task } = useAppSelector((state) => state.taskDetails)
-  const { currentBoardcolumnsNames, userID, currentBoardID } = useAppSelector(
-    (state) => state.session
-  )
+  const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
     document.body.addEventListener('click', handleCloseModal)
@@ -27,7 +25,7 @@ function TaskDetailsModal() {
     const target = e.target as HTMLElement
 
     if (target.classList.contains('modal')) {
-      dispatch(updateTask())
+      dispatch(updateTaskAndSave())
       dispatch(closeModalTaskDetails())
     }
   }
@@ -64,7 +62,7 @@ function TaskDetailsModal() {
       <Select
         currValue={task.status}
         label="Status"
-        choices={currentBoardcolumnsNames}
+        choices={currentColumnsNames}
         onChoice={(choice) => dispatch(updateTaskStatus(choice))}
       />
     </div>

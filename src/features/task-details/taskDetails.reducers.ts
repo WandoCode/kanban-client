@@ -10,12 +10,11 @@ import { TaskType } from '../board/boards.reducer'
 interface TaskDetails {
   taskDetailsModalIsOpen: boolean
   task: TaskType
-  taskIndex: number
 }
+
 const initialState: TaskDetails = {
   taskDetailsModalIsOpen: false,
-  taskIndex: -1,
-  task: { title: '', description: '', subtasks: [], status: '' },
+  task: { title: '', description: '', subtasks: [], status: '', taskId: '' },
 }
 
 const taskDetailsReducer = createReducer(initialState, (builder) => {
@@ -25,7 +24,7 @@ const taskDetailsReducer = createReducer(initialState, (builder) => {
       state.task.description = action.payload.task.description
       state.task.subtasks = action.payload.task.subtasks
       state.task.status = action.payload.task.status
-      state.taskIndex = action.payload.taskIndex
+      state.task.taskId = action.payload.task.taskId
     })
     .addCase(openModalTaskDetails, (state) => {
       state.taskDetailsModalIsOpen = true

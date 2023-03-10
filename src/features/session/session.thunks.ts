@@ -15,29 +15,6 @@ export function fetchUserDetails(
   }
 }
 
-export function updateTask(): ThunkAction<void, RootState, unknown, AnyAction> {
-  return async function addTaskThunk(dispatch, getState) {
-    // const state = getState()
-    // const boards = JSON.parse(
-    //   JSON.stringify(state.session.boards)
-    // ) as BoardType[]
-    // const boardID = state.session.currentBoardID
-    // const taskIndex = state.taskDetails.taskIndex
-    // const updatedTask = state.taskDetails.task
-    // const taskBoardIndex = boards.findIndex(
-    //   (board: BoardType) => board.id === boardID
-    // )
-    // const taskColumnIndex = boards[taskBoardIndex].columns.findIndex(
-    //   (column) => column.name === updatedTask.status
-    // )
-    // console.log(boards[taskBoardIndex].columns[taskColumnIndex].datas)
-    // console.log(taskIndex)
-    // boards[taskBoardIndex].columns[taskColumnIndex].datas[taskIndex] =
-    //   updatedTask
-    // dispatch(setBoards(boards))
-  }
-}
-
 export function addTask(
   userID: string | null,
   boardID: number | null
