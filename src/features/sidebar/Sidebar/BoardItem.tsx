@@ -1,19 +1,19 @@
 import iconBoard from '../../../assets/icon-board.svg'
 import Button from '../../../components/atoms/Button/Button'
-import { BoardType } from '../../session/session.reducers'
+import { BoardShort } from '../../session/session.reducers'
 
 interface Props {
-  board: BoardType
-  currentBoardID: number | null
-  onClick: (boardID: number) => void
+  board: BoardShort
+  currentBoard: string
+  onClick: (newBoardID: string) => void
 }
 
-function BoardItem({ board, onClick, currentBoardID }: Props) {
-  const liClassName = (boardID: number) => {
+function BoardItem({ board, onClick, currentBoard }: Props) {
+  const liClassName = (newBoardID: string) => {
     const base = 'board-btn'
     let name = base
 
-    if (boardID === currentBoardID) name += ` ${base}--current`
+    if (newBoardID === currentBoard) name += ` ${base}--current`
 
     return name + ' btn--transparent heading-m'
   }

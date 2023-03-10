@@ -1,43 +1,78 @@
-import boardsJSON from '../__mock__/mockBoards.json'
-import { BoardType } from '../features/session/session.reducers'
+import boardsJSON from '../__mock__/mockUser.json'
 import db from './firebase'
-import { doc, getDoc, runTransaction, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, runTransaction } from 'firebase/firestore'
+import { Session, BoardShort } from '../features/session/session.reducers'
+import { BoardsDatasType, BoardType } from '../features/board/boards.reducer'
 
 export const boardsStore = {
-  getUserBoards: async (userID: string): Promise<BoardType[] | undefined> => {
+  getUserDetails: async (userID: string): Promise<Session | undefined> => {
     try {
-      const docRef = doc(db, 'boards', userID)
-      const docSnap = await getDoc(docRef)
+      const detailsRef = doc(db, userID, 'details')
+      const detailsSnap = await getDoc(detailsRef)
 
-      if (docSnap.exists()) {
-        return docSnap.data().boards
+      if (detailsSnap.exists()) {
+        return detailsSnap.data() as Session
       } else {
-        console.error("The document doesn't exist")
+        console.error('Impossible to find the details for the given user')
       }
     } catch (error) {
-      console.error(
-        'Error loading boards for the given user from Firestore: ',
-        error
-      )
+      console.error('Impossible to find the details for the given user', error)
     }
     return undefined
   },
-  addTask: async (userID: string, newBoards: BoardType[]) => {
+  getUserBoards: async (
+    userID: string,
+    boardsShort: BoardShort[]
+  ): Promise<BoardsDatasType | undefined> => {
+    let boards: BoardsDatasType = {}
     try {
-      const docRef = doc(db, 'boards', userID)
-      updateDoc(docRef, { boards: newBoards })
+      for (let i = 0; i < boardsShort.length; i++) {
+        const boardShort = boardsShort[i]
+        const boardRef = doc(db, userID, boardShort.id)
+        const boardSnap = await getDoc(boardRef)
+
+        if (boardSnap.exists()) {
+          const board = boardSnap.data() as BoardType
+          boards[boardShort.name] = board
+        } else {
+          console.error(
+            'Impossible to find the board for the given user. Board: ',
+            boardShort.name
+          )
+        }
+      }
+
+      return boards
     } catch (error) {
-      console.error(error)
+      console.error('Impossible to find the boards for the given user', error)
     }
+    return undefined
   },
+  // updateBoards: async (userID: string, newBoards: BoardType[]) => {
+  //   try {
+  //     const docRef = doc(db, 'boards', userID)
+  //     updateDoc(docRef, { boards: newBoards })
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // },
   initMockDatas: async () => {
     try {
       await runTransaction(db, async (transaction) => {
-        const docRef = doc(db, 'boards', 'userA')
+        const detailsRef = doc(db, 'userA', 'details')
 
-        const boardsSnap = await transaction.get(docRef)
-        if (!boardsSnap.exists()) {
-          await transaction.set(doc(db, 'boards', 'userA'), boardsJSON)
+        const detailsSnap = await transaction.get(detailsRef)
+        if (!detailsSnap.exists()) {
+          await transaction.set(
+            doc(db, 'userA', 'details'),
+            boardsJSON.userA.details
+          )
+
+          boardsJSON.userA.details.boardsShort.forEach(async (board) => {
+            const boards = boardsJSON.userA as Record<string, any>
+            const boardDatas = boards[board.id]
+            await transaction.set(doc(db, 'userA', board.name), boardDatas)
+          })
         }
       })
     } catch (error) {

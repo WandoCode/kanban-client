@@ -1,14 +1,15 @@
-import { TaskType } from '../session.reducers'
 import { getNbrCompletedSubtask } from '../../../utils/number'
+import { TaskType } from '../boards.reducer'
 
 interface Props {
   task: TaskType
-  openTask: (task: TaskType) => void
+  openTask: (task: TaskType, taskIndex: number) => void
+  taskIndex: number
 }
 
-function Task({ task, openTask }: Props) {
+function Task({ task, taskIndex, openTask }: Props) {
   const handleOpenTask = () => {
-    openTask(task)
+    openTask(task, taskIndex)
   }
 
   return (

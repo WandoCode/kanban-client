@@ -12,7 +12,7 @@ import { addTask } from '../session/session.thunks'
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()
   const { formDatas } = useAppSelector((state) => state.addNewTask)
-  const { currentBoardcolumnsNames } = useAppSelector((state) => state.session)
+  const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
     document.body.addEventListener('click', handleCloseModal)
@@ -21,8 +21,8 @@ function ModalAddNewTask() {
   }, [])
 
   useEffect(() => {
-    dispatch(updateInput('status', currentBoardcolumnsNames[0]))
-  }, [currentBoardcolumnsNames])
+    dispatch(updateInput('status', currentColumnsNames[0]))
+  }, [currentColumnsNames])
 
   const handleCloseModal = (e: MouseEvent) => {
     const target = e.target as HTMLElement
@@ -39,8 +39,7 @@ function ModalAddNewTask() {
       dispatch(setErrors(invalidFields))
     } else {
       const task = { ...formDatas, position: 1 }
-      dispatch(addTask('userA', 120, task))
-      dispatch(closeAddNewTaskModal())
+      //TODO : AJOUT d'une tache
     }
   }
 
@@ -114,7 +113,7 @@ function ModalAddNewTask() {
         <Select
           currValue={formDatas.status}
           label="Status"
-          choices={currentBoardcolumnsNames}
+          choices={currentColumnsNames}
           onChoice={(choice) => dispatch(updateInput('status', choice))}
         />
         <Button text="Create Task" type="primary-s" onClick={handleSubmit} />

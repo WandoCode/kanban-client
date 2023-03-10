@@ -1,9 +1,9 @@
 import { createAction } from '@reduxjs/toolkit'
-import { TaskType } from '../session/session.reducers'
+import { TaskType } from '../board/boards.reducer'
 
 export const setTaskDetails = createAction(
   'taskDetails/setTaskDetails',
-  (task: TaskType) => ({ payload: task })
+  (task: TaskType, taskIndex: number) => ({ payload: { task, taskIndex } })
 )
 
 export const openModalTaskDetails = createAction(
@@ -17,4 +17,9 @@ export const closeModalTaskDetails = createAction(
 export const toogleSubtask = createAction(
   'taskDetails/toogleSubtask',
   (index: number) => ({ payload: { index } })
+)
+
+export const updateTaskStatus = createAction(
+  'taskDetails/updateTaskStatus',
+  (status: string) => ({ payload: { status } })
 )

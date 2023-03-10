@@ -6,12 +6,13 @@ import ThemeSwitch from './ThemeSwitch'
 import { useAppDispatch, useAppSelector, RootState } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
-import { setCurrentBoard } from '../../session/session.actions'
+import { changeBoard } from '../../board/boards.thunk'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
-  const session = useAppSelector((state: RootState) => state.session)
+  const { boardsShort } = useAppSelector((state: RootState) => state.session)
   const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
+  const { currentBoardId } = useAppSelector((state: RootState) => state.boards)
 
   const menuClassName = () => {
     return menuIsOpen ? 'menu menu--open' : 'menu menu--close'
@@ -22,8 +23,8 @@ export default function Sidebar() {
 
     if (target.classList.contains('menu__event-close')) dispatch(closeMenu())
   }
-  const onClickOpenBoard = (boardID: number) => {
-    dispatch(setCurrentBoard(boardID))
+  const onClickOpenBoard = (newBoardID: string) => {
+    dispatch(changeBoard(newBoardID))
   }
 
   return (
@@ -32,9 +33,13 @@ export default function Sidebar() {
         <div className="menu__wrapper">
           <div className="menu__sup">
             <h2 className="menu__heading heading-s">
-              All boards ({session.boards.length})
+              All boards ({boardsShort.length})
             </h2>
-            <BoardsList session={session} onClickOpenBoard={onClickOpenBoard} />
+            <BoardsList
+              boards={boardsShort}
+              onClickOpenBoard={onClickOpenBoard}
+              currentBoard={currentBoardId}
+            />
           </div>
           <div className="menu__inf">
             <ThemeSwitch />

@@ -1,23 +1,23 @@
 import Header from '../components/Home/Header/Header'
-import { fetchUserById } from '../features/session/session.thunks'
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../features/app.store'
+import { fetchUserDetails } from '../features/session/session.thunks'
+import { useAppDispatch, useAppSelector } from '../features/app.store'
 import { useEffect } from 'react'
-import { setCurrentBoard } from '../features/session/session.actions'
-import Board from '../features/session/Board/Board'
-
+import Board from '../features/board/Board/Board'
 import Sidebar from '../features/sidebar/Sidebar/Sidebar'
-import { boardsStore } from '../store/boardsStore'
+import { fetchUserBoards } from '../features/board/boards.thunk'
+
 function Home() {
   const dispatch = useAppDispatch()
+  const { boardsShort, userID } = useAppSelector((state) => state.session)
   const mockUserId = 'userA'
 
   useEffect(() => {
-    dispatch(fetchUserById(mockUserId))
+    dispatch(fetchUserDetails(mockUserId))
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchUserBoards())
+  }, [boardsShort, userID])
 
   return (
     <div className="home">

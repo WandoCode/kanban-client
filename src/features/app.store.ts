@@ -7,6 +7,7 @@ import miscMenuReducer from './misc-menu/miscMenu.reducers'
 import sidebarReducer from './sidebar/sidebar.reducers'
 import addNewTaskReducer from './add-new-task/addNewTask.reducers'
 import taskDetailsReducer from './task-details/taskDetails.reducers'
+import boardsReducer from './board/boards.reducer'
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     miscMenu: miscMenuReducer,
     addNewTask: addNewTaskReducer,
     taskDetails: taskDetailsReducer,
+    boards: boardsReducer,
   },
 })
 

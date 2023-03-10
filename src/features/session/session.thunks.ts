@@ -1,59 +1,97 @@
-import usersStore from '../../store/usersStore'
-import { setUserDatas, setBoards } from './session.actions'
 import { RootState } from '../app.store'
 import { ThunkAction } from 'redux-thunk'
 import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
-import { TaskType, BoardType } from './session.reducers'
+import { setUserDatas } from './session.actions'
 
-export function fetchUserById(
+export function fetchUserDetails(
   userID: string
 ): ThunkAction<void, RootState, unknown, AnyAction> {
-  return async function fetchUserByIdThunk(dispatch) {
-    const boardsDatas = await boardsStore.getUserBoards(userID)
-
-    if (boardsDatas) {
-      // Au chargement, on ouvre le 1er projet de la liste
-      const currentBoardID = boardsDatas[0].id
-      const currentBoardcolumnsNames = boardsDatas[0].columns.map(
-        (column) => column.name
-      )
-
-      const sessionDatas = {
-        userID,
-        boards: boardsDatas,
-        currentBoardID,
-        currentBoardcolumnsNames,
-      }
-
-      dispatch(setUserDatas(sessionDatas))
+  return async function fetchUserDetailsThunk(dispatch) {
+    const userDetails = await boardsStore.getUserDetails(userID)
+    if (userDetails) {
+      dispatch(setUserDatas(userDetails))
     }
   }
 }
 
+// TODO: utiliser un custom hook ou fonction au lieu d'un thunk non?
+export function saveBoards(): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async function addTaskThunk(dispatch, getState) {
+    // const state = getState()
+    // const boards = JSON.parse(
+    //   JSON.stringify(state.session.boards)
+    // ) as BoardType[]
+    // const userID = state.session.userID
+    // if (!userID) return
+    // await boardsStore.updateBoards(userID, boards)
+  }
+}
+
+export function updateTask(): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async function addTaskThunk(dispatch, getState) {
+    // const state = getState()
+    // const boards = JSON.parse(
+    //   JSON.stringify(state.session.boards)
+    // ) as BoardType[]
+    // const boardID = state.session.currentBoardID
+    // const taskIndex = state.taskDetails.taskIndex
+    // const updatedTask = state.taskDetails.task
+    // const taskBoardIndex = boards.findIndex(
+    //   (board: BoardType) => board.id === boardID
+    // )
+    // const taskColumnIndex = boards[taskBoardIndex].columns.findIndex(
+    //   (column) => column.name === updatedTask.status
+    // )
+    // console.log(boards[taskBoardIndex].columns[taskColumnIndex].datas)
+    // console.log(taskIndex)
+    // boards[taskBoardIndex].columns[taskColumnIndex].datas[taskIndex] =
+    //   updatedTask
+    // dispatch(setBoards(boards))
+  }
+}
+
 export function addTask(
-  userID: string,
-  boardID: number,
-  task: TaskType
+  userID: string | null,
+  boardID: number | null
 ): ThunkAction<void, RootState, unknown, AnyAction> {
   return async function addTaskThunk(dispatch, getState) {
-    const state = getState()
+    // const state = getState()
+    // const boards = JSON.parse(
+    //   JSON.stringify(state.session.boards)
+    // ) as BoardType[]
+    // if (!userID || !boardID) return
+    // const taskBoardIndex = boards.findIndex(
+    //   (board: BoardType) => board.id === boardID
+    // )
+    // const taskColumnIndex = boards[taskBoardIndex].columns.findIndex(
+    //   (column) => column.name === task.status
+    // )
+    // boards[taskBoardIndex].columns[taskColumnIndex].datas.push(task)
+    // dispatch(setBoards(boards))
+  }
+}
 
-    const boards = JSON.parse(
-      JSON.stringify(state.session.boards)
-    ) as BoardType[]
-
-    const taskBoardIndex = boards.findIndex(
-      (board: BoardType) => board.id === boardID
-    )
-    const taskColumnIndex = boards[taskBoardIndex].columns.findIndex(
-      (column) => column.name === task.status
-    )
-
-    console.log(task.status)
-    boards[taskBoardIndex].columns[taskColumnIndex].datas?.push(task)
-
-    await boardsStore.addTask(userID, boards)
-    dispatch(setBoards(boards))
+export function removeTask(
+  userID: string | null,
+  boardID: number | null
+): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async function addTaskThunk(dispatch, getState) {
+    // if (!userID || !boardID) return
+    // const state = getState()
+    // const boards = JSON.parse(
+    //   JSON.stringify(state.session.boards)
+    // ) as BoardType[]
+    // const taskBoardIndex = boards.findIndex(
+    //   (board: BoardType) => board.id === boardID
+    // )
+    // const taskColumnIndex = boards[taskBoardIndex].columns.findIndex(
+    //   (column) => column.name === task.status
+    // )
+    // const taskIndex = boards[taskBoardIndex].columns[
+    //   taskColumnIndex
+    // ].datas.findIndex((localTask) => localTask.title === task.title)
+    // boards[taskBoardIndex].columns[taskColumnIndex].datas.splice(taskIndex, 1)
+    // dispatch(setBoards(boards))
   }
 }

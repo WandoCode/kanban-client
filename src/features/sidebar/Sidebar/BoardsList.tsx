@@ -1,20 +1,22 @@
 import BoardItem from './BoardItem'
-import { Session } from '../../session/session.reducers'
+import { Session, BoardShort } from '../../session/session.reducers'
 import iconBoard from '../../../assets/icon-board.svg'
 import Button from '../../../components/atoms/Button/Button'
+import { BoardsType, BoardsDatasType } from '../../board/boards.reducer'
 
 interface Props {
-  session: Session
-  onClickOpenBoard: (boardID: number) => void
+  boards: BoardShort[]
+  onClickOpenBoard: (boardID: string) => void
+  currentBoard: string
 }
 
-function BoardsList({ session, onClickOpenBoard }: Props) {
+function BoardsList({ boards, onClickOpenBoard, currentBoard }: Props) {
   const boardList = () => {
-    return session.boards.map((board) => (
+    return boards.map((board) => (
       <BoardItem
         key={board.id}
         board={board}
-        currentBoardID={session.currentBoardID}
+        currentBoard={currentBoard}
         onClick={onClickOpenBoard}
       />
     ))

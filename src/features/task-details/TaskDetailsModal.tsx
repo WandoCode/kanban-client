@@ -1,10 +1,36 @@
 import { useAppSelector, useAppDispatch } from '../app.store'
 import { getNbrCompletedSubtask } from '../../utils/number'
 import InputCheck from '../../components/atoms/Input/InputCheck'
-import { toogleSubtask } from './taskDetails.actions'
+import {
+  toogleSubtask,
+  updateTaskStatus,
+  closeModalTaskDetails,
+} from './taskDetails.actions'
+import Select from '../../components/atoms/Select/Select'
+import { useEffect } from 'react'
+import { removeTask, updateTask } from '../session/session.thunks'
+
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
   const { task } = useAppSelector((state) => state.taskDetails)
+  const { currentBoardcolumnsNames, userID, currentBoardID } = useAppSelector(
+    (state) => state.session
+  )
+
+  useEffect(() => {
+    document.body.addEventListener('click', handleCloseModal)
+
+    return () => document.body.removeEventListener('click', handleCloseModal)
+  }, [])
+
+  const handleCloseModal = (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+
+    if (target.classList.contains('modal')) {
+      dispatch(updateTask())
+      dispatch(closeModalTaskDetails())
+    }
+  }
 
   const handleSubtaskClick = (idString: string) => {
     const index = parseInt(idString.split('-')[1], 10)
@@ -35,6 +61,12 @@ function TaskDetailsModal() {
         </h3>
         {subtaskDOM()}
       </div>
+      <Select
+        currValue={task.status}
+        label="Status"
+        choices={currentBoardcolumnsNames}
+        onChoice={(choice) => dispatch(updateTaskStatus(choice))}
+      />
     </div>
   )
 }
