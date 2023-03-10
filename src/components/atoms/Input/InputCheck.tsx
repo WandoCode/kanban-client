@@ -2,7 +2,7 @@ interface Props {
   text: string
   id: string
   isChecked: boolean
-  onChange: () => void
+  onChange: (index: string) => void
 }
 
 function InputCheck({ text, id, isChecked, onChange }: Props) {
@@ -13,7 +13,7 @@ function InputCheck({ text, id, isChecked, onChange }: Props) {
         name={id}
         id={id}
         className="visually-hidden"
-        onChange={onChange}
+        onChange={(e) => onChange(id)}
         checked={isChecked}
       />
       <label className="input-check__label" htmlFor={id}>

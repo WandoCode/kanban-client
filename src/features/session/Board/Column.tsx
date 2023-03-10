@@ -1,9 +1,9 @@
 import Task from './Task'
-import { ColumnType } from '../session.reducers'
+import { ColumnType, TaskType } from '../session.reducers'
 
 interface Props {
   column: ColumnType
-  handleOpenTask: () => void
+  handleOpenTask: (task: TaskType) => void
 }
 
 function Column({ column, handleOpenTask }: Props) {
@@ -19,7 +19,7 @@ function Column({ column, handleOpenTask }: Props) {
         </h2>
       </div>
       {column.datas?.map((task) => (
-        <Task task={task} key={task.position} openTask={handleOpenTask} />
+        <Task task={task} key={task.title} openTask={handleOpenTask} />
       ))}
     </div>
   )

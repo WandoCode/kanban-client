@@ -10,7 +10,6 @@ export interface TaskType {
   title: string
   description: string
   status: string
-  position: number
   subtasks: SubtaskType[]
 }
 

@@ -6,15 +6,16 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
 import miscMenuReducer from './misc-menu/miscMenu.reducers'
 import sidebarReducer from './sidebar/sidebar.reducers'
 import addNewTaskReducer from './add-new-task/addNewTask.reducers'
+import taskDetailsReducer from './task-details/taskDetails.reducers'
 
 const store = configureStore({
   reducer: {
     generalState: generalStateReducer,
     sidebar: sidebarReducer,
     session: sessionReducer,
-    // board: boardReducer,
     miscMenu: miscMenuReducer,
     addNewTask: addNewTaskReducer,
+    taskDetails: taskDetailsReducer,
   },
 })
 

@@ -12,7 +12,7 @@ export const boardsStore = {
       if (docSnap.exists()) {
         return docSnap.data().boards
       } else {
-        console.log('No such document!')
+        console.error("The document doesn't exist")
       }
     } catch (error) {
       console.error(
