@@ -7,9 +7,9 @@
   & > fieldset {
     display: grid;
     gap: 0.75rem;
+  }
 
-    & > legend {
-      margin-bottom: rem(8);
-    }
+  &__subtasks-title {
+    margin-bottom: rem(8);
   }
 }

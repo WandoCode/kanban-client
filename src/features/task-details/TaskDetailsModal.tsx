@@ -9,6 +9,7 @@ import {
 import Select from '../../components/atoms/Select/Select'
 import { useEffect } from 'react'
 import { updateTaskAndSave } from '../board/boards.thunk'
+import TaskMenu from '../menus/TaskMenu'
 
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
@@ -50,11 +51,14 @@ function TaskDetailsModal() {
   }
 
   return (
-    <div className="modal-add-task">
-      <h2 className="heading-l">{task.title}</h2>
-      <p className="fc-neutral-450">{task.description}</p>
+    <div className="modal-task-details modal-add-task">
+      <div className="modal-task-details__header">
+        <h2 className="heading-l">{task.title}</h2>
+        <TaskMenu />
+      </div>
+      {task.description && <p className="fc-neutral-450">{task.description}</p>}
       <div>
-        <h3 className="text-bold fc-neutral-450">
+        <h3 className="modal-add-task__subtasks-title text-bold fc-neutral-450">
           Subtasks ({getNbrCompletedSubtask(task)} of {task.subtasks.length})
         </h3>
         {subtaskDOM()}

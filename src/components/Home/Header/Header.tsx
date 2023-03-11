@@ -8,7 +8,7 @@ import {
   useAppSelector,
 } from '../../../features/app.store'
 
-import MiscMenu from '../../../features/misc-menu/MiscMenu'
+import MiscMenu from '../../../features/menus/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 import ModalAddNewTask from '../../../features/add-new-task/ModalAddNewTask'
 import { openAddNewTaskModal } from '../../../features/add-new-task/addNewTask.actions'

@@ -1,0 +1,9 @@
+@use '../../abstracts/' as *;
+
+.modal-task-details {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    gap: rem(20);
+  }
+}

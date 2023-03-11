@@ -1,6 +1,6 @@
 import Button from '../../components/atoms/Button/Button'
 import Select from '../../components/atoms/Select/Select'
-import Modal from '../../components/utils/Modal'
+import Modal from '../modal/Modal'
 import { useAppSelector, useAppDispatch } from '../app.store'
 import InputText from '../../components/atoms/Input/InputText'
 import { updateInput, updateSubtask, setErrors } from './addNewTask.actions'
@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { closeAddNewTaskModal } from './addNewTask.actions'
 import { addTask } from '../session/session.thunks'
 import { addTaskAndSave } from '../board/boards.thunk'
+import { v4 as uuidv4 } from 'uuid'
 
 function ModalAddNewTask() {
   const dispatch = useAppDispatch()
@@ -39,7 +40,7 @@ function ModalAddNewTask() {
     if (invalidFields.length !== 0) {
       dispatch(setErrors(invalidFields))
     } else {
-      const task = { ...formDatas, position: 1 }
+      const task = { ...formDatas, taskId: uuidv4() }
       dispatch(addTaskAndSave(task))
       dispatch(closeAddNewTaskModal())
     }
@@ -82,7 +83,9 @@ function ModalAddNewTask() {
         />
 
         <fieldset>
-          <legend className="text-bold fc-neutral-450">Subtasks</legend>
+          <legend className=" modal-add-task__subtasks-title text-bold fc-neutral-450">
+            Subtasks
+          </legend>
 
           <InputText
             placeholder="e.g. Make coffee"

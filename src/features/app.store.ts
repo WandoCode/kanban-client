@@ -3,7 +3,7 @@ import generalStateReducer from './generalState/generalState.reducer'
 import sessionReducer from './session/session.reducers'
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
 // import boardReducer from './board/board.reducers'
-import miscMenuReducer from './misc-menu/miscMenu.reducers'
+import menusReducer from './menus/menus.reducers'
 import sidebarReducer from './sidebar/sidebar.reducers'
 import addNewTaskReducer from './add-new-task/addNewTask.reducers'
 import taskDetailsReducer from './task-details/taskDetails.reducers'
@@ -14,7 +14,7 @@ const store = configureStore({
     generalState: generalStateReducer,
     sidebar: sidebarReducer,
     session: sessionReducer,
-    miscMenu: miscMenuReducer,
+    menus: menusReducer,
     addNewTask: addNewTaskReducer,
     taskDetails: taskDetailsReducer,
     boards: boardsReducer,

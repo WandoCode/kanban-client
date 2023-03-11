@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import Column from './Column'
-import Modal from '../../../components/utils/Modal'
+import Modal from '../../modal/Modal'
 import {
   openModalTaskDetails,
   setTaskDetails,
