@@ -1,27 +1,32 @@
 import { createAction } from '@reduxjs/toolkit'
+import { TaskType } from '../board/boards.reducer'
 
-export const openAddNewTaskModal = createAction(
-  'addNewTask/openAddNewTaskModal'
+interface OpenTask {
+  isEditing?: boolean
+  task: TaskType
+}
+
+export const openTaskFormModal = createAction(
+  'taskForm/openTaskFormModal',
+  (isEditing?: boolean, task?: TaskType) => ({ payload: { isEditing, task } })
 )
 
-export const closeAddNewTaskModal = createAction(
-  'addNewTask/closeAddNewTaskModal'
-)
+export const closeTaskFormModal = createAction('taskForm/closeTaskFormModal')
 
 export const updateInput = createAction(
-  'addNewTask/updateInput',
+  'taskForm/updateInput',
   (fieldName: string, value: string) => ({ payload: { fieldName, value } })
 )
 
 export const updateSubtask = createAction(
-  'addNewTask/updateSubtask',
+  'taskForm/updateSubtask',
   (subtaskIndex: number, value: string, subtaskIsCompleted: boolean) => ({
     payload: { subtaskIndex, value, subtaskIsCompleted },
   })
 )
 
 export const setErrors = createAction(
-  'addNewTask/setErrors',
+  'taskForm/setErrors',
   (errors: string[]) => ({
     payload: { errors },
   })

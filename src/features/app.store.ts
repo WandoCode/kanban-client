@@ -5,9 +5,9 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
 // import boardReducer from './board/board.reducers'
 import menusReducer from './menus/menus.reducers'
 import sidebarReducer from './sidebar/sidebar.reducers'
-import addNewTaskReducer from './add-new-task/addNewTask.reducers'
 import taskDetailsReducer from './task-details/taskDetails.reducers'
 import boardsReducer from './board/boards.reducer'
+import taskFormReducer from './add-new-task/taskForm.reducers'
 
 const store = configureStore({
   reducer: {
@@ -15,7 +15,7 @@ const store = configureStore({
     sidebar: sidebarReducer,
     session: sessionReducer,
     menus: menusReducer,
-    addNewTask: addNewTaskReducer,
+    taskForm: taskFormReducer,
     taskDetails: taskDetailsReducer,
     boards: boardsReducer,
   },

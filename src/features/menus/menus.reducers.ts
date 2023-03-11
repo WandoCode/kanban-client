@@ -9,9 +9,11 @@ const initialState = {
 const menusReducer = createReducer(initialState, (builder) => {
   builder.addCase(toggleMiscMenu, (state) => {
     state.miscMenuIsOpen = !state.miscMenuIsOpen
+    state.taskMenuIsOpen = false
   })
   builder.addCase(toggleTaskMenu, (state) => {
     state.taskMenuIsOpen = !state.taskMenuIsOpen
+    state.miscMenuIsOpen = false
   })
 })
 

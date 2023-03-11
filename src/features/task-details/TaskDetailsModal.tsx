@@ -26,7 +26,7 @@ function TaskDetailsModal() {
     const target = e.target as HTMLElement
 
     if (target.classList.contains('modal')) {
-      dispatch(updateTaskAndSave())
+      dispatch(updateTaskAndSave(false))
       dispatch(closeModalTaskDetails())
     }
   }

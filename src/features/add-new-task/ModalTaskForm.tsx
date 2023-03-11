@@ -3,17 +3,20 @@ import Select from '../../components/atoms/Select/Select'
 import Modal from '../modal/Modal'
 import { useAppSelector, useAppDispatch } from '../app.store'
 import InputText from '../../components/atoms/Input/InputText'
-import { updateInput, updateSubtask, setErrors } from './addNewTask.actions'
+import {
+  updateInput,
+  updateSubtask,
+  setErrors,
+  closeTaskFormModal,
+} from './taskForm.actions'
 import Textarea from '../../components/atoms/Input/Textarea'
 import { useEffect } from 'react'
-import { closeAddNewTaskModal } from './addNewTask.actions'
-import { addTask } from '../session/session.thunks'
-import { addTaskAndSave } from '../board/boards.thunk'
+import { addTaskAndSave, updateTaskAndSave } from '../board/boards.thunk'
 import { v4 as uuidv4 } from 'uuid'
 
-function ModalAddNewTask() {
+function ModalTaskForm() {
   const dispatch = useAppDispatch()
-  const { formDatas } = useAppSelector((state) => state.addNewTask)
+  const { formDatas, isEditing } = useAppSelector((state) => state.taskForm)
   const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
@@ -29,7 +32,7 @@ function ModalAddNewTask() {
   const handleCloseModal = (e: MouseEvent) => {
     const target = e.target as HTMLElement
 
-    if (target.classList.contains('modal')) dispatch(closeAddNewTaskModal())
+    if (target.classList.contains('modal')) dispatch(closeTaskFormModal())
   }
 
   const handleSubmit = (e: React.MouseEvent) => {
@@ -40,9 +43,13 @@ function ModalAddNewTask() {
     if (invalidFields.length !== 0) {
       dispatch(setErrors(invalidFields))
     } else {
-      const task = { ...formDatas, taskId: uuidv4() }
-      dispatch(addTaskAndSave(task))
-      dispatch(closeAddNewTaskModal())
+      if (isEditing) {
+        dispatch(updateTaskAndSave(true))
+      } else {
+        const task = { ...formDatas, taskId: uuidv4() }
+        dispatch(addTaskAndSave(task))
+      }
+      dispatch(closeTaskFormModal())
     }
   }
 
@@ -61,7 +68,9 @@ function ModalAddNewTask() {
   return (
     <Modal>
       <form className="modal-add-task">
-        <h2 className="heading-l">Add New Task</h2>
+        <h2 className="heading-l">
+          {isEditing ? 'Edit Task' : 'Add New Task'}
+        </h2>
         <InputText
           placeholder="e.g. Take coffee break"
           label="Title"
@@ -87,26 +96,52 @@ function ModalAddNewTask() {
             Subtasks
           </legend>
 
-          <InputText
-            placeholder="e.g. Make coffee"
-            label="subtask-0"
-            showLabel={false}
-            id="subtask-0"
-            errorText="Incorrect value"
-            hasError={false}
-            onChange={(e) => dispatch(updateSubtask(0, e.target.value, false))}
-            value={formDatas.subtasks[0].title}
-          />
-          <InputText
-            placeholder="e.g. Drink coffee & smile"
-            label="subtask-1"
-            showLabel={false}
-            id="subtask-1"
-            errorText="Incorrect value"
-            hasError={false}
-            onChange={(e) => dispatch(updateSubtask(1, e.target.value, false))}
-            value={formDatas.subtasks[1].title}
-          />
+          {isEditing ? (
+            <>
+              {formDatas.subtasks.map((subtask, i) => (
+                <InputText
+                  key={`subtask-${i}`}
+                  placeholder="e.g. Make coffee"
+                  label={`subtask-${i}`}
+                  showLabel={false}
+                  id={`subtask-${i}`}
+                  errorText="Incorrect value"
+                  hasError={false}
+                  onChange={(e) =>
+                    dispatch(updateSubtask(0, e.target.value, false))
+                  }
+                  value={subtask.title}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              <InputText
+                placeholder="e.g. Make coffee"
+                label="subtask-0"
+                showLabel={false}
+                id="subtask-0"
+                errorText="Incorrect value"
+                hasError={false}
+                onChange={(e) =>
+                  dispatch(updateSubtask(0, e.target.value, false))
+                }
+                value={formDatas.subtasks[0].title}
+              />
+              <InputText
+                placeholder="e.g. Drink coffee & smile"
+                label="subtask-1"
+                showLabel={false}
+                id="subtask-1"
+                errorText="Incorrect value"
+                hasError={false}
+                onChange={(e) =>
+                  dispatch(updateSubtask(1, e.target.value, false))
+                }
+                value={formDatas.subtasks[1].title}
+              />
+            </>
+          )}
           <Button
             text="+ Add New Subtask"
             type="secondary"
@@ -121,10 +156,14 @@ function ModalAddNewTask() {
           choices={currentColumnsNames}
           onChoice={(choice) => dispatch(updateInput('status', choice))}
         />
-        <Button text="Create Task" type="primary-s" onClick={handleSubmit} />
+        <Button
+          text={isEditing ? 'Save Changes' : 'Create Task'}
+          type="primary-s"
+          onClick={handleSubmit}
+        />
       </form>
     </Modal>
   )
 }
 
-export default ModalAddNewTask
+export default ModalTaskForm

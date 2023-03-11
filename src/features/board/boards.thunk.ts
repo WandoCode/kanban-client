@@ -83,15 +83,13 @@ export function addTaskAndSave(
   }
 }
 
-export function updateTaskAndSave(): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> {
+export function updateTaskAndSave(
+  fromEditing: boolean
+): ThunkAction<void, RootState, unknown, AnyAction> {
   return async function updateTaskAndSaveThunk(dispatch, getState) {
     const state = getState()
     const task = state.taskDetails.task
+    const formDatas = state.taskForm.formDatas
     const userID = state.session.userID
     const { boards, currentBoardId } = state.boards
 
@@ -99,14 +97,13 @@ export function updateTaskAndSave(): ThunkAction<
 
     const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
-    const taskIndex = copyBoards[currentBoardId].tasks.findIndex((t) => {
-      console.log(task.taskId)
+    const newTask = fromEditing ? formDatas : task
 
-      return t.taskId === task.taskId
+    const taskIndex = copyBoards[currentBoardId].tasks.findIndex((t) => {
+      return t.taskId === newTask.taskId
     })
 
-    copyBoards[currentBoardId].tasks[taskIndex] = task
-    console.log(taskIndex)
+    copyBoards[currentBoardId].tasks[taskIndex] = newTask
 
     try {
       await boardsStore.updateTask(

@@ -1,24 +1,22 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import Button from '../../atoms/Button/Button'
-
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
 } from '../../../features/app.store'
-
 import MiscMenu from '../../../features/menus/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
-import ModalAddNewTask from '../../../features/add-new-task/ModalAddNewTask'
-import { openAddNewTaskModal } from '../../../features/add-new-task/addNewTask.actions'
+import ModalTaskForm from '../../../features/add-new-task/ModalTaskForm'
+import { openTaskFormModal } from '../../../features/add-new-task/taskForm.actions'
 
 function Header() {
   const dispatch = useAppDispatch()
 
   const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
-  const { addNewTaskModalIsOpen } = useAppSelector(
-    (state: RootState) => state.addNewTask
+  const { taskFormModalIsOpen } = useAppSelector(
+    (state: RootState) => state.taskForm
   )
 
   const toogleModalMenu = () => {
@@ -27,7 +25,7 @@ function Header() {
 
   return (
     <>
-      {addNewTaskModalIsOpen && <ModalAddNewTask />}
+      {taskFormModalIsOpen && <ModalTaskForm />}
 
       <div className="header">
         {/* Only mobile */}
@@ -60,7 +58,7 @@ function Header() {
               className="header__add-task"
               text=""
               type="primary-s"
-              onClick={() => dispatch(openAddNewTaskModal())}
+              onClick={() => dispatch(openTaskFormModal(false))}
             />
           </div>
 
@@ -70,7 +68,7 @@ function Header() {
               className="header__add-task"
               text="+ Add New Task"
               type="primary-l"
-              onClick={() => dispatch(openAddNewTaskModal())}
+              onClick={() => dispatch(openTaskFormModal(false))}
             />
           </div>
 

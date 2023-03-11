@@ -1,20 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { updateSubtask, setErrors } from './addNewTask.actions'
-import { SubtaskType } from '../session/session.reducers'
 import {
-  openAddNewTaskModal,
-  closeAddNewTaskModal,
-  updateInput,
-} from './addNewTask.actions'
+  updateSubtask,
+  setErrors,
+  openTaskFormModal,
+  closeTaskFormModal,
+} from './taskForm.actions'
+import { SubtaskType } from '../board/boards.reducer'
+
+import { updateInput } from './taskForm.actions'
 
 interface AddNewTaskType {
-  addNewTaskModalIsOpen: boolean
+  taskFormModalIsOpen: boolean
   formErrors: string[]
+  isEditing: boolean
   formDatas: {
     title: string
     description: string
     subtasks: SubtaskType[]
     status: string
+    taskId: string
     [key: string]: any
   }
 }
@@ -27,21 +31,28 @@ const initialFormDatas = {
     { title: '', isCompleted: false },
   ],
   status: '',
+  taskId: '',
 }
 
 const initialState: AddNewTaskType = {
-  addNewTaskModalIsOpen: false,
+  taskFormModalIsOpen: false,
+  isEditing: false,
   formErrors: [],
   formDatas: initialFormDatas,
 }
 
-const addNewTaskReducer = createReducer(initialState, (builder) => {
+const taskFormReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(openAddNewTaskModal, (state) => {
-      state.addNewTaskModalIsOpen = true
+    .addCase(openTaskFormModal, (state, action) => {
+      state.taskFormModalIsOpen = true
+      if (action.payload.isEditing && action.payload.task) {
+        state.isEditing = action.payload.isEditing
+        state.formDatas = action.payload.task
+      }
     })
-    .addCase(closeAddNewTaskModal, (state) => {
-      state.addNewTaskModalIsOpen = false
+    .addCase(closeTaskFormModal, (state) => {
+      state.taskFormModalIsOpen = false
+      state.isEditing = false
       state.formErrors = []
       state.formDatas = initialFormDatas
     })
@@ -65,4 +76,4 @@ const addNewTaskReducer = createReducer(initialState, (builder) => {
     })
 })
 
-export default addNewTaskReducer
+export default taskFormReducer
