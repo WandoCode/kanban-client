@@ -14,10 +14,8 @@ import { openTaskFormModal } from '../../../features/add-new-task/taskForm.actio
 function Header() {
   const dispatch = useAppDispatch()
 
-  const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
-  const { taskFormModalIsOpen } = useAppSelector(
-    (state: RootState) => state.taskForm
-  )
+  const { menuIsOpen } = useAppSelector((state) => state.sidebar)
+  const { taskFormModalIsOpen } = useAppSelector((state) => state.taskForm)
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())

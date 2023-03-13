@@ -7,7 +7,7 @@ import {
 } from './taskForm.actions'
 import { SubtaskType } from '../board/boards.reducer'
 
-import { updateInput } from './taskForm.actions'
+import { updateInput, removeSubtask } from './taskForm.actions'
 
 interface AddNewTaskType {
   taskFormModalIsOpen: boolean
@@ -67,6 +67,17 @@ const taskFormReducer = createReducer(initialState, (builder) => {
       state.formDatas.subtasks[subtaskIndex] = {
         title: value,
         isCompleted: subtaskIsCompleted,
+      }
+    })
+    .addCase(removeSubtask, (state, action) => {
+      const { subtaskIndex } = action.payload
+
+      if (state.formDatas.subtasks.length === 1)
+        state.formDatas.subtasks = [{ title: '', isCompleted: false }]
+      else {
+        const substaskCopy = [...state.formDatas.subtasks]
+        substaskCopy.splice(subtaskIndex, 1)
+        state.formDatas.subtasks = substaskCopy
       }
     })
     .addCase(setErrors, (state, action) => {

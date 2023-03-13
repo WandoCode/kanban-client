@@ -13,10 +13,10 @@ function Task({ task, openTask }: Props) {
 
   return (
     <button className="task" onClick={handleOpenTask}>
-      <div className="task__heading heading-m">{task.title}</div>
-      <div className="task__subtask text-bold fc-neutral-400">
+      <span className="task__heading heading-m">{task.title}</span>
+      <span className="task__subtask text-bold fc-neutral-400">
         {getNbrCompletedSubtask(task)} of {task.subtasks.length} subtasks
-      </div>
+      </span>
     </button>
   )
 }

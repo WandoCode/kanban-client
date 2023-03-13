@@ -50,7 +50,7 @@ function Board() {
           <div className="board__columns">
             {columnsDOM()}
             <button className="board__column-add">
-              <div className="heading-xl">+ New Column</div>
+              <span className="heading-xl">+ New Column</span>
             </button>
           </div>
         ) : (

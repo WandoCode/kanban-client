@@ -15,6 +15,7 @@ import { addTaskAndSave, updateTaskAndSave } from '../board/boards.thunk'
 import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
 import SubtaskInput from './SubtaskInput'
+import { removeSubtask } from './taskForm.actions'
 
 function ModalTaskForm() {
   const dispatch = useAppDispatch()
@@ -80,6 +81,15 @@ function ModalTaskForm() {
     dispatch(updateSubtask(subtaskIndex, value, subtaskIsCompleted))
   }
 
+  const handleRemoveSubtask = (subtaskIndex: number) => {
+    dispatch(removeSubtask(subtaskIndex))
+  }
+
+  const getSubtaskPlaceholder = (i: number) => {
+    if (i === 0) return 'e.g. Make coffee'
+    if (i === 1) return 'e.g. Drink coffee & smile'
+  }
+
   return (
     <Modal handleCloseModal={handleCloseModal}>
       <form className="modal-add-task">
@@ -111,38 +121,18 @@ function ModalTaskForm() {
             Subtasks
           </legend>
 
-          {isEditing ? (
-            <>
-              {formDatas.subtasks.map((subtask, i) => (
-                <SubtaskInput
-                  key={`subtask-${i}`}
-                  formErrors={formErrors}
-                  subtaskIndex={i}
-                  onChangeHandler={onChangeHandler}
-                  subtask={subtask}
-                />
-              ))}
-            </>
-          ) : (
-            <>
-              <SubtaskInput
-                key={`subtask-${0}`}
-                formErrors={formErrors}
-                subtaskIndex={0}
-                onChangeHandler={onChangeHandler}
-                subtask={formDatas.subtasks[0]}
-                placeholder="e.g. Make coffee"
-              />
-              <SubtaskInput
-                key={`subtask-${1}`}
-                formErrors={formErrors}
-                subtaskIndex={1}
-                onChangeHandler={onChangeHandler}
-                subtask={formDatas.subtasks[1]}
-                placeholder="e.g. Drink coffee & smile"
-              />
-            </>
-          )}
+          {formDatas.subtasks.map((subtask, i) => (
+            <SubtaskInput
+              key={`subtask-${i}`}
+              formErrors={formErrors}
+              subtaskIndex={i}
+              onChangeHandler={onChangeHandler}
+              subtask={subtask}
+              handleRemoveSubtask={handleRemoveSubtask}
+              placeholder={getSubtaskPlaceholder(i)}
+            />
+          ))}
+
           <Button
             text="+ Add New Subtask"
             type="secondary"
