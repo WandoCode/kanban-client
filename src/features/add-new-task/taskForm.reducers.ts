@@ -7,7 +7,7 @@ import {
 } from './taskForm.actions'
 import { SubtaskType } from '../board/boards.reducer'
 
-import { updateInput, removeSubtask } from './taskForm.actions'
+import { updateInput, removeSubtask, addSubtask } from './taskForm.actions'
 
 interface AddNewTaskType {
   taskFormModalIsOpen: boolean
@@ -22,14 +22,12 @@ interface AddNewTaskType {
     [key: string]: any
   }
 }
+const emptySubtask: SubtaskType = { title: '', isCompleted: false }
 
 const initialFormDatas = {
   title: '',
   description: '',
-  subtasks: [
-    { title: '', isCompleted: false },
-    { title: '', isCompleted: false },
-  ],
+  subtasks: [{ ...emptySubtask }, { ...emptySubtask }],
   status: '',
   taskId: '',
 }
@@ -73,12 +71,17 @@ const taskFormReducer = createReducer(initialState, (builder) => {
       const { subtaskIndex } = action.payload
 
       if (state.formDatas.subtasks.length === 1)
-        state.formDatas.subtasks = [{ title: '', isCompleted: false }]
+        state.formDatas.subtasks = [{ ...emptySubtask }]
       else {
         const substaskCopy = [...state.formDatas.subtasks]
         substaskCopy.splice(subtaskIndex, 1)
         state.formDatas.subtasks = substaskCopy
       }
+    })
+    .addCase(addSubtask, (state) => {
+      const substaskCopy = [...state.formDatas.subtasks]
+      substaskCopy.push({ ...emptySubtask })
+      state.formDatas.subtasks = substaskCopy
     })
     .addCase(setErrors, (state, action) => {
       const { errors } = action.payload

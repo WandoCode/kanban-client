@@ -15,7 +15,7 @@ import { addTaskAndSave, updateTaskAndSave } from '../board/boards.thunk'
 import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
 import SubtaskInput from './SubtaskInput'
-import { removeSubtask } from './taskForm.actions'
+import { removeSubtask, addSubtask } from './taskForm.actions'
 
 function ModalTaskForm() {
   const dispatch = useAppDispatch()
@@ -90,6 +90,10 @@ function ModalTaskForm() {
     if (i === 1) return 'e.g. Drink coffee & smile'
   }
 
+  const handleAddSubtask = (e: React.MouseEvent) => {
+    e.preventDefault()
+    dispatch(addSubtask())
+  }
   return (
     <Modal handleCloseModal={handleCloseModal}>
       <form className="modal-add-task">
@@ -136,9 +140,7 @@ function ModalTaskForm() {
           <Button
             text="+ Add New Subtask"
             type="secondary"
-            onClick={(e) => {
-              e.preventDefault()
-            }}
+            onClick={handleAddSubtask}
           />
         </fieldset>
         <Select

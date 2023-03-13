@@ -24,6 +24,9 @@ export const updateSubtask = createAction(
     payload: { subtaskIndex, value, subtaskIsCompleted },
   })
 )
+
+export const addSubtask = createAction('taskForm/addSubtask')
+
 export const removeSubtask = createAction(
   'taskForm/removeSubtask',
   (subtaskIndex: number) => ({
