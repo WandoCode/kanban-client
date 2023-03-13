@@ -1,0 +1,10 @@
+@use '../../abstracts/' as *;
+
+.subtask-input {
+  display: flex;
+  gap: rem(16);
+
+  & > *:first-child {
+    flex: 1;
+  }
+}
