@@ -10,6 +10,7 @@ import Select from '../../components/atoms/Select/Select'
 import { useEffect } from 'react'
 import { updateTaskAndSave } from '../board/boards.thunk'
 import TaskMenu from '../menus/TaskMenu'
+import Modal from '../modal/Modal'
 
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
@@ -52,25 +53,29 @@ function TaskDetailsModal() {
   }
 
   return (
-    <div className="modal-task-details modal-add-task">
-      <div className="modal-task-details__header">
-        <h2 className="heading-l">{task.title}</h2>
-        <TaskMenu />
+    <Modal handleCloseModal={handleCloseModal}>
+      <div className="modal-task-details modal-add-task">
+        <div className="modal-task-details__header">
+          <h2 className="heading-l">{task.title}</h2>
+          <TaskMenu />
+        </div>
+        {task.description && (
+          <p className="fc-neutral-450">{task.description}</p>
+        )}
+        <div>
+          <h3 className="modal-add-task__subtasks-title text-bold fc-neutral-450">
+            Subtasks ({getNbrCompletedSubtask(task)} of {task.subtasks.length})
+          </h3>
+          {subtaskDOM()}
+        </div>
+        <Select
+          currValue={task.status}
+          label="Status"
+          choices={currentColumnsNames}
+          onChoice={(choice) => dispatch(updateTaskStatus(choice))}
+        />
       </div>
-      {task.description && <p className="fc-neutral-450">{task.description}</p>}
-      <div>
-        <h3 className="modal-add-task__subtasks-title text-bold fc-neutral-450">
-          Subtasks ({getNbrCompletedSubtask(task)} of {task.subtasks.length})
-        </h3>
-        {subtaskDOM()}
-      </div>
-      <Select
-        currValue={task.status}
-        label="Status"
-        choices={currentColumnsNames}
-        onChoice={(choice) => dispatch(updateTaskStatus(choice))}
-      />
-    </div>
+    </Modal>
   )
 }
 

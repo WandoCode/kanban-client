@@ -20,13 +20,6 @@ function ModalTaskForm() {
   const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
-    document.body.addEventListener('mousedown', handleCloseModal)
-
-    return () =>
-      document.body.removeEventListener('mousedown', handleCloseModal)
-  }, [])
-
-  useEffect(() => {
     dispatch(updateInput('status', currentColumnsNames[0]))
   }, [currentColumnsNames])
 
@@ -67,7 +60,7 @@ function ModalTaskForm() {
   }
 
   return (
-    <Modal>
+    <Modal handleCloseModal={handleCloseModal}>
       <form className="modal-add-task">
         <h2 className="heading-l">
           {isEditing ? 'Edit Task' : 'Add New Task'}

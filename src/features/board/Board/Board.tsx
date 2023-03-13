@@ -1,13 +1,12 @@
 import { useAppSelector, useAppDispatch } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import Column from './Column'
-import Modal from '../../modal/Modal'
 import {
   openModalTaskDetails,
   setTaskDetails,
 } from '../../task-details/taskDetails.actions'
 import TaskDetailsModal from '../../task-details/TaskDetailsModal'
-import { TaskType, ColumnType } from '../boards.reducer'
+import { TaskType } from '../boards.reducer'
 
 function Board() {
   const dispatch = useAppDispatch()
@@ -45,11 +44,7 @@ function Board() {
 
   return (
     <>
-      {taskDetailsModalIsOpen && (
-        <Modal>
-          <TaskDetailsModal />
-        </Modal>
-      )}
+      {taskDetailsModalIsOpen && <TaskDetailsModal />}
       <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
         {currentColumnsNames.length > 0 ? (
           <div className="board__columns">
