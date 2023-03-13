@@ -330,7 +330,7 @@
       ],
       "tasks": [
         {
-          "taskId": "0",
+          "taskId": "17",
           "title": "Plan Product Hunt launch",
           "description": "",
           "status": "Todo",
@@ -363,7 +363,7 @@
           ]
         },
         {
-          "taskId": "1",
+          "taskId": "18",
           "title": "Share on Show HN",
           "description": "",
           "status": "Todo",
@@ -384,7 +384,7 @@
           ]
         },
         {
-          "taskId": "2",
+          "taskId": "19",
           "title": "Write launch article to publish on multiple channels",
           "description": "",
           "position": 2,
@@ -420,7 +420,7 @@
       ],
       "tasks": [
         {
-          "taskId": "0",
+          "taskId": "20",
           "title": "Launch version one",
           "description": "",
           "status": "Now",
@@ -437,7 +437,7 @@
           ]
         },
         {
-          "taskId": "1",
+          "taskId": "21",
           "title": "Review early feedback and plan next steps for roadmap",
           "description": "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
           "status": "Now",

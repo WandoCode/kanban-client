@@ -13,10 +13,13 @@ import Textarea from '../../components/atoms/Input/Textarea'
 import { useEffect } from 'react'
 import { addTaskAndSave, updateTaskAndSave } from '../board/boards.thunk'
 import { v4 as uuidv4 } from 'uuid'
+import { SubtaskType } from '../board/boards.reducer'
 
 function ModalTaskForm() {
   const dispatch = useAppDispatch()
-  const { formDatas, isEditing } = useAppSelector((state) => state.taskForm)
+  const { formDatas, isEditing, formErrors } = useAppSelector(
+    (state) => state.taskForm
+  )
   const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
@@ -36,6 +39,7 @@ function ModalTaskForm() {
 
     if (invalidFields.length !== 0) {
       dispatch(setErrors(invalidFields))
+      //TODO: show errors
     } else {
       if (isEditing) {
         dispatch(updateTaskAndSave(true))
@@ -52,10 +56,18 @@ function ModalTaskForm() {
     for (const fieldName in formDatas) {
       const input = formDatas[fieldName]
 
-      if (input !== 'subtasks' && input.length === 0) {
+      if (fieldName === 'title' && input.length === 0) {
         invalidFields.push(fieldName)
       }
+
+      if (fieldName === 'subtasks') {
+        input.forEach((el: SubtaskType, i: number) => {
+          if (el.title.length === 0) invalidFields.push(`subtask-${i}`)
+        })
+      }
     }
+    console.log(invalidFields)
+
     return invalidFields
   }
 
@@ -70,7 +82,7 @@ function ModalTaskForm() {
           label="Title"
           id="title"
           errorText="Incorrect value"
-          hasError={false}
+          hasError={formErrors.includes('title')}
           onChange={(e) => dispatch(updateInput('title', e.target.value))}
           value={formDatas.title}
         />
@@ -80,7 +92,7 @@ function ModalTaskForm() {
           label="Description"
           id="description"
           errorText="Incorrect value"
-          hasError={false}
+          hasError={formErrors.includes('description')}
           onChange={(e) => dispatch(updateInput('description', e.target.value))}
           value={formDatas.description}
         />
@@ -100,7 +112,7 @@ function ModalTaskForm() {
                   showLabel={false}
                   id={`subtask-${i}`}
                   errorText="Incorrect value"
-                  hasError={false}
+                  hasError={formErrors.includes(`subtask-${i}`)}
                   onChange={(e) =>
                     dispatch(updateSubtask(0, e.target.value, false))
                   }
@@ -116,7 +128,7 @@ function ModalTaskForm() {
                 showLabel={false}
                 id="subtask-0"
                 errorText="Incorrect value"
-                hasError={false}
+                hasError={formErrors.includes('subtask-0')}
                 onChange={(e) =>
                   dispatch(updateSubtask(0, e.target.value, false))
                 }
@@ -128,7 +140,7 @@ function ModalTaskForm() {
                 showLabel={false}
                 id="subtask-1"
                 errorText="Incorrect value"
-                hasError={false}
+                hasError={formErrors.includes('subtask-1')}
                 onChange={(e) =>
                   dispatch(updateSubtask(1, e.target.value, false))
                 }

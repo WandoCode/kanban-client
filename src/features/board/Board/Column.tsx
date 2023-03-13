@@ -20,7 +20,7 @@ function Column({ tasks, columnDetails, handleOpenTask }: Props) {
         </h2>
       </div>
       {tasks?.map((task) => (
-        <Task task={task} key={task.title} openTask={handleOpenTask} />
+        <Task task={task} key={task.taskId} openTask={handleOpenTask} />
       ))}
     </div>
   )
