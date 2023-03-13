@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { addTaskAndSave, updateTaskAndSave } from '../board/boards.thunk'
 import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
+import SubtaskInput from './SubtaskInput'
 
 function ModalTaskForm() {
   const dispatch = useAppDispatch()
@@ -23,8 +24,9 @@ function ModalTaskForm() {
   const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
+    if (isEditing) return
     dispatch(updateInput('status', currentColumnsNames[0]))
-  }, [currentColumnsNames])
+  }, [])
 
   const handleCloseModal = (e: MouseEvent) => {
     const target = e.target as HTMLElement
@@ -66,9 +68,16 @@ function ModalTaskForm() {
         })
       }
     }
-    console.log(invalidFields)
 
     return invalidFields
+  }
+
+  const onChangeHandler = (
+    subtaskIndex: number,
+    value: string,
+    subtaskIsCompleted: boolean
+  ) => {
+    dispatch(updateSubtask(subtaskIndex, value, subtaskIsCompleted))
   }
 
   return (
@@ -105,46 +114,32 @@ function ModalTaskForm() {
           {isEditing ? (
             <>
               {formDatas.subtasks.map((subtask, i) => (
-                <InputText
+                <SubtaskInput
                   key={`subtask-${i}`}
-                  placeholder="e.g. Make coffee"
-                  label={`subtask-${i}`}
-                  showLabel={false}
-                  id={`subtask-${i}`}
-                  errorText="Incorrect value"
-                  hasError={formErrors.includes(`subtask-${i}`)}
-                  onChange={(e) =>
-                    dispatch(updateSubtask(0, e.target.value, false))
-                  }
-                  value={subtask.title}
+                  formErrors={formErrors}
+                  subtaskIndex={i}
+                  onChangeHandler={onChangeHandler}
+                  subtask={subtask}
                 />
               ))}
             </>
           ) : (
             <>
-              <InputText
+              <SubtaskInput
+                key={`subtask-${0}`}
+                formErrors={formErrors}
+                subtaskIndex={0}
+                onChangeHandler={onChangeHandler}
+                subtask={formDatas.subtasks[0]}
                 placeholder="e.g. Make coffee"
-                label="subtask-0"
-                showLabel={false}
-                id="subtask-0"
-                errorText="Incorrect value"
-                hasError={formErrors.includes('subtask-0')}
-                onChange={(e) =>
-                  dispatch(updateSubtask(0, e.target.value, false))
-                }
-                value={formDatas.subtasks[0].title}
               />
-              <InputText
+              <SubtaskInput
+                key={`subtask-${1}`}
+                formErrors={formErrors}
+                subtaskIndex={1}
+                onChangeHandler={onChangeHandler}
+                subtask={formDatas.subtasks[1]}
                 placeholder="e.g. Drink coffee & smile"
-                label="subtask-1"
-                showLabel={false}
-                id="subtask-1"
-                errorText="Incorrect value"
-                hasError={formErrors.includes('subtask-1')}
-                onChange={(e) =>
-                  dispatch(updateSubtask(1, e.target.value, false))
-                }
-                value={formDatas.subtasks[1].title}
               />
             </>
           )}
