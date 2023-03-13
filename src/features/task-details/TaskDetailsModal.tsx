@@ -17,9 +17,10 @@ function TaskDetailsModal() {
   const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
   useEffect(() => {
-    document.body.addEventListener('click', handleCloseModal)
+    document.body.addEventListener('mousedown', handleCloseModal)
 
-    return () => document.body.removeEventListener('click', handleCloseModal)
+    return () =>
+      document.body.removeEventListener('mousedown', handleCloseModal)
   }, [])
 
   const handleCloseModal = (e: MouseEvent) => {
