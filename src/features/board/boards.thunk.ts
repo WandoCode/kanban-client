@@ -4,6 +4,7 @@ import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
 import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
 import { BoardsDatasType, TaskType, BoardType } from './boards.reducer'
+import { updateUserBoardsAndSave } from '../session/session.thunks'
 
 export function fetchUserBoards(): ThunkAction<
   void,
@@ -21,24 +22,40 @@ export function fetchUserBoards(): ThunkAction<
 
     if (boards) {
       // At the openning, the first board is displayed
-      const currentBoardName = boardsShort[0].id
+      const currentBoardId = boardsShort[0].id
 
-      dispatch(changeBoard(currentBoardName))
-      dispatch(setBoards({ boards }))
+      const newBoardDatas = boards[currentBoardId]
+
+      const newColumnsArrayByStatus = getColumnsArrayByStatus(
+        newBoardDatas.tasks
+      )
+      const newColumns = newBoardDatas.columns
+      const newColumnsNames = newColumns.map((col) => col.name)
+
+      dispatch(
+        setBoards(
+          { boards },
+          currentBoardId,
+          newColumns,
+          newColumnsNames,
+          newColumnsArrayByStatus
+        )
+      )
     }
   }
 }
 
 export function changeBoard(
-  newBoardName: string
+  newBoardId: string
 ): ThunkAction<void, RootState, unknown, AnyAction> {
   return function fetchUserBoardsThunk(dispatch, getState) {
     const state = getState()
     const { boards } = state.boards
 
-    if (!boards || !newBoardName) return
+    if (!boards || !newBoardId) return
 
-    const newBoardDatas = boards[newBoardName]
+    const newBoardDatas = boards[newBoardId]
+    console.log(boards)
 
     const newColumnsArrayByStatus = getColumnsArrayByStatus(newBoardDatas.tasks)
     const newColumns = newBoardDatas.columns
@@ -46,7 +63,7 @@ export function changeBoard(
 
     dispatch(
       applyChangeBoard(
-        newBoardName,
+        newBoardId,
         newColumns,
         newColumnsNames,
         newColumnsArrayByStatus
@@ -129,11 +146,15 @@ export function addBoardAndSave(
 
     const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
-    copyBoards[newBoard.name] = newBoard
+    copyBoards[newBoard.id] = newBoard
 
     try {
-      await boardsStore.addBoard(userID, newBoard)
+      // TODO: UPDATE firestore boards with new board
+
       dispatch(updateBoards(copyBoards))
+      await boardsStore.addBoard(userID, newBoard)
+
+      dispatch(updateUserBoardsAndSave(userID, copyBoards))
     } catch (err) {
       console.error(err)
     }

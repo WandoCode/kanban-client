@@ -15,7 +15,6 @@ import {
 
 interface BoardFormDatas {
   boardName: string
-  boardId: string
   columns: ColumnType[]
   [key: string]: any
 }
@@ -32,7 +31,6 @@ const initialState: InitialState = {
   boardFormModalIsOpen: false,
   isEditing: false,
   formDatas: {
-    boardId: '',
     boardName: '',
     columns: [{ ...emptyColumn }],
   },
@@ -41,11 +39,15 @@ const initialState: InitialState = {
 
 const boardFormReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(openBoardFormModal, (state) => {
+    .addCase(openBoardFormModal, (state, action) => {
       state.boardFormModalIsOpen = true
+      state.isEditing = action.payload.isEditing
     })
     .addCase(closeBoardFormModal, (state) => {
       state.boardFormModalIsOpen = false
+      state.isEditing = false
+      state.formDatas = initialState.formDatas
+      state.formErrors = []
     })
     .addCase(updateInput, (state, action) => {
       const { fieldName, newValue } = action.payload

@@ -5,9 +5,6 @@ import { boardsStore } from './store/boardsStore'
 import { useAppSelector, useAppDispatch } from './features/app.store'
 
 function App() {
-  const { boards } = useAppSelector((state) => state.boards)
-  const dispatch = useAppDispatch()
-
   useEffect(() => {
     const env = process.env.NODE_ENV
 

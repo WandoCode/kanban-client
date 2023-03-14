@@ -3,19 +3,33 @@ import { BoardsDatasType, TaskType, ColumnType } from './boards.reducer'
 
 export const setBoards = createAction(
   'boards/setBoards',
-  ({ boards }: { boards: BoardsDatasType }) => ({ payload: { boards } })
-)
-
-export const applyChangeBoard = createAction(
-  'boards/applyChangeBoard',
   (
-    newBoardName: string,
+    { boards }: { boards: BoardsDatasType },
+    currentBoardId: string,
     newColumns: ColumnType[],
     newColumnsNames: string[],
     newColumnsArrayByStatus: Record<string, TaskType[]>
   ) => ({
     payload: {
-      newBoardName,
+      boards,
+      currentBoardId,
+      newColumnsArrayByStatus,
+      newColumns,
+      newColumnsNames,
+    },
+  })
+)
+
+export const applyChangeBoard = createAction(
+  'boards/applyChangeBoard',
+  (
+    newBoardId: string,
+    newColumns: ColumnType[],
+    newColumnsNames: string[],
+    newColumnsArrayByStatus: Record<string, TaskType[]>
+  ) => ({
+    payload: {
+      newBoardId,
       newColumns,
       newColumnsNames,
       newColumnsArrayByStatus,

@@ -1,6 +1,9 @@
 import { createAction } from '@reduxjs/toolkit'
 
-export const openBoardFormModal = createAction('boardForm/openBoardFormModal')
+export const openBoardFormModal = createAction(
+  'boardForm/openBoardFormModal',
+  (isEditing: boolean = false) => ({ payload: { isEditing } })
+)
 
 export const closeBoardFormModal = createAction('boardForm/closeBoardFormModal')
 

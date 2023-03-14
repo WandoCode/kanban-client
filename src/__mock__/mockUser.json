@@ -6,9 +6,9 @@
       "email": "azerty@gmail.com",
       "password": "xxxx",
       "boardsShort": [
-        { "id": "Platform Launch", "name": "Platform Launch" },
-        { "id": "Marketing Plan", "name": "Marketing Plan" },
-        { "id": "Roadmap", "name": "Roadmap" }
+        { "id": "120", "name": "Platform Launch" },
+        { "id": "121", "name": "Marketing Plan" },
+        { "id": "122", "name": "Roadmap" }
       ]
     },
     "Platform Launch": {

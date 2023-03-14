@@ -31,6 +31,21 @@ export const boardsStore = {
     }
     return undefined
   },
+  updateUserBoardsShort: async (
+    userID: string,
+    newBoardsShort: BoardShort[]
+  ) => {
+    try {
+      const detailsRef = doc(db, userID, 'details')
+      updateDoc(detailsRef, { boardsShort: newBoardsShort })
+    } catch (error) {
+      console.error(
+        'Impossible to update the user details with a new boardsShort array',
+        error
+      )
+    }
+    return undefined
+  },
   getUserBoards: async (
     userID: string,
     boardsShort: BoardShort[]
@@ -44,7 +59,7 @@ export const boardsStore = {
 
         if (boardSnap.exists()) {
           const board = boardSnap.data() as BoardType
-          boards[boardShort.name] = board
+          boards[boardShort.id] = board
         } else {
           console.error(
             'Impossible to find the board for the given user. Board: ',
@@ -69,7 +84,7 @@ export const boardsStore = {
   },
   addBoard: async (userID: string, newBoard: BoardType) => {
     try {
-      await setDoc(doc(db, userID, newBoard.name), newBoard)
+      await setDoc(doc(db, userID, newBoard.id), newBoard)
     } catch (error) {
       console.error(error)
     }
@@ -88,8 +103,8 @@ export const boardsStore = {
 
           boardsJSON.userA.details.boardsShort.forEach(async (board) => {
             const boards = boardsJSON.userA as Record<string, any>
-            const boardDatas = boards[board.id]
-            await transaction.set(doc(db, 'userA', board.name), boardDatas)
+            const boardDatas = boards[board.name]
+            await transaction.set(doc(db, 'userA', board.id), boardDatas)
           })
         }
       })

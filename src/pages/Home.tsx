@@ -17,7 +17,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchUserBoards())
-  }, [boardsShort, userID])
+  }, [userID])
 
   return (
     <div className="home">

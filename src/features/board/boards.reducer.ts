@@ -52,19 +52,33 @@ const initialState: BoardsType = {
 const boardsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setBoards, (state, action) => {
-      state.boards = action.payload.boards
+      const {
+        boards,
+        currentBoardId,
+        newColumns,
+        newColumnsNames,
+        newColumnsArrayByStatus,
+      } = action.payload
+      state.boards = boards
+      state.currentBoardId = currentBoardId
+      state.columnsArrayByStatus = newColumnsArrayByStatus
+      state.currentColumns = newColumns
+      state.currentColumnsNames = newColumnsNames
     })
     .addCase(applyChangeBoard, (state, action) => {
       const {
         newColumns,
         newColumnsArrayByStatus,
         newColumnsNames,
-        newBoardName,
+        newBoardId,
       } = action.payload
-      state.currentBoardId = newBoardName
+      state.currentBoardId = newBoardId
       state.columnsArrayByStatus = newColumnsArrayByStatus
       state.currentColumns = newColumns
       state.currentColumnsNames = newColumnsNames
+      console.log(newBoardId)
+
+      console.log(state.currentBoardId)
     })
     .addCase(setColumnsArrayByStatus, (state, action) => {
       state.columnsArrayByStatus = action.payload.columnsArrayByStatus
@@ -72,6 +86,7 @@ const boardsReducer = createReducer(initialState, (builder) => {
     .addCase(updateBoards, (state, action) => {
       const newBoards = action.payload.boards
       state.boards = newBoards
+
       state.columnsArrayByStatus = getColumnsArrayByStatus(
         newBoards[state.currentBoardId].tasks
       )

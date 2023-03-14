@@ -36,6 +36,8 @@ function ModalTaskForm() {
       dispatch(setErrors(invalidFields))
       //TODO: show errors
     } else {
+      dispatch(setErrors([]))
+
       if (isEditing) {
         dispatch(updateTaskAndSave(true))
       } else {
