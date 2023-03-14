@@ -14,7 +14,7 @@ import { useEffect } from 'react'
 import { addTaskAndSave, updateTaskAndSave } from '../board/boards.thunk'
 import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
-import SubtaskInput from './SubtaskInput'
+import InputWithCancel from '../../components/molecules/InputWithCancel'
 import { removeSubtask, addSubtask } from './taskForm.actions'
 
 function ModalTaskForm() {
@@ -126,14 +126,17 @@ function ModalTaskForm() {
           </legend>
 
           {formDatas.subtasks.map((subtask, i) => (
-            <SubtaskInput
+            <InputWithCancel
               key={`subtask-${i}`}
-              formErrors={formErrors}
+              hasError={formErrors.includes(`subtask-${i}`)}
               subtaskIndex={i}
-              onChangeHandler={onChangeHandler}
-              subtask={subtask}
+              onChangeHandler={(value) =>
+                onChangeHandler(i, value, subtask.isCompleted)
+              }
               handleRemoveSubtask={handleRemoveSubtask}
               placeholder={getSubtaskPlaceholder(i)}
+              id={`subtask-${i}`}
+              currentValue={subtask.title}
             />
           ))}
 

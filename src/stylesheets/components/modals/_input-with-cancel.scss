@@ -1,0 +1,14 @@
+@use '../../abstracts/' as *;
+
+.input-with-cancel {
+  display: flex;
+  gap: rem(16);
+
+  & > *:first-child {
+    flex: 1;
+  }
+  &__img--error {
+    filter: brightness(0) saturate(100%) invert(35%) sepia(86%) saturate(390%)
+      hue-rotate(311deg) brightness(112%) contrast(115%);
+  }
+}
