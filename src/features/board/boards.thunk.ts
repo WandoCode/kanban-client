@@ -3,8 +3,7 @@ import { RootState } from '../app.store'
 import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
 import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
-import { BoardsDatasType, BoardsType, TaskType } from './boards.reducer'
-import { addTask } from '../session/session.thunks'
+import { BoardsDatasType, TaskType, BoardType } from './boards.reducer'
 
 export function fetchUserBoards(): ThunkAction<
   void,
@@ -76,7 +75,7 @@ export function addTaskAndSave(
         currentBoardId,
         copyBoards[currentBoardId].tasks
       )
-      dispatch(updateBoards(copyBoards, currentBoardId))
+      dispatch(updateBoards(copyBoards))
     } catch (err) {
       console.error(err)
     }
@@ -111,7 +110,30 @@ export function updateTaskAndSave(
         currentBoardId,
         copyBoards[currentBoardId].tasks
       )
-      dispatch(updateBoards(copyBoards, currentBoardId))
+      dispatch(updateBoards(copyBoards))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+export function addBoardAndSave(
+  newBoard: BoardType
+): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async function addBoardAndSaveThunk(dispatch, getState) {
+    const state = getState()
+    const userID = state.session.userID
+    const { boards } = state.boards
+
+    if (!boards || !userID) return
+
+    const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
+
+    copyBoards[newBoard.name] = newBoard
+
+    try {
+      await boardsStore.addBoard(userID, newBoard)
+      dispatch(updateBoards(copyBoards))
     } catch (err) {
       console.error(err)
     }

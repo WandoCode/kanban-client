@@ -71,10 +71,9 @@ const boardsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateBoards, (state, action) => {
       const newBoards = action.payload.boards
-      const currentBoardID = action.payload.currentBoardID
       state.boards = newBoards
       state.columnsArrayByStatus = getColumnsArrayByStatus(
-        newBoards[currentBoardID].tasks
+        newBoards[state.currentBoardId].tasks
       )
     })
 })

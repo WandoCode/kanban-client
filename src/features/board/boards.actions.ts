@@ -32,7 +32,7 @@ export const setColumnsArrayByStatus = createAction(
 
 export const updateBoards = createAction(
   'boards/updateBoards',
-  (boards: BoardsDatasType, currentBoardID: string) => ({
-    payload: { boards, currentBoardID },
+  (boards: BoardsDatasType) => ({
+    payload: { boards },
   })
 )

@@ -5,6 +5,7 @@ import {
   doc,
   getDoc,
   runTransaction,
+  setDoc,
   updateDoc,
 } from 'firebase/firestore'
 import { Session, BoardShort } from '../features/session/session.reducers'
@@ -62,6 +63,13 @@ export const boardsStore = {
     try {
       const docRef = doc(db, userID, boardID)
       updateDoc(docRef, { tasks: newTasks })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  addBoard: async (userID: string, newBoard: BoardType) => {
+    try {
+      await setDoc(doc(db, userID, newBoard.name), newBoard)
     } catch (error) {
       console.error(error)
     }
