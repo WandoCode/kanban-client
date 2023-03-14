@@ -5,7 +5,7 @@ interface Props {
   type: 'primary-l' | 'primary-s' | 'secondary' | 'destructive'
   className?: string
   imgRef?: string
-  onClick: (e: MouseEvent) => void
+  onClick: () => void
 }
 
 function Button({ text, className, type, onClick, imgRef }: Props) {
@@ -14,8 +14,13 @@ function Button({ text, className, type, onClick, imgRef }: Props) {
     return className ? `${base} ${className}` : base
   }
 
+  const handleClick = (e: MouseEvent) => {
+    e.preventDefault()
+    onClick()
+  }
+
   return (
-    <button className={btnClassName()} onClick={onClick}>
+    <button className={btnClassName()} onClick={handleClick}>
       {imgRef && <img src={imgRef} alt=" " />}
 
       {text}

@@ -1,11 +1,7 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import Button from '../../atoms/Button/Button'
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../features/app.store'
+import { useAppDispatch, useAppSelector } from '../../../features/app.store'
 import MiscMenu from '../../../features/menus/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 import ModalTaskForm from '../../../features/taskForm/ModalTaskForm'

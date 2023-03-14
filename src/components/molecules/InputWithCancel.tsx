@@ -1,38 +1,48 @@
 import InputText from '../atoms/Input/InputText'
 import { SubtaskType } from '../../features/board/boards.reducer'
 import IconCross from '../../assets/icon-cross.svg'
-import { ChangeEvent, MouseEvent } from 'react'
+import { ChangeEvent, MouseEvent, useState } from 'react'
+import { HexColorPicker } from 'react-colorful'
 
 interface Props {
   hasError: boolean
-  subtaskIndex: number
-  onChangeHandler: (value: string) => void
+  onChangeValue: (value: string) => void
   placeholder?: string
-  handleRemoveSubtask: (subtaskIndex: number) => void
+  handleRemove: () => void
   id: string
   currentValue: string
+  withColorPicker?: boolean
+  onChangeColor?: (value: string) => void
+  currentColor?: string
 }
 
 const InputWithCancel = ({
   hasError,
-  subtaskIndex,
-  onChangeHandler,
+  onChangeValue,
   placeholder,
-  handleRemoveSubtask,
+  handleRemove,
   id,
   currentValue,
+  currentColor,
+  withColorPicker = false,
+  onChangeColor,
 }: Props) => {
-  const handleBtnClick = (e: MouseEvent) => {
-    e.preventDefault()
-
-    handleRemoveSubtask(subtaskIndex)
-  }
-
+  const [colorPickerIsOpen, setColorPickerIsOpen] = useState(false)
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    onChangeHandler(value)
+    onChangeValue(value)
   }
 
+  const toggleColorPicker = (e: MouseEvent) => {
+    e.preventDefault()
+    setColorPickerIsOpen((old) => !old)
+  }
+
+  const onRemove = (e: MouseEvent) => {
+    e.preventDefault()
+
+    handleRemove()
+  }
   return (
     <div className="input-with-cancel">
       <InputText
@@ -45,7 +55,14 @@ const InputWithCancel = ({
         onChange={handleInputChange}
         value={currentValue}
       />
-      <button className="btn--transparent" onClick={handleBtnClick}>
+      {withColorPicker && (
+        <button
+          className="input-with-cancel__color-btn"
+          style={{ backgroundColor: currentColor }}
+          onClick={toggleColorPicker}
+        ></button>
+      )}
+      <button className="btn--transparent" onClick={onRemove}>
         <span className="visually-hidden">Remove input field</span>
         <img
           className={
@@ -57,6 +74,14 @@ const InputWithCancel = ({
           alt="Cross"
         />
       </button>
+      {colorPickerIsOpen &&
+        currentColor &&
+        onChangeColor &&
+        withColorPicker && (
+          <div className="input-with-cancel__color-picker">
+            <HexColorPicker color={currentColor} onChange={onChangeColor} />
+          </div>
+        )}
     </div>
   )
 }

@@ -62,6 +62,7 @@ function Board() {
               text="+ Add New Column"
               type="primary-l"
               onClick={() => {}}
+              // TODO: Edit Board
             />
           </div>
         )}

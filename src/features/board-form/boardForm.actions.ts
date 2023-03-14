@@ -1,5 +1,9 @@
 import { createAction } from '@reduxjs/toolkit'
 
+export const openBoardFormModal = createAction('boardForm/openBoardFormModal')
+
+export const closeBoardFormModal = createAction('boardForm/closeBoardFormModal')
+
 export const updateInput = createAction(
   'boardForm/updateInput',
   (fieldName: string, newValue: string) => ({
@@ -7,10 +11,19 @@ export const updateInput = createAction(
   })
 )
 
-export const updateColumn = createAction(
-  'boardForm/updateColumn',
-  (columnIndex: number, columnName: string, columnColor: string) => ({
-    payload: { columnIndex, columnName, columnColor },
+export const addColumn = createAction('boardForm/addColumn')
+
+export const updateColumnName = createAction(
+  'boardForm/updateColumnName',
+  (columnIndex: number, columnName: string) => ({
+    payload: { columnIndex, columnName },
+  })
+)
+
+export const updateColumncolor = createAction(
+  'boardForm/updateColumncolor',
+  (columnIndex: number, columnColor: string) => ({
+    payload: { columnIndex, columnColor },
   })
 )
 

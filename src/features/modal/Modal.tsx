@@ -2,10 +2,10 @@ import { PropsWithChildren, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 interface Props extends PropsWithChildren {
-  handleCloseModal: (e: MouseEvent) => void
+  closeModal: () => void
 }
 
-function Modal({ handleCloseModal, children }: Props) {
+function Modal({ closeModal, children }: Props) {
   const modalRoot = document.getElementById('modal-root')
 
   useEffect(() => {
@@ -14,6 +14,12 @@ function Modal({ handleCloseModal, children }: Props) {
     return () =>
       document.body.removeEventListener('mousedown', handleCloseModal)
   }, [])
+
+  const handleCloseModal = (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+
+    if (target.classList.contains('modal')) closeModal()
+  }
 
   if (!modalRoot) return null
   else

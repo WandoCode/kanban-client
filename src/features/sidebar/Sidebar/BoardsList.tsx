@@ -1,16 +1,21 @@
 import BoardItem from './BoardItem'
-import { Session, BoardShort } from '../../session/session.reducers'
+import { BoardShort } from '../../session/session.reducers'
 import iconBoard from '../../../assets/icon-board.svg'
 import Button from '../../../components/atoms/Button/Button'
-import { BoardsType, BoardsDatasType } from '../../board/boards.reducer'
 
 interface Props {
   boards: BoardShort[]
   onClickOpenBoard: (boardID: string) => void
   currentBoard: string
+  onOpenBoardFormModal: () => void
 }
 
-function BoardsList({ boards, onClickOpenBoard, currentBoard }: Props) {
+function BoardsList({
+  boards,
+  onClickOpenBoard,
+  currentBoard,
+  onOpenBoardFormModal,
+}: Props) {
   const boardList = () => {
     return boards.map((board) => (
       <BoardItem
@@ -31,7 +36,7 @@ function BoardsList({ boards, onClickOpenBoard, currentBoard }: Props) {
           text="+ Create New Board"
           type="primary-l"
           imgRef={iconBoard}
-          onClick={() => {}}
+          onClick={onOpenBoardFormModal}
         />
       </li>
     </ul>

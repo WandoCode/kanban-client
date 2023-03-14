@@ -7,12 +7,15 @@ import { useAppDispatch, useAppSelector, RootState } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
+import { openBoardFormModal } from '../../board-form/boardForm.actions'
+import BoardForm from '../../board-form/BoardForm'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
-  const { boardsShort } = useAppSelector((state: RootState) => state.session)
-  const { menuIsOpen } = useAppSelector((state: RootState) => state.sidebar)
-  const { currentBoardId } = useAppSelector((state: RootState) => state.boards)
+  const { boardsShort } = useAppSelector((state) => state.session)
+  const { menuIsOpen } = useAppSelector((state) => state.sidebar)
+  const { currentBoardId } = useAppSelector((state) => state.boards)
+  const { boardFormModalIsOpen } = useAppSelector((state) => state.boardForm)
 
   const menuClassName = () => {
     return menuIsOpen ? 'menu menu--open' : 'menu menu--close'
@@ -28,33 +31,37 @@ export default function Sidebar() {
   }
 
   return (
-    <nav className={menuClassName()}>
-      <div className="menu__event-close" onClick={handleClose}>
-        <div className="menu__wrapper">
-          <div className="menu__sup">
-            <h2 className="menu__heading heading-s">
-              All boards ({boardsShort.length})
-            </h2>
-            <BoardsList
-              boards={boardsShort}
-              onClickOpenBoard={onClickOpenBoard}
-              currentBoard={currentBoardId}
-            />
-          </div>
-          <div className="menu__inf">
-            <ThemeSwitch />
-            <div className="hide-mobile">
-              <Button
-                className="board-btn btn--transparent"
-                text="Hide Sidebar"
-                type="primary-l"
-                imgRef={iconEyeHide}
-                onClick={() => dispatch(closeMenu())}
+    <>
+      {boardFormModalIsOpen && <BoardForm />}
+      <nav className={menuClassName()}>
+        <div className="menu__event-close" onClick={handleClose}>
+          <div className="menu__wrapper">
+            <div className="menu__sup">
+              <h2 className="menu__heading heading-s">
+                All boards ({boardsShort.length})
+              </h2>
+              <BoardsList
+                boards={boardsShort}
+                onClickOpenBoard={onClickOpenBoard}
+                currentBoard={currentBoardId}
+                onOpenBoardFormModal={() => dispatch(openBoardFormModal())}
               />
+            </div>
+            <div className="menu__inf">
+              <ThemeSwitch />
+              <div className="hide-mobile">
+                <Button
+                  className="board-btn btn--transparent"
+                  text="Hide Sidebar"
+                  type="primary-l"
+                  imgRef={iconEyeHide}
+                  onClick={() => dispatch(closeMenu())}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   )
 }

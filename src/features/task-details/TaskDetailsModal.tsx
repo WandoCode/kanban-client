@@ -17,20 +17,9 @@ function TaskDetailsModal() {
   const { task } = useAppSelector((state) => state.taskDetails)
   const { currentColumnsNames } = useAppSelector((state) => state.boards)
 
-  useEffect(() => {
-    document.body.addEventListener('mousedown', handleCloseModal)
-
-    return () =>
-      document.body.removeEventListener('mousedown', handleCloseModal)
-  }, [])
-
-  const handleCloseModal = (e: MouseEvent) => {
-    const target = e.target as HTMLElement
-
-    if (target.classList.contains('modal')) {
-      dispatch(updateTaskAndSave(false))
-      dispatch(closeModalTaskDetails())
-    }
+  const closeModal = () => {
+    dispatch(updateTaskAndSave(false))
+    dispatch(closeModalTaskDetails())
   }
 
   const handleSubtaskClick = (idString: string) => {
@@ -53,7 +42,7 @@ function TaskDetailsModal() {
   }
 
   return (
-    <Modal handleCloseModal={handleCloseModal}>
+    <Modal closeModal={closeModal}>
       <div className="modal-task-details modal-add-task">
         <div className="modal-task-details__header">
           <h2 className="heading-l">{task.title}</h2>

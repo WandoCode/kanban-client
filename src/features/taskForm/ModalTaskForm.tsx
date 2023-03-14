@@ -29,15 +29,7 @@ function ModalTaskForm() {
     dispatch(updateInput('status', currentColumnsNames[0]))
   }, [])
 
-  const handleCloseModal = (e: MouseEvent) => {
-    const target = e.target as HTMLElement
-
-    if (target.classList.contains('modal')) dispatch(closeTaskFormModal())
-  }
-
-  const handleSubmit = (e: React.MouseEvent) => {
-    e.preventDefault()
-
+  const handleSubmit = () => {
     const invalidFields = validateNewTaskForm()
 
     if (invalidFields.length !== 0) {
@@ -90,12 +82,8 @@ function ModalTaskForm() {
     if (i === 1) return 'e.g. Drink coffee & smile'
   }
 
-  const handleAddSubtask = (e: React.MouseEvent) => {
-    e.preventDefault()
-    dispatch(addSubtask())
-  }
   return (
-    <Modal handleCloseModal={handleCloseModal}>
+    <Modal closeModal={() => dispatch(closeTaskFormModal())}>
       <form className="modal-add-task">
         <h2 className="heading-l">
           {isEditing ? 'Edit Task' : 'Add New Task'}
@@ -121,7 +109,7 @@ function ModalTaskForm() {
         />
 
         <fieldset>
-          <legend className=" modal-add-task__subtasks-title text-bold fc-neutral-450">
+          <legend className="modal-add-task__subtasks-title text-bold fc-neutral-450">
             Subtasks
           </legend>
 
@@ -129,11 +117,10 @@ function ModalTaskForm() {
             <InputWithCancel
               key={`subtask-${i}`}
               hasError={formErrors.includes(`subtask-${i}`)}
-              subtaskIndex={i}
-              onChangeHandler={(value) =>
+              onChangeValue={(value) =>
                 onChangeHandler(i, value, subtask.isCompleted)
               }
-              handleRemoveSubtask={handleRemoveSubtask}
+              handleRemove={() => handleRemoveSubtask(i)}
               placeholder={getSubtaskPlaceholder(i)}
               id={`subtask-${i}`}
               currentValue={subtask.title}
@@ -143,7 +130,7 @@ function ModalTaskForm() {
           <Button
             text="+ Add New Subtask"
             type="secondary"
-            onClick={handleAddSubtask}
+            onClick={() => dispatch(addSubtask())}
           />
         </fieldset>
         <Select

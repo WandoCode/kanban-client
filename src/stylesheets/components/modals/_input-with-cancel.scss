@@ -1,12 +1,28 @@
 @use '../../abstracts/' as *;
 
 .input-with-cancel {
+  position: relative;
   display: flex;
+  align-items: center;
   gap: rem(16);
 
   & > *:first-child {
     flex: 1;
   }
+
+  &__color-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 10rem;
+    border: none;
+  }
+
+  &__color-picker {
+    position: absolute;
+    right: 0%;
+    bottom: 100%;
+  }
+
   &__img--error {
     filter: brightness(0) saturate(100%) invert(35%) sepia(86%) saturate(390%)
       hue-rotate(311deg) brightness(112%) contrast(115%);

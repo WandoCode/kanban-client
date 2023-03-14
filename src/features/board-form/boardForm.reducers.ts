@@ -1,10 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { ColumnType } from '../board/boards.reducer'
+import { updateColumncolor } from './boardForm.actions'
+import {
+  openBoardFormModal,
+  closeBoardFormModal,
+  updateColumnName,
+} from './boardForm.actions'
 import {
   updateInput,
-  updateColumn,
   removeColumn,
   setErrors,
+  addColumn,
 } from './boardForm.actions'
 
 interface BoardFormDatas {
@@ -15,37 +21,61 @@ interface BoardFormDatas {
 }
 
 interface InitialState {
+  boardFormModalIsOpen: boolean
   isEditing: boolean
   formDatas: BoardFormDatas
   formErrors: string[]
 }
 
+const emptyColumn = { name: '', color: '#49c4e5' }
 const initialState: InitialState = {
+  boardFormModalIsOpen: false,
   isEditing: false,
   formDatas: {
     boardId: '',
     boardName: '',
-    columns: [],
+    columns: [{ ...emptyColumn }],
   },
   formErrors: [],
 }
 
 const boardFormReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(openBoardFormModal, (state) => {
+      state.boardFormModalIsOpen = true
+    })
+    .addCase(closeBoardFormModal, (state) => {
+      state.boardFormModalIsOpen = false
+    })
     .addCase(updateInput, (state, action) => {
       const { fieldName, newValue } = action.payload
       state.formDatas[fieldName] = newValue
     })
-    .addCase(updateColumn, (state, action) => {
-      const { columnIndex, columnName, columnColor } = action.payload
+    .addCase(addColumn, (state) => {
+      const columnsCopy = [...state.formDatas.columns]
+      columnsCopy.push({ ...emptyColumn })
+      state.formDatas.columns = columnsCopy
+    })
+    .addCase(updateColumnName, (state, action) => {
+      const { columnIndex, columnName } = action.payload
       state.formDatas.columns[columnIndex].name = columnName
+    })
+    .addCase(updateColumncolor, (state, action) => {
+      const { columnIndex, columnColor } = action.payload
+
       state.formDatas.columns[columnIndex].color = columnColor
     })
     .addCase(removeColumn, (state, action) => {
       const { columnIndex } = action.payload
-      const columnsCopy = [...state.formDatas.columns]
-      columnsCopy.splice(columnIndex, 0)
-      state.formDatas.columns = columnsCopy
+
+      if (state.formDatas.columns.length === 1)
+        state.formDatas.columns = [{ ...emptyColumn }]
+      else {
+        const columnsCopy = [...state.formDatas.columns]
+        columnsCopy.splice(columnIndex, 1)
+
+        state.formDatas.columns = columnsCopy
+      }
     })
     .addCase(setErrors, (state, action) => {
       const { errors } = action.payload
