@@ -7,7 +7,7 @@ import menusReducer from './menus/menus.reducers'
 import sidebarReducer from './sidebar/sidebar.reducers'
 import taskDetailsReducer from './task-details/taskDetails.reducers'
 import boardsReducer from './board/boards.reducer'
-import taskFormReducer from './add-new-task/taskForm.reducers'
+import taskFormReducer from './taskForm/taskForm.reducers'
 
 const store = configureStore({
   reducer: {

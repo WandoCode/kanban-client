@@ -2,7 +2,7 @@ import EllipsisMenu from '../../components/molecules/EllipsisMenu'
 import { useAppDispatch, useAppSelector, RootState } from '../app.store'
 import { toggleTaskMenu } from './menus.actions'
 import { closeModalTaskDetails } from '../task-details/taskDetails.actions'
-import { openTaskFormModal } from '../add-new-task/taskForm.actions'
+import { openTaskFormModal } from '../taskForm/taskForm.actions'
 
 function TaskMenu() {
   const dispatch = useAppDispatch()

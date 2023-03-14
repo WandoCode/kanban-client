@@ -8,8 +8,8 @@ import {
 } from '../../../features/app.store'
 import MiscMenu from '../../../features/menus/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
-import ModalTaskForm from '../../../features/add-new-task/ModalTaskForm'
-import { openTaskFormModal } from '../../../features/add-new-task/taskForm.actions'
+import ModalTaskForm from '../../../features/taskForm/ModalTaskForm'
+import { openTaskFormModal } from '../../../features/taskForm/taskForm.actions'
 
 function Header() {
   const dispatch = useAppDispatch()
