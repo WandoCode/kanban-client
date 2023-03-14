@@ -86,16 +86,12 @@ export function addTaskAndSave(
 
     copyBoards[currentBoardId].tasks.push(task)
 
-    try {
-      await boardsStore.updateTask(
-        userID,
-        currentBoardId,
-        copyBoards[currentBoardId].tasks
-      )
-      dispatch(updateBoards(copyBoards))
-    } catch (err) {
-      console.error(err)
-    }
+    dispatch(updateBoards(copyBoards))
+    await boardsStore.updateTask(
+      userID,
+      currentBoardId,
+      copyBoards[currentBoardId].tasks
+    )
   }
 }
 
@@ -121,16 +117,13 @@ export function updateTaskAndSave(
 
     copyBoards[currentBoardId].tasks[taskIndex] = newTask
 
-    try {
-      await boardsStore.updateTask(
-        userID,
-        currentBoardId,
-        copyBoards[currentBoardId].tasks
-      )
-      dispatch(updateBoards(copyBoards))
-    } catch (err) {
-      console.error(err)
-    }
+    dispatch(updateBoards(copyBoards))
+
+    await boardsStore.updateTask(
+      userID,
+      currentBoardId,
+      copyBoards[currentBoardId].tasks
+    )
   }
 }
 
@@ -148,16 +141,31 @@ export function addBoardAndSave(
 
     copyBoards[newBoard.id] = newBoard
 
-    try {
-      // TODO: UPDATE firestore boards with new board
+    dispatch(updateBoards(copyBoards))
+    dispatch(updateUserBoardsAndSave(userID, copyBoards))
 
-      dispatch(updateBoards(copyBoards))
-      await boardsStore.addBoard(userID, newBoard)
+    await boardsStore.addBoard(userID, newBoard)
+  }
+}
 
-      dispatch(updateUserBoardsAndSave(userID, copyBoards))
-    } catch (err) {
-      console.error(err)
-    }
+export function updateBoardAndSave(
+  updatedBoard: BoardType
+): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async function updateBoardAndSaveThunk(dispatch, getState) {
+    const state = getState()
+    const userID = state.session.userID
+    const { boards } = state.boards
+
+    if (!boards || !userID) return
+
+    const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
+
+    copyBoards[updatedBoard.id] = updatedBoard
+
+    dispatch(updateBoards(copyBoards))
+    dispatch(updateUserBoardsAndSave(userID, copyBoards))
+
+    await boardsStore.updateBoard(userID, updatedBoard)
   }
 }
 

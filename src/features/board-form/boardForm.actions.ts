@@ -1,8 +1,11 @@
 import { createAction } from '@reduxjs/toolkit'
+import { BoardFormDatas } from './boardForm.reducers'
 
 export const openBoardFormModal = createAction(
   'boardForm/openBoardFormModal',
-  (isEditing: boolean = false) => ({ payload: { isEditing } })
+  (isEditing: boolean = false, formDatas?: BoardFormDatas) => ({
+    payload: { isEditing, formDatas },
+  })
 )
 
 export const closeBoardFormModal = createAction('boardForm/closeBoardFormModal')

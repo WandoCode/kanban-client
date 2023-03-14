@@ -32,7 +32,7 @@ export interface BoardsDatasType {
 }
 
 export interface BoardsType {
-  boards: BoardsDatasType | null
+  boards: BoardsDatasType
   currentBoardId: string
   currentColumns: ColumnType[]
   currentColumnsNames: string[]
@@ -42,7 +42,7 @@ export interface BoardsType {
 }
 
 const initialState: BoardsType = {
-  boards: null,
+  boards: {},
   currentBoardId: '',
   currentColumns: [],
   currentColumnsNames: [],

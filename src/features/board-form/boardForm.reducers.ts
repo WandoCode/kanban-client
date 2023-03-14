@@ -13,7 +13,7 @@ import {
   addColumn,
 } from './boardForm.actions'
 
-interface BoardFormDatas {
+export interface BoardFormDatas {
   boardName: string
   columns: ColumnType[]
   [key: string]: any
@@ -40,9 +40,13 @@ const initialState: InitialState = {
 const boardFormReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(openBoardFormModal, (state, action) => {
+      const { isEditing, formDatas } = action.payload
       state.boardFormModalIsOpen = true
-      state.isEditing = action.payload.isEditing
+      state.isEditing = isEditing
+
+      if (isEditing && formDatas) state.formDatas = formDatas
     })
+
     .addCase(closeBoardFormModal, (state) => {
       state.boardFormModalIsOpen = false
       state.isEditing = false

@@ -77,7 +77,7 @@ export const boardsStore = {
   updateTask: async (userID: string, boardID: string, newTasks: TaskType[]) => {
     try {
       const docRef = doc(db, userID, boardID)
-      updateDoc(docRef, { tasks: newTasks })
+      await updateDoc(docRef, { tasks: newTasks })
     } catch (error) {
       console.error(error)
     }
@@ -85,6 +85,14 @@ export const boardsStore = {
   addBoard: async (userID: string, newBoard: BoardType) => {
     try {
       await setDoc(doc(db, userID, newBoard.id), newBoard)
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  updateBoard: async (userID: string, newBoard: BoardType) => {
+    try {
+      const docRef = doc(db, userID, newBoard.id)
+      await updateDoc(docRef, { ...newBoard })
     } catch (error) {
       console.error(error)
     }

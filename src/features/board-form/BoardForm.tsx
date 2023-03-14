@@ -1,4 +1,3 @@
-import React, { MouseEvent } from 'react'
 import InputText from '../../components/atoms/Input/InputText'
 import { useAppSelector, useAppDispatch } from '../app.store'
 import Modal from '../modal/Modal'
@@ -17,14 +16,14 @@ import {
 import Button from '../../components/atoms/Button/Button'
 import { ColumnType, BoardType } from '../board/boards.reducer'
 import { v4 as uuidv4 } from 'uuid'
-import { addBoardAndSave } from '../board/boards.thunk'
-import { useEffect } from 'react'
+import { addBoardAndSave, updateBoardAndSave } from '../board/boards.thunk'
 
 const BoardForm = () => {
   const dispatch = useAppDispatch()
   const { isEditing, formDatas, formErrors } = useAppSelector(
     (state) => state.boardForm
   )
+  const { currentBoardId, boards } = useAppSelector((state) => state.boards)
 
   const onChangeValue = (elIndex: number, name: string) => {
     dispatch(updateColumnName(elIndex, name))
@@ -49,18 +48,20 @@ const BoardForm = () => {
     else {
       dispatch(setErrors([]))
 
+      const newBoard = {
+        name: formDatas.boardName,
+        columns: formDatas.columns,
+        tasks: [],
+      }
+
       if (!isEditing) {
         const boardId = uuidv4()
-        const newBoard: BoardType = {
-          id: boardId,
-          name: formDatas.boardName,
-          columns: formDatas.columns,
-          tasks: [],
-        }
-        dispatch(addBoardAndSave(newBoard))
+
+        dispatch(addBoardAndSave({ ...newBoard, id: boardId }))
       } else {
-        // dispatch(updateBoardAndSave(true))
+        dispatch(updateBoardAndSave({ ...newBoard, id: currentBoardId }))
       }
+
       onCloseModal()
     }
   }
@@ -99,7 +100,7 @@ const BoardForm = () => {
           errorText="Incorrect value"
           hasError={formErrors.includes('boardName')}
           onChange={(e) => dispatch(updateInput('boardName', e.target.value))}
-          value={formDatas.name}
+          value={formDatas.boardName}
         />
         <fieldset>
           <legend className="modal-add-task__subtasks-title text-bold fc-neutral-450">
