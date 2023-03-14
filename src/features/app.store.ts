@@ -8,6 +8,7 @@ import sidebarReducer from './sidebar/sidebar.reducers'
 import taskDetailsReducer from './task-details/taskDetails.reducers'
 import boardsReducer from './board/boards.reducer'
 import taskFormReducer from './taskForm/taskForm.reducers'
+import boardFormReducer from './board-form/boardForm.reducers'
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     taskForm: taskFormReducer,
     taskDetails: taskDetailsReducer,
     boards: boardsReducer,
+    boardForm: boardFormReducer,
   },
 })
 
