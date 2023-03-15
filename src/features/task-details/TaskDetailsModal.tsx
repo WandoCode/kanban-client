@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../app.store'
+import { useAppDispatch } from '../app.store'
 import { getNbrCompletedSubtask } from '../../utils/number'
 import InputCheck from '../../components/atoms/Input/InputCheck'
 import {
@@ -7,15 +7,14 @@ import {
   closeModalTaskDetails,
 } from './taskDetails.actions'
 import Select from '../../components/atoms/Select/Select'
-import { useEffect } from 'react'
 import { updateTaskAndSave } from '../board/boards.thunk'
 import TaskMenu from '../menus/TaskMenu'
 import Modal from '../modal/Modal'
+import useGetAppState from '../useGetAppState'
 
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
-  const { task } = useAppSelector((state) => state.taskDetails)
-  const { currentColumnsNames } = useAppSelector((state) => state.boards)
+  const { task, currentColumnsNames } = useGetAppState()
 
   const closeModal = () => {
     dispatch(updateTaskAndSave(false))

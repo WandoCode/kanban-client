@@ -1,7 +1,7 @@
 import Button from '../../components/atoms/Button/Button'
 import Select from '../../components/atoms/Select/Select'
 import Modal from '../modal/Modal'
-import { useAppSelector, useAppDispatch } from '../app.store'
+import { useAppDispatch } from '../app.store'
 import InputText from '../../components/atoms/Input/InputText'
 import {
   updateInput,
@@ -16,16 +16,19 @@ import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
 import InputWithCancel from '../../components/molecules/InputWithCancel'
 import { removeSubtask, addSubtask } from './taskForm.actions'
+import useGetAppState from '../useGetAppState'
 
 function ModalTaskForm() {
   const dispatch = useAppDispatch()
-  const { formDatas, isEditing, formErrors } = useAppSelector(
-    (state) => state.taskForm
-  )
-  const { currentColumnsNames } = useAppSelector((state) => state.boards)
+  const {
+    taskFormDatas,
+    isEditingTaskForm,
+    taskFormErrors,
+    currentColumnsNames,
+  } = useGetAppState()
 
   useEffect(() => {
-    if (isEditing) return
+    if (isEditingTaskForm) return
     dispatch(updateInput('status', currentColumnsNames[0]))
   }, [])
 
@@ -38,10 +41,10 @@ function ModalTaskForm() {
     } else {
       dispatch(setErrors([]))
 
-      if (isEditing) {
+      if (isEditingTaskForm) {
         dispatch(updateTaskAndSave(true))
       } else {
-        const task = { ...formDatas, taskId: uuidv4() }
+        const task = { ...taskFormDatas, taskId: uuidv4() }
         dispatch(addTaskAndSave(task))
       }
       dispatch(closeTaskFormModal())
@@ -50,8 +53,8 @@ function ModalTaskForm() {
 
   const validateNewTaskForm = () => {
     const invalidFields: string[] = []
-    for (const fieldName in formDatas) {
-      const input = formDatas[fieldName]
+    for (const fieldName in taskFormDatas) {
+      const input = taskFormDatas[fieldName]
 
       if (fieldName === 'title' && input.length === 0) {
         invalidFields.push(fieldName)
@@ -88,16 +91,16 @@ function ModalTaskForm() {
     <Modal closeModal={() => dispatch(closeTaskFormModal())}>
       <form className="modal-add-task">
         <h2 className="heading-l">
-          {isEditing ? 'Edit Task' : 'Add New Task'}
+          {isEditingTaskForm ? 'Edit Task' : 'Add New Task'}
         </h2>
         <InputText
           placeholder="e.g. Take coffee break"
           label="Title"
           id="title"
           errorText="Incorrect value"
-          hasError={formErrors.includes('title')}
+          hasError={taskFormErrors.includes('title')}
           onChange={(e) => dispatch(updateInput('title', e.target.value))}
-          value={formDatas.title}
+          value={taskFormDatas.title}
         />
 
         <Textarea
@@ -105,9 +108,9 @@ function ModalTaskForm() {
           label="Description"
           id="description"
           errorText="Incorrect value"
-          hasError={formErrors.includes('description')}
+          hasError={taskFormErrors.includes('description')}
           onChange={(e) => dispatch(updateInput('description', e.target.value))}
-          value={formDatas.description}
+          value={taskFormDatas.description}
         />
 
         <fieldset>
@@ -115,10 +118,10 @@ function ModalTaskForm() {
             Subtasks
           </legend>
 
-          {formDatas.subtasks.map((subtask, i) => (
+          {taskFormDatas.subtasks.map((subtask, i) => (
             <InputWithCancel
               key={`subtask-${i}`}
-              hasError={formErrors.includes(`subtask-${i}`)}
+              hasError={taskFormErrors.includes(`subtask-${i}`)}
               onChangeValue={(value) =>
                 onChangeHandler(i, value, subtask.isCompleted)
               }
@@ -136,13 +139,13 @@ function ModalTaskForm() {
           />
         </fieldset>
         <Select
-          currValue={formDatas.status}
+          currValue={taskFormDatas.status}
           label="Status"
           choices={currentColumnsNames}
           onChoice={(choice) => dispatch(updateInput('status', choice))}
         />
         <Button
-          text={isEditing ? 'Save Changes' : 'Create Task'}
+          text={isEditingTaskForm ? 'Save Changes' : 'Create Task'}
           type="primary-s"
           onClick={handleSubmit}
         />

@@ -1,17 +1,17 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import Button from '../../atoms/Button/Button'
-import { useAppDispatch, useAppSelector } from '../../../features/app.store'
+import { useAppDispatch } from '../../../features/app.store'
 import MiscMenu from '../../../features/menus/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 import ModalTaskForm from '../../../features/taskForm/ModalTaskForm'
 import { openTaskFormModal } from '../../../features/taskForm/taskForm.actions'
+import useGetAppState from '../../../features/useGetAppState'
 
 function Header() {
   const dispatch = useAppDispatch()
 
-  const { menuIsOpen } = useAppSelector((state) => state.sidebar)
-  const { taskFormModalIsOpen } = useAppSelector((state) => state.taskForm)
+  const { menuIsOpen, taskFormModalIsOpen } = useGetAppState()
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())

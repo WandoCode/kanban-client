@@ -3,19 +3,18 @@ import BoardsList from './BoardsList'
 import iconEyeHide from '../../../assets/icon-hide-sidebar.svg'
 import ThemeSwitch from './ThemeSwitch'
 
-import { useAppDispatch, useAppSelector } from '../../app.store'
+import { useAppDispatch } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
 import { openBoardFormModal } from '../../board-form/boardForm.actions'
 import BoardForm from '../../board-form/BoardForm'
+import useGetAppState from '../../useGetAppState'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
-  const { boardsShort } = useAppSelector((state) => state.session)
-  const { menuIsOpen } = useAppSelector((state) => state.sidebar)
-  const { currentBoardId } = useAppSelector((state) => state.boards)
-  const { boardFormModalIsOpen } = useAppSelector((state) => state.boardForm)
+  const { boardsShort, menuIsOpen, currentBoardId, boardFormModalIsOpen } =
+    useGetAppState()
 
   const menuClassName = () => {
     return menuIsOpen ? 'menu menu--open' : 'menu menu--close'

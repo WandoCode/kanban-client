@@ -98,7 +98,7 @@ export function updateTaskAndSave(
   return async function updateTaskAndSaveThunk(dispatch, getState) {
     const state = getState()
     const task = state.taskDetails.task
-    const formDatas = state.taskForm.formDatas
+    const formDatas = state.taskForm.taskFormDatas
     const userID = state.session.userID
     const { boards, currentBoardId } = state.boards
 

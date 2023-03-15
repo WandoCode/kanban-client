@@ -1,14 +1,15 @@
 import Header from '../components/Home/Header/Header'
 import { fetchUserDetails } from '../features/session/session.thunks'
-import { useAppDispatch, useAppSelector } from '../features/app.store'
+import { useAppDispatch } from '../features/app.store'
 import { useEffect } from 'react'
 import Board from '../features/board/Board/Board'
 import Sidebar from '../features/sidebar/Sidebar/Sidebar'
 import { fetchUserBoards } from '../features/board/boards.thunk'
+import useGetAppState from '../features/useGetAppState'
 
 function Home() {
   const dispatch = useAppDispatch()
-  const { boardsShort, userID } = useAppSelector((state) => state.session)
+  const { userID } = useGetAppState()
   const mockUserId = 'userA'
 
   useEffect(() => {

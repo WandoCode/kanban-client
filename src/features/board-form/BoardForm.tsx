@@ -1,5 +1,5 @@
 import InputText from '../../components/atoms/Input/InputText'
-import { useAppSelector, useAppDispatch } from '../app.store'
+import { useAppDispatch } from '../app.store'
 import Modal from '../modal/Modal'
 import {
   updateInput,
@@ -16,6 +16,7 @@ import {
 import Button from '../../components/atoms/Button/Button'
 import { ColumnType } from '../board/boards.reducer'
 import { v4 as uuidv4 } from 'uuid'
+import useGetAppState from '../useGetAppState'
 import {
   addBoardAndSave,
   updateBoardAndSave,
@@ -24,10 +25,8 @@ import {
 
 const BoardForm = () => {
   const dispatch = useAppDispatch()
-  const { isEditing, formDatas, formErrors } = useAppSelector(
-    (state) => state.boardForm
-  )
-  const { currentBoardId, boards } = useAppSelector((state) => state.boards)
+  const { isEditing, formDatas, formErrors, currentBoardId, boards } =
+    useGetAppState()
 
   const onChangeValue = (elIndex: number, name: string) => {
     dispatch(updateColumnName(elIndex, name))

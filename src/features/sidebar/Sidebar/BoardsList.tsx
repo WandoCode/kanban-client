@@ -2,7 +2,6 @@ import BoardItem from './BoardItem'
 import { BoardShort } from '../../session/session.reducers'
 import iconBoard from '../../../assets/icon-board.svg'
 import Button from '../../../components/atoms/Button/Button'
-import { useEffect } from 'react'
 
 interface Props {
   boards: BoardShort[]

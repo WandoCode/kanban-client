@@ -1,11 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 import { TaskType } from '../board/boards.reducer'
 
-interface OpenTask {
-  isEditing?: boolean
-  task: TaskType
-}
-
 export const openTaskFormModal = createAction(
   'taskForm/openTaskFormModal',
   (isEditing?: boolean, task?: TaskType) => ({ payload: { isEditing, task } })

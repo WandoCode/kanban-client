@@ -1,13 +1,13 @@
-import { useAppDispatch, useAppSelector } from '../app.store'
+import { useAppDispatch } from '../app.store'
 import { toggleMiscMenu } from './menus.actions'
 import EllipsisMenu from '../../components/molecules/EllipsisMenu'
 import { openBoardFormModal } from '../board-form/boardForm.actions'
+import useGetAppState from '../useGetAppState'
 
 function MiscMenu() {
   const dispatch = useAppDispatch()
 
-  const { miscMenuIsOpen } = useAppSelector((state) => state.menus)
-  const { boards, currentBoardId } = useAppSelector((state) => state.boards)
+  const { miscMenuIsOpen, boards, currentBoardId } = useGetAppState()
 
   const menuItemsWithHandler = [
     {

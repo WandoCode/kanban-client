@@ -28,6 +28,7 @@ const InputWithCancel = ({
   onChangeColor,
 }: Props) => {
   const [colorPickerIsOpen, setColorPickerIsOpen] = useState(false)
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     onChangeValue(value)
