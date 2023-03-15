@@ -14,9 +14,13 @@ import {
   updateColumncolor,
 } from './boardForm.actions'
 import Button from '../../components/atoms/Button/Button'
-import { ColumnType, BoardType } from '../board/boards.reducer'
+import { ColumnType } from '../board/boards.reducer'
 import { v4 as uuidv4 } from 'uuid'
-import { addBoardAndSave, updateBoardAndSave } from '../board/boards.thunk'
+import {
+  addBoardAndSave,
+  updateBoardAndSave,
+  changeBoard,
+} from '../board/boards.thunk'
 
 const BoardForm = () => {
   const dispatch = useAppDispatch()
@@ -55,9 +59,9 @@ const BoardForm = () => {
       }
 
       if (!isEditing) {
-        const boardId = uuidv4()
-
-        dispatch(addBoardAndSave({ ...newBoard, id: boardId }))
+        const newBoardId = uuidv4()
+        dispatch(addBoardAndSave({ ...newBoard, id: newBoardId }))
+        dispatch(changeBoard(newBoardId))
       } else {
         dispatch(
           updateBoardAndSave({

@@ -5,6 +5,7 @@ import { boardsStore } from '../../store/boardsStore'
 import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
 import { BoardsDatasType, TaskType, BoardType } from './boards.reducer'
 import { updateUserBoardsAndSave } from '../session/session.thunks'
+import { getBoardsProperties } from '../../utils/object'
 
 export function fetchUserBoards(): ThunkAction<
   void,
@@ -24,21 +25,16 @@ export function fetchUserBoards(): ThunkAction<
       // At the openning, the first board is displayed
       const currentBoardId = boardsShort[0].id
 
-      const newBoardDatas = boards[currentBoardId]
-
-      const newColumnsArrayByStatus = getColumnsArrayByStatus(
-        newBoardDatas.tasks
-      )
-      const newColumns = newBoardDatas.columns
-      const newColumnsNames = newColumns.map((col) => col.name)
+      const { columns, columnsNames, columnsArrayByStatus } =
+        getBoardsProperties(boards, currentBoardId)
 
       dispatch(
         setBoards(
-          { boards },
+          boards,
           currentBoardId,
-          newColumns,
-          newColumnsNames,
-          newColumnsArrayByStatus
+          columns,
+          columnsNames,
+          columnsArrayByStatus
         )
       )
     }
@@ -54,19 +50,13 @@ export function changeBoard(
 
     if (!boards || !newBoardId) return
 
-    const newBoardDatas = boards[newBoardId]
-
-    const newColumnsArrayByStatus = getColumnsArrayByStatus(newBoardDatas.tasks)
-    const newColumns = newBoardDatas.columns
-    const newColumnsNames = newColumns.map((col) => col.name)
+    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
+      boards,
+      newBoardId
+    )
 
     dispatch(
-      applyChangeBoard(
-        newBoardId,
-        newColumns,
-        newColumnsNames,
-        newColumnsArrayByStatus
-      )
+      applyChangeBoard(newBoardId, columns, columnsNames, columnsArrayByStatus)
     )
   }
 }
@@ -85,7 +75,15 @@ export function addTaskAndSave(
 
     copyBoards[currentBoardId].tasks.push(task)
 
-    dispatch(updateBoards(copyBoards))
+    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
+      copyBoards,
+      currentBoardId
+    )
+
+    dispatch(
+      updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
+    )
+
     await boardsStore.updateTask(
       userID,
       currentBoardId,
@@ -116,7 +114,14 @@ export function updateTaskAndSave(
 
     copyBoards[currentBoardId].tasks[taskIndex] = newTask
 
-    dispatch(updateBoards(copyBoards))
+    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
+      copyBoards,
+      currentBoardId
+    )
+
+    dispatch(
+      updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
+    )
 
     await boardsStore.updateTask(
       userID,
@@ -140,7 +145,14 @@ export function addBoardAndSave(
 
     copyBoards[newBoard.id] = newBoard
 
-    dispatch(updateBoards(copyBoards))
+    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
+      copyBoards,
+      newBoard.id
+    )
+
+    dispatch(
+      updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
+    )
     dispatch(updateUserBoardsAndSave(userID, copyBoards))
 
     await boardsStore.addBoard(userID, newBoard)
@@ -161,22 +173,17 @@ export function updateBoardAndSave(
 
     copyBoards[updatedBoard.id] = updatedBoard
 
-    dispatch(updateBoards(copyBoards))
+    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
+      copyBoards,
+      updatedBoard.id
+    )
+
+    dispatch(
+      updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
+    )
+
     dispatch(updateUserBoardsAndSave(userID, copyBoards))
 
     await boardsStore.updateBoard(userID, updatedBoard)
   }
-}
-
-const getColumnsArrayByStatus = (tasks: TaskType[]) => {
-  let rep: Record<string, TaskType[]> = {}
-
-  tasks.forEach((task) => {
-    const column = task.status
-
-    if (!rep[column]) rep[column] = []
-    rep[column].push(task)
-  })
-
-  return rep
 }

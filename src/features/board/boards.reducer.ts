@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { applyChangeBoard, updateBoards } from './boards.actions'
-import { setBoards, setColumnsArrayByStatus } from './boards.actions'
+import { setBoards } from './boards.actions'
 
 export interface ColumnType {
   name: string
@@ -52,58 +52,24 @@ const initialState: BoardsType = {
 const boardsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setBoards, (state, action) => {
-      const {
-        boards,
-        currentBoardId,
-        newColumns,
-        newColumnsNames,
-        newColumnsArrayByStatus,
-      } = action.payload
-      state.boards = boards
-      state.currentBoardId = currentBoardId
-      state.columnsArrayByStatus = newColumnsArrayByStatus
-      state.currentColumns = newColumns
-      state.currentColumnsNames = newColumnsNames
+      state.boards = action.payload.boards
+      state.currentBoardId = action.payload.currentBoardId
+      state.columnsArrayByStatus = action.payload.newColumnsArrayByStatus
+      state.currentColumns = action.payload.newColumns
+      state.currentColumnsNames = action.payload.newColumnsNames
     })
     .addCase(applyChangeBoard, (state, action) => {
-      const {
-        newColumns,
-        newColumnsArrayByStatus,
-        newColumnsNames,
-        newBoardId,
-      } = action.payload
-      state.currentBoardId = newBoardId
-      state.columnsArrayByStatus = newColumnsArrayByStatus
-      state.currentColumns = newColumns
-      state.currentColumnsNames = newColumnsNames
-    })
-    .addCase(setColumnsArrayByStatus, (state, action) => {
-      state.columnsArrayByStatus = action.payload.columnsArrayByStatus
+      state.currentBoardId = action.payload.newBoardId
+      state.columnsArrayByStatus = action.payload.newColumnsArrayByStatus
+      state.currentColumns = action.payload.newColumns
+      state.currentColumnsNames = action.payload.newColumnsNames
     })
     .addCase(updateBoards, (state, action) => {
-      const newBoards = action.payload.boards
-      state.boards = newBoards
-      state.currentColumns = newBoards[state.currentBoardId].columns
-      state.currentColumnsNames = newBoards[state.currentBoardId].columns.map(
-        (e) => e.name
-      )
-      state.columnsArrayByStatus = getColumnsArrayByStatus(
-        newBoards[state.currentBoardId].tasks
-      )
+      state.boards = action.payload.boards
+      state.currentColumns = action.payload.newColumns
+      state.currentColumnsNames = action.payload.newColumnsNames
+      state.columnsArrayByStatus = action.payload.newColumnsArrayByStatus
     })
 })
 
 export default boardsReducer
-
-const getColumnsArrayByStatus = (tasks: TaskType[]) => {
-  let rep: Record<string, TaskType[]> = {}
-
-  tasks.forEach((task) => {
-    const column = task.status
-
-    if (!rep[column]) rep[column] = []
-    rep[column].push(task)
-  })
-
-  return rep
-}

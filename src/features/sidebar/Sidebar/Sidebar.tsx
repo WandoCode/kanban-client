@@ -3,7 +3,7 @@ import BoardsList from './BoardsList'
 import iconEyeHide from '../../../assets/icon-hide-sidebar.svg'
 import ThemeSwitch from './ThemeSwitch'
 
-import { useAppDispatch, useAppSelector, RootState } from '../../app.store'
+import { useAppDispatch, useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
