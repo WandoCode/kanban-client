@@ -59,7 +59,13 @@ const BoardForm = () => {
 
         dispatch(addBoardAndSave({ ...newBoard, id: boardId }))
       } else {
-        dispatch(updateBoardAndSave({ ...newBoard, id: currentBoardId }))
+        dispatch(
+          updateBoardAndSave({
+            ...newBoard,
+            tasks: boards[currentBoardId].tasks,
+            id: currentBoardId,
+          })
+        )
       }
 
       onCloseModal()

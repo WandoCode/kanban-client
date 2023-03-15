@@ -55,7 +55,6 @@ export function changeBoard(
     if (!boards || !newBoardId) return
 
     const newBoardDatas = boards[newBoardId]
-    console.log(boards)
 
     const newColumnsArrayByStatus = getColumnsArrayByStatus(newBoardDatas.tasks)
     const newColumns = newBoardDatas.columns
