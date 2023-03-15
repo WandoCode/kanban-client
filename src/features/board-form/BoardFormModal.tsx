@@ -23,7 +23,7 @@ import {
   changeBoard,
 } from '../board/boards.thunk'
 
-const BoardForm = () => {
+const BoardFormModal = () => {
   const dispatch = useAppDispatch()
   const { isEditing, formDatas, formErrors, currentBoardId, boards } =
     useGetAppState()
@@ -147,4 +147,4 @@ const BoardForm = () => {
   )
 }
 
-export default BoardForm
+export default BoardFormModal

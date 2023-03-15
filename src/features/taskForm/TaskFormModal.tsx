@@ -18,7 +18,7 @@ import InputWithCancel from '../../components/molecules/InputWithCancel'
 import { removeSubtask, addSubtask } from './taskForm.actions'
 import useGetAppState from '../useGetAppState'
 
-function ModalTaskForm() {
+function TaskFormModal() {
   const dispatch = useAppDispatch()
   const {
     taskFormDatas,
@@ -154,4 +154,4 @@ function ModalTaskForm() {
   )
 }
 
-export default ModalTaskForm
+export default TaskFormModal

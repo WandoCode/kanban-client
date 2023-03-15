@@ -5,7 +5,6 @@ import {
   openModalTaskDetails,
   setTaskDetails,
 } from '../../task-details/taskDetails.actions'
-import TaskDetailsModal from '../../task-details/TaskDetailsModal'
 import { TaskType } from '../boards.reducer'
 import useGetAppState from '../../useGetAppState'
 
@@ -14,7 +13,6 @@ function Board() {
 
   const {
     menuIsOpen,
-    taskDetailsModalIsOpen,
     columnsArrayByStatus,
     currentColumnsNames,
     currentColumns,
@@ -45,31 +43,28 @@ function Board() {
   }
 
   return (
-    <>
-      {taskDetailsModalIsOpen && <TaskDetailsModal />}
-      <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
-        {currentColumnsNames.length > 0 ? (
-          <div className="board__columns">
-            {columnsDOM()}
-            <button className="board__column-add">
-              <span className="heading-xl">+ New Column</span>
-            </button>
-          </div>
-        ) : (
-          <div className="board__empty">
-            <h2 className="heading-l fc-neutral-400">
-              This board is empty. Create a new column to get started.
-            </h2>
-            <Button
-              text="+ Add New Column"
-              type="primary-l"
-              onClick={() => {}}
-              // TODO: Edit Board
-            />
-          </div>
-        )}
-      </div>
-    </>
+    <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
+      {currentColumnsNames.length > 0 ? (
+        <div className="board__columns">
+          {columnsDOM()}
+          <button className="board__column-add">
+            <span className="heading-xl">+ New Column</span>
+          </button>
+        </div>
+      ) : (
+        <div className="board__empty">
+          <h2 className="heading-l fc-neutral-400">
+            This board is empty. Create a new column to get started.
+          </h2>
+          <Button
+            text="+ Add New Column"
+            type="primary-l"
+            onClick={() => {}}
+            // TODO: Edit Board
+          />
+        </div>
+      )}
+    </div>
   )
 }
 

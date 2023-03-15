@@ -2,7 +2,7 @@ import './stylesheets/main.scss'
 import Home from './pages/Home'
 import { useEffect } from 'react'
 import { boardsStore } from './store/boardsStore'
-import { useAppSelector, useAppDispatch } from './features/app.store'
+import ModalsProvider from './features/modal/ModalsProvider'
 
 function App() {
   useEffect(() => {
@@ -13,6 +13,7 @@ function App() {
 
   return (
     <div className="app">
+      <ModalsProvider />
       <Home />
     </div>
   )
