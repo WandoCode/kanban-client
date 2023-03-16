@@ -139,21 +139,36 @@ export function addBoardAndSave(
     const userID = state.session.userID
     const { boards } = state.boards
 
-    if (!boards || !userID) return
+    if (!userID) return
+    if (!boards) {
+      const newBoards: BoardsDatasType = {}
+      newBoards[newBoard.id] = newBoard
+      const { columns, columnsNames, columnsArrayByStatus } =
+        getBoardsProperties(newBoards, newBoard.id)
+      dispatch(
+        setBoards(
+          newBoards,
+          newBoard.id,
+          columns,
+          columnsNames,
+          columnsArrayByStatus
+        )
+      )
+      dispatch(updateUserBoardsAndSave(userID, newBoards))
+      // TODO: pour un utilisateur sans board, il faut dans la db au minimum les données 'détails' avec les arrays boardsShort et columns vide et l'id correct
+    } else {
+      const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
-    const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
+      copyBoards[newBoard.id] = newBoard
 
-    copyBoards[newBoard.id] = newBoard
+      const { columns, columnsNames, columnsArrayByStatus } =
+        getBoardsProperties(copyBoards, newBoard.id)
 
-    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
-      copyBoards,
-      newBoard.id
-    )
-
-    dispatch(
-      updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
-    )
-    dispatch(updateUserBoardsAndSave(userID, copyBoards))
+      dispatch(
+        updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
+      )
+      dispatch(updateUserBoardsAndSave(userID, copyBoards))
+    }
 
     await boardsStore.addBoard(userID, newBoard)
   }

@@ -16,6 +16,7 @@ function Button({ text, className, type, onClick, imgRef }: Props) {
 
   const handleClick = (e: MouseEvent) => {
     e.preventDefault()
+
     onClick()
   }
 

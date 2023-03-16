@@ -1,7 +1,6 @@
 import boardsJSON from '../__mock__/mockUser.json'
 import db from './firebase'
 import {
-  collection,
   doc,
   getDoc,
   runTransaction,

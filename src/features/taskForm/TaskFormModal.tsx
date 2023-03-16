@@ -37,7 +37,6 @@ function TaskFormModal() {
 
     if (invalidFields.length !== 0) {
       dispatch(setErrors(invalidFields))
-      //TODO: show errors
     } else {
       dispatch(setErrors([]))
 

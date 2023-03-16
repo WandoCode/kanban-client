@@ -7,6 +7,7 @@ import {
 } from '../../task-details/taskDetails.actions'
 import { TaskType } from '../boards.reducer'
 import useGetAppState from '../../useGetAppState'
+import { openBoardFormModal } from '../../board-form/boardForm.actions'
 
 function Board() {
   const dispatch = useAppDispatch()
@@ -16,6 +17,8 @@ function Board() {
     columnsArrayByStatus,
     currentColumnsNames,
     currentColumns,
+    boards,
+    currentBoardId,
   } = useGetAppState()
 
   const handleOpenTask = (task: TaskType) => {
@@ -42,12 +45,23 @@ function Board() {
     })
   }
 
+  const onOpenEditBoard = () => {
+    if (!boards) return
+    dispatch(
+      openBoardFormModal(true, {
+        boardName: boards[currentBoardId].name,
+        columns: boards[currentBoardId].columns,
+      })
+    )
+  }
+
   return (
     <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
       {currentColumnsNames.length > 0 ? (
         <div className="board__columns">
           {columnsDOM()}
-          <button className="board__column-add">
+
+          <button className="board__column-add" onClick={onOpenEditBoard}>
             <span className="heading-xl">+ New Column</span>
           </button>
         </div>
@@ -59,8 +73,7 @@ function Board() {
           <Button
             text="+ Add New Column"
             type="primary-l"
-            onClick={() => {}}
-            // TODO: Edit Board
+            onClick={() => dispatch(openBoardFormModal())}
           />
         </div>
       )}

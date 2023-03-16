@@ -1,4 +1,4 @@
-import { TaskType } from '../features/session/session.reducers'
+import { TaskType } from '../features/board/boards.reducer'
 
 export const getNbrCompletedSubtask = (task: TaskType) => {
   return task.subtasks.reduce((nbrCompletedSubtask, subtask) => {

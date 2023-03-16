@@ -62,6 +62,9 @@ const BoardFormModal = () => {
         dispatch(addBoardAndSave({ ...newBoard, id: newBoardId }))
         dispatch(changeBoard(newBoardId))
       } else {
+        if (!boards) return
+        console.log(boards)
+
         dispatch(
           updateBoardAndSave({
             ...newBoard,

@@ -88,5 +88,3 @@ const InputWithCancel = ({
 }
 
 export default InputWithCancel
-// TODO: La croix pour retirer une subtask doit devenir rouge si la subtask est en erreur lors de la validation du formulaire
-// TODO: transformer en Atom pour utiliser pour l'ajout/suppression de column lors de l'edition d'un board

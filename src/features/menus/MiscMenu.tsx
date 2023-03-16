@@ -9,18 +9,22 @@ function MiscMenu() {
 
   const { miscMenuIsOpen, boards, currentBoardId } = useGetAppState()
 
+  const onOpenEditBoard = () => {
+    if (!boards) return
+    dispatch(
+      openBoardFormModal(true, {
+        boardName: boards[currentBoardId].name,
+        columns: boards[currentBoardId].columns,
+      })
+    )
+  }
+
   const menuItemsWithHandler = [
     {
       text: 'Edit Board',
-      handler: () => {
-        dispatch(
-          openBoardFormModal(true, {
-            boardName: boards[currentBoardId].name,
-            columns: boards[currentBoardId].columns,
-          })
-        )
-      },
+      handler: onOpenEditBoard,
     },
+
     {
       text: 'Delete Board',
       handler: () => {},
