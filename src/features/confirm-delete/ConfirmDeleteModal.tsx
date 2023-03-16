@@ -3,21 +3,17 @@ import { useAppDispatch } from '../app.store'
 import { closeConfirmDelete } from './confirmDelete.actions'
 import useGetAppState from '../useGetAppState'
 import Button from '../../components/atoms/Button/Button'
-import { deleteBoardAndSave } from '../board/boards.thunk'
+import { deleteBoardAndSave, deleteTaskAndSave } from '../board/boards.thunk'
 
 const ConfirmDeleteModal = () => {
   const dispatch = useAppDispatch()
   const { type, boards, currentBoardId, task } = useGetAppState()
 
   const onDelete = () => {
-    if (type === 'board') onDeleteBoard()
-    if (type === 'task') () => {}
+    if (type === 'board') dispatch(deleteBoardAndSave())
+    if (type === 'task') dispatch(deleteTaskAndSave())
 
     dispatch(closeConfirmDelete())
-  }
-
-  const onDeleteBoard = () => {
-    dispatch(deleteBoardAndSave())
   }
 
   const onClose = () => {
