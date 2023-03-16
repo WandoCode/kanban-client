@@ -35,7 +35,7 @@ const InputWithCancel = ({
 
     return () => {
       document.body.removeEventListener('click', handleClickCloseColorPicker)
-      document.body.addEventListener('keydown', handleKeyCloseColorPicker)
+      document.body.removeEventListener('keydown', handleKeyCloseColorPicker)
     }
   }, [])
 

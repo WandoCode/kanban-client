@@ -9,9 +9,9 @@ import ModalRoot from './features/modal/ModalRoot'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      <FloatingShowSidebar />
       <ModalRoot />
+      <FloatingShowSidebar />
+      <App />
     </Provider>
   </React.StrictMode>
 )
