@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../app.store'
+import { useAppDispatch, RootState, useAppSelector } from '../app.store'
 import { getNbrCompletedSubtask } from '../../utils/number'
 import InputCheck from '../../components/atoms/Input/InputCheck'
 import {
@@ -11,13 +11,20 @@ import { updateTaskAndSave } from '../board/boards.thunk'
 import TaskMenu from '../menus/TaskMenu'
 import Modal from '../modal/Modal'
 import useGetAppState from '../useGetAppState'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { TaskType } from '../board/boards.reducer'
 
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
   const { task, currentColumnsNames } = useGetAppState()
+  const taskRef = useRef<TaskType>()
+  taskRef.current = task
+  const [initialTask] = useState<TaskType>(task)
 
   const closeModal = () => {
-    dispatch(updateTaskAndSave(false))
+    if (JSON.stringify(taskRef.current) !== JSON.stringify(initialTask))
+      dispatch(updateTaskAndSave(false))
+
     dispatch(closeModalTaskDetails())
   }
 
