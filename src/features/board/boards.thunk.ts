@@ -202,3 +202,43 @@ export function updateBoardAndSave(
     await boardsStore.updateBoard(userID, updatedBoard)
   }
 }
+
+export function deleteBoardAndSave(): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> {
+  return async function deleteBoardAndSaveThunk(dispatch, getState) {
+    const state = getState()
+    const userID = state.session.userID
+    const { boards, currentBoardId } = state.boards
+
+    if (!boards || !userID) return
+
+    const deletedBoardId = currentBoardId
+    const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
+
+    delete copyBoards[currentBoardId]
+
+    const firstBoardId = Object.keys(copyBoards)[0]
+    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
+      copyBoards,
+      firstBoardId
+    )
+
+    dispatch(
+      setBoards(
+        copyBoards,
+        firstBoardId,
+        columns,
+        columnsNames,
+        columnsArrayByStatus
+      )
+    )
+
+    dispatch(updateUserBoardsAndSave(userID, copyBoards))
+
+    await boardsStore.deleteBoard(userID, deletedBoardId)
+  }
+}

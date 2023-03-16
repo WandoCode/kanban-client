@@ -1,6 +1,7 @@
 import boardsJSON from '../__mock__/mockUser.json'
 import db from './firebase'
 import {
+  deleteDoc,
   doc,
   getDoc,
   runTransaction,
@@ -92,6 +93,14 @@ export const boardsStore = {
     try {
       const docRef = doc(db, userID, newBoard.id)
       await updateDoc(docRef, { ...newBoard })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  deleteBoard: async (userID: string, boardId: string) => {
+    try {
+      const docRef = doc(db, userID, boardId)
+      await deleteDoc(docRef)
     } catch (error) {
       console.error(error)
     }

@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const env = process.env.NODE_ENV
 
-    // if (env === 'development') boardsStore.initMockDatas()
+    if (env === 'development') boardsStore.initMockDatas()
   }, [])
 
   return (
