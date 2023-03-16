@@ -1,6 +1,6 @@
 import InputText from '../atoms/Input/InputText'
 import IconCross from '../../assets/icon-cross.svg'
-import { ChangeEvent, useState, useEffect } from 'react'
+import { ChangeEvent, useState, useEffect, useRef } from 'react'
 import { HexColorPicker } from 'react-colorful'
 
 interface Props {
@@ -26,16 +26,28 @@ const InputWithCancel = ({
   withColorPicker = false,
   onChangeColor,
 }: Props) => {
+  const colorpickerRef = useRef<HTMLDivElement>(null)
   const [colorPickerIsOpen, setColorPickerIsOpen] = useState(false)
 
   useEffect(() => {
-    document.body.addEventListener('click', handleCloseColorPicker)
+    document.body.addEventListener('click', handleClickCloseColorPicker)
+    document.body.addEventListener('keydown', handleKeyCloseColorPicker)
 
-    return () =>
-      document.body.removeEventListener('click', handleCloseColorPicker)
+    return () => {
+      document.body.removeEventListener('click', handleClickCloseColorPicker)
+      document.body.addEventListener('keydown', handleKeyCloseColorPicker)
+    }
   }, [])
 
-  const handleCloseColorPicker = (e: MouseEvent) => {
+  useEffect(() => {
+    if (colorPickerIsOpen) colorpickerRef.current?.focus()
+  }, [colorPickerIsOpen])
+
+  const handleKeyCloseColorPicker = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') setColorPickerIsOpen(false)
+  }
+
+  const handleClickCloseColorPicker = (e: MouseEvent) => {
     const target = e.target as HTMLElement
 
     const isReactColorfulElement = /^react-colorful/.test(target.className)
@@ -77,6 +89,18 @@ const InputWithCancel = ({
         onChange={handleInputChange}
         value={currentValue}
       />
+      {colorPickerIsOpen &&
+        currentColor &&
+        onChangeColor &&
+        withColorPicker && (
+          <div
+            ref={colorpickerRef}
+            tabIndex={0}
+            className="input-with-cancel__color-picker"
+          >
+            <HexColorPicker color={currentColor} onChange={onChangeColor} />
+          </div>
+        )}
       {withColorPicker && (
         <button
           className="input-with-cancel__color-btn"
@@ -96,14 +120,6 @@ const InputWithCancel = ({
           alt="Cross"
         />
       </button>
-      {colorPickerIsOpen &&
-        currentColor &&
-        onChangeColor &&
-        withColorPicker && (
-          <div className="input-with-cancel__color-picker">
-            <HexColorPicker color={currentColor} onChange={onChangeColor} />
-          </div>
-        )}
     </div>
   )
 }
