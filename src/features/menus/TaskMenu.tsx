@@ -4,23 +4,31 @@ import { toggleTaskMenu } from './menus.actions'
 import { closeModalTaskDetails } from '../task-details/taskDetails.actions'
 import { openTaskFormModal } from '../taskForm/taskForm.actions'
 import useGetAppState from '../useGetAppState'
+import { openConfirmDelete } from '../confirm-delete/confirmDelete.actions'
 
 function TaskMenu() {
   const dispatch = useAppDispatch()
 
   const { taskMenuIsOpen, task } = useGetAppState()
 
+  const onDeleteTask = () => {
+    dispatch(closeModalTaskDetails())
+    dispatch(openConfirmDelete('task'))
+  }
+
+  const onEditTask = () => {
+    dispatch(closeModalTaskDetails())
+    dispatch(openTaskFormModal(true, task))
+  }
+
   const menuItemsWithHandler = [
     {
       text: 'Edit Task',
-      handler: () => {
-        dispatch(closeModalTaskDetails())
-        dispatch(openTaskFormModal(true, task))
-      },
+      handler: onEditTask,
     },
     {
       text: 'Delete Task',
-      handler: () => {},
+      handler: onDeleteTask,
     },
   ]
 

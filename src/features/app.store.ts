@@ -9,6 +9,7 @@ import taskDetailsReducer from './task-details/taskDetails.reducers'
 import boardsReducer from './board/boards.reducer'
 import taskFormReducer from './taskForm/taskForm.reducers'
 import boardFormReducer from './board-form/boardForm.reducers'
+import confirmDeleteReducer from './confirm-delete/confirmDelete.reducer'
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     taskDetails: taskDetailsReducer,
     boards: boardsReducer,
     boardForm: boardFormReducer,
+    confirmDelete: confirmDeleteReducer,
   },
 })
 

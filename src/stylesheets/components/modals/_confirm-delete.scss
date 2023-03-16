@@ -1,0 +1,13 @@
+@use '../../abstracts/' as *;
+
+.confirm-delete {
+  &__buttons {
+    display: flex;
+    gap: rem(16);
+    margin-bottom: rem(8);
+
+    & > * {
+      flex: 1;
+    }
+  }
+}

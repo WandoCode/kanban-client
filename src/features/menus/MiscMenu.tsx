@@ -1,8 +1,12 @@
 import { useAppDispatch } from '../app.store'
 import { toggleMiscMenu } from './menus.actions'
 import EllipsisMenu from '../../components/molecules/EllipsisMenu'
-import { openBoardFormModal } from '../board-form/boardForm.actions'
+import {
+  openBoardFormModal,
+  closeBoardFormModal,
+} from '../board-form/boardForm.actions'
 import useGetAppState from '../useGetAppState'
+import { openConfirmDelete } from '../confirm-delete/confirmDelete.actions'
 
 function MiscMenu() {
   const dispatch = useAppDispatch()
@@ -19,6 +23,10 @@ function MiscMenu() {
     )
   }
 
+  const onDeleteBoard = () => {
+    dispatch(openConfirmDelete('board'))
+  }
+
   const menuItemsWithHandler = [
     {
       text: 'Edit Board',
@@ -27,7 +35,7 @@ function MiscMenu() {
 
     {
       text: 'Delete Board',
-      handler: () => {},
+      handler: onDeleteBoard,
     },
   ]
 

@@ -37,6 +37,10 @@ const useGetAppState = () => {
     // Sessions states
     boardsShort: state.session.boardsShort,
     userID: state.session.userID,
+
+    // ConfirmDelete states
+    confirmDeleteIsOpen: state.confirmDelete.confirmDeleteIsOpen,
+    type: state.confirmDelete.type,
   }
 }
 
