@@ -63,7 +63,6 @@ const BoardFormModal = () => {
         dispatch(changeBoard(newBoardId))
       } else {
         if (!boards) return
-        console.log(boards)
 
         dispatch(
           updateBoardAndSave({

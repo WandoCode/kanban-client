@@ -1,7 +1,6 @@
 import InputText from '../atoms/Input/InputText'
-import { SubtaskType } from '../../features/board/boards.reducer'
 import IconCross from '../../assets/icon-cross.svg'
-import { ChangeEvent, MouseEvent, useState } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import { HexColorPicker } from 'react-colorful'
 
 interface Props {
@@ -29,21 +28,43 @@ const InputWithCancel = ({
 }: Props) => {
   const [colorPickerIsOpen, setColorPickerIsOpen] = useState(false)
 
+  useEffect(() => {
+    document.body.addEventListener('click', handleCloseColorPicker)
+
+    return () =>
+      document.body.removeEventListener('click', handleCloseColorPicker)
+  }, [])
+
+  const handleCloseColorPicker = (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+
+    const isReactColorfulElement = /^react-colorful/.test(target.className)
+    const isColorpickerButton =
+      target.className === 'input-with-cancel__color-btn'
+
+    if (!isReactColorfulElement || isColorpickerButton) {
+      setColorPickerIsOpen(false)
+    }
+  }
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     onChangeValue(value)
   }
 
-  const toggleColorPicker = (e: MouseEvent) => {
+  const openColorPicker = (e: React.MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
+
     setColorPickerIsOpen((old) => !old)
   }
 
-  const onRemove = (e: MouseEvent) => {
+  const onRemove = (e: React.MouseEvent) => {
     e.preventDefault()
 
     handleRemove()
   }
+
   return (
     <div className="input-with-cancel">
       <InputText
@@ -60,7 +81,7 @@ const InputWithCancel = ({
         <button
           className="input-with-cancel__color-btn"
           style={{ backgroundColor: currentColor }}
-          onClick={toggleColorPicker}
+          onClick={openColorPicker}
         ></button>
       )}
       <button className="btn--transparent" onClick={onRemove}>
