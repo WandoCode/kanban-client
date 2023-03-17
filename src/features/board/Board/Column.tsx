@@ -16,7 +16,8 @@ function Column({ tasks, columnDetails, handleOpenTask }: Props) {
           style={{ backgroundColor: columnDetails.color }}
         ></div>
         <h2 className="column__heading heading-s">
-          {columnDetails.name} ({tasks?.length || 0})
+          <span className="column__heading-text">{columnDetails.name}</span> (
+          {tasks?.length || 0})
         </h2>
       </div>
       {tasks?.map((task) => (
