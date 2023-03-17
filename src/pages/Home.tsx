@@ -6,6 +6,7 @@ import Board from '../features/board/Board/Board'
 import Sidebar from '../features/sidebar/Sidebar/Sidebar'
 import { fetchUserBoards } from '../features/board/boards.thunk'
 import useGetAppState from '../features/useGetAppState'
+import FloatingShowSidebar from '../features/sidebar/FloatingShowSidebar'
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -22,6 +23,8 @@ function Home() {
 
   return (
     <div className="home">
+      <FloatingShowSidebar />
+
       <Sidebar />
       <Header />
       <Board />

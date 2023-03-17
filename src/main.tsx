@@ -10,7 +10,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <ModalRoot />
-      <FloatingShowSidebar />
       <App />
     </Provider>
   </React.StrictMode>
