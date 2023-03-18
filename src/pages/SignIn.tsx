@@ -5,7 +5,14 @@ const SignIn = () => {
   const dispatch = useAppDispatch()
 
   const logUser = async () => {
-    const userID = await authStore.logginUser('max@gmail.com', '123456')
+    let userID
+    if (window.location.hostname === 'localhost') {
+      userID = await authStore.connectMockUser()
+      if (!userID) userID = await authStore.initMockUser()
+    } else {
+      userID = await authStore.logginUser('???', '???')
+    }
+
     if (userID) dispatch(connectUser(userID))
   }
 

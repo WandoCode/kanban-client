@@ -1,33 +1,21 @@
 import './stylesheets/main.scss'
-import Home from './pages/Home'
 import { useEffect } from 'react'
 import { boardsStore } from './store/boardsStore'
 import ModalsProvider from './features/modal/ModalsProvider'
 import Router from './Router'
-import authStore from './store/authStore'
-import { useAppDispatch } from './features/app.store'
-import { connectUser } from './features/session/session.actions'
+import { useAppSelector } from './features/app.store'
 
 function App() {
-  const dispatch = useAppDispatch()
-
-  const initMock = async () => {
-    let userID
-    userID = await authStore.connectMockUser()
-    if (!userID) userID = await authStore.initMockUser()
-    if (!userID) return
-
-    boardsStore.initMockDatas(userID)
-    dispatch(connectUser(userID))
-  }
+  const { userID } = useAppSelector((s) => s.session)
 
   useEffect(() => {
     const env = process.env.NODE_ENV
 
-    if (env === 'development') {
-      initMock()
+    // Fill DB with mock datas while in devlopement
+    if (env === 'development' && userID) {
+      boardsStore.initMockDatas(userID)
     }
-  }, [])
+  }, [userID])
 
   return (
     <div className="app">
