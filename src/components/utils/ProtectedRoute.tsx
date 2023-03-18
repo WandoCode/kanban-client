@@ -5,7 +5,7 @@ import { useAppSelector } from '../../features/app.store'
 const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const { userID } = useAppSelector((s) => s.session)
 
-  if (userID) return <div>{children}</div>
+  if (userID) return <>{children}</>
   else return <Navigate to="/signin" />
 }
 

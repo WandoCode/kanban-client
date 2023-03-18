@@ -1,24 +1,17 @@
-import authStore from '../store/authStore'
-import { useAppDispatch } from '../features/app.store'
-import { connectUser } from '../features/session/session.actions'
+import signinIcon from '../assets/icon-exit.svg'
+import SignInForm from '../components/SignIn/SignInForm'
+
 const SignIn = () => {
-  const dispatch = useAppDispatch()
-
-  const logUser = async () => {
-    let userID
-    if (window.location.hostname === 'localhost') {
-      userID = await authStore.connectMockUser()
-      if (!userID) userID = await authStore.initMockUser()
-    } else {
-      userID = await authStore.logginUser('???', '???')
-    }
-
-    if (userID) dispatch(connectUser(userID))
-  }
-
   return (
-    <div>
-      <button onClick={logUser}>Log in</button>
+    <div className="sign-in sign-form__wrapper">
+      <section className="sign-form">
+        <img className="sign-form__icon" src={signinIcon} alt="User" />
+        <h1 className="heading-xl sign-form__title">Welkome!</h1>
+        <h2 className="text-bold fc-neutral-400 sign-form__subtitle">
+          Sign In your account
+        </h2>
+        <SignInForm />
+      </section>
     </div>
   )
 }

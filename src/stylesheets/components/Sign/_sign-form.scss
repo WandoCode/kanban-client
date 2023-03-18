@@ -1,0 +1,42 @@
+.sign-form {
+  width: 100%;
+  max-width: 350px;
+
+  padding: 2rem;
+
+  background-color: var(--clr-neutral-100);
+  border-radius: 8px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100dvh;
+    background-color: var(--clr-neutral-200);
+  }
+
+  &__icon {
+    max-height: 25px;
+    margin-inline: auto;
+    filter: invert(29%) sepia(72%) saturate(1179%) hue-rotate(218deg)
+      brightness(106%) contrast(75%);
+  }
+
+  &__title,
+  &__subtitle,
+  &__link {
+    width: fit-content;
+    margin-inline: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  &__form {
+    margin-top: 1rem;
+  }
+
+  &__bottom {
+    display: grid;
+  }
+}
