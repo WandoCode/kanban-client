@@ -1,10 +1,11 @@
 import { PropsWithChildren } from 'react'
 import { Navigate } from 'react-router-dom'
+import useGetAppState from '../../features/useGetAppState'
 
 const PublicRoute = ({ children }: PropsWithChildren) => {
-  const userConnected = true
+  const { userID } = useGetAppState()
 
-  if (!userConnected) return <div>{children}</div>
+  if (!userID) return <div>{children}</div>
   else return <Navigate to="/" />
 }
 

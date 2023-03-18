@@ -21,7 +21,7 @@ export function fetchUserBoards(): ThunkAction<
 
     const boards = await boardsStore.getUserBoards(userID, boardsShort)
 
-    if (boards) {
+    if (boards && boardsShort.length !== 0) {
       // At the openning, the first board is displayed
       const currentBoardId = boardsShort[0].id
 

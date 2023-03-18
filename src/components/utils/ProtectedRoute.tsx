@@ -1,11 +1,12 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
+import { useAppSelector } from '../../features/app.store'
 
 const ProtectedRoute = ({ children }: PropsWithChildren) => {
-  const userConnected = true
+  const { userID } = useAppSelector((s) => s.session)
 
-  if (userConnected) return <div>{children}</div>
-  else return <Navigate to="/singin" />
+  if (userID) return <div>{children}</div>
+  else return <Navigate to="/signin" />
 }
 
 export default ProtectedRoute

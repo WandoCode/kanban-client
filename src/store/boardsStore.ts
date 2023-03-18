@@ -1,5 +1,5 @@
 import boardsJSON from '../__mock__/mockUser.json'
-import db from './firebase'
+import { db } from './firebase'
 import {
   deleteDoc,
   doc,

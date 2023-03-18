@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
+import { connectAuthEmulator, getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDglVuatapP76ZPng141fsL3eMehv4uE50',
@@ -16,7 +17,12 @@ const app = initializeApp(firebaseConfig)
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app)
 
-// TODO: à changer pour passer en prod
-connectFirestoreEmulator(db, 'localhost', 8080)
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth()
 
-export default db
+if (window.location.hostname === 'localhost') {
+  connectAuthEmulator(auth, 'http://localhost:9099')
+  connectFirestoreEmulator(db, 'localhost', 8080)
+}
+
+export { db, auth }
