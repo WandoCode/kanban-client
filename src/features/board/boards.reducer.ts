@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { applyChangeBoard, updateBoards } from './boards.actions'
+import { applyChangeBoard, updateBoards, resetBoards } from './boards.actions'
 import { setBoards } from './boards.actions'
 
 export interface ColumnType {
@@ -58,6 +58,7 @@ const boardsReducer = createReducer(initialState, (builder) => {
       state.currentColumns = action.payload.newColumns
       state.currentColumnsNames = action.payload.newColumnsNames
     })
+    .addCase(resetBoards, () => initialState)
     .addCase(applyChangeBoard, (state, action) => {
       state.currentBoardId = action.payload.newBoardId
       state.columnsArrayByStatus = action.payload.newColumnsArrayByStatus

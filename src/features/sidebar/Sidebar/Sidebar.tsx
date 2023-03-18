@@ -10,6 +10,7 @@ import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
 import { openBoardFormModal } from '../../board-form/boardForm.actions'
 import { disconnectUser } from '../../session/session.actions'
+import { resetBoards } from '../../board/boards.actions'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
@@ -34,6 +35,7 @@ export default function Sidebar() {
     const auth = getAuth()
     signOut(auth)
     dispatch(disconnectUser())
+    dispatch(resetBoards())
   }
 
   return (

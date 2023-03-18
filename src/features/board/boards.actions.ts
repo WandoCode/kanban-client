@@ -20,6 +20,8 @@ export const setBoards = createAction(
   })
 )
 
+export const resetBoards = createAction('boards/resetBoards')
+
 export const applyChangeBoard = createAction(
   'boards/applyChangeBoard',
   (
