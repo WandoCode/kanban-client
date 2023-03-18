@@ -9,18 +9,20 @@ import FloatingShowSidebar from '../features/sidebar/FloatingShowSidebar'
 
 function Home() {
   const dispatch = useAppDispatch()
-  const { userID } = useAppSelector((s) => s.session)
-  const mockUserId = 'userA'
+  const { userID, boardsShort } = useAppSelector((s) => s.session)
 
   useEffect(() => {
-    if (window.location.hostname === 'localhost') {
-      dispatch(fetchUserDetails(mockUserId))
+    if (userID) {
+      dispatch(fetchUserDetails(userID))
+      dispatch(fetchUserBoards())
     }
-  }, [])
+  }, [userID])
 
   useEffect(() => {
-    dispatch(fetchUserBoards())
-  }, [userID])
+    if (boardsShort) {
+      dispatch(fetchUserBoards())
+    }
+  }, [boardsShort])
 
   return (
     <div className="home">

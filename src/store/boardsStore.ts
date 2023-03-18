@@ -105,22 +105,23 @@ export const boardsStore = {
       console.error(error)
     }
   },
-  initMockDatas: async () => {
+  initMockDatas: async (userID: string) => {
     try {
       await runTransaction(db, async (transaction) => {
-        const detailsRef = doc(db, 'userA', 'details')
+        const detailsRef = doc(db, userID, 'details')
 
         const detailsSnap = await transaction.get(detailsRef)
         if (!detailsSnap.exists()) {
+          boardsJSON.userA.details.userID = userID
           await transaction.set(
-            doc(db, 'userA', 'details'),
+            doc(db, userID, 'details'),
             boardsJSON.userA.details
           )
 
           boardsJSON.userA.details.boardsShort.forEach(async (board) => {
             const boards = boardsJSON.userA as Record<string, any>
             const boardDatas = boards[board.name]
-            await transaction.set(doc(db, 'userA', board.id), boardDatas)
+            await transaction.set(doc(db, userID, board.id), boardDatas)
           })
         }
       })
