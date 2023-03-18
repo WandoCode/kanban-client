@@ -1,13 +1,15 @@
 import { MouseEvent } from 'react'
 import BoardsList from './BoardsList'
 import iconEyeHide from '../../../assets/icon-hide-sidebar.svg'
+import iconExit from '../../../assets/icon-exit.svg'
 import ThemeSwitch from './ThemeSwitch'
-
+import { getAuth, signOut } from 'firebase/auth'
 import { useAppDispatch, useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
 import { openBoardFormModal } from '../../board-form/boardForm.actions'
+import { disconnectUser } from '../../session/session.actions'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
@@ -28,6 +30,12 @@ export default function Sidebar() {
     dispatch(changeBoard(newBoardID))
   }
 
+  const signOutUser = () => {
+    const auth = getAuth()
+    signOut(auth)
+    dispatch(disconnectUser())
+  }
+
   return (
     <nav className={menuClassName()}>
       <div className="menu__event-close" onClick={handleClose}>
@@ -44,15 +52,35 @@ export default function Sidebar() {
             />
           </div>
           <div className="menu__inf">
-            <ThemeSwitch />
-            <div className="hide-mobile">
+            <div className="hide-desktop">
               <Button
-                className="board-btn btn--transparent"
-                text="Hide Sidebar"
+                className="board-btn btn--transparent "
+                text="Sign Out"
                 type="primary-l"
-                imgRef={iconEyeHide}
-                onClick={() => dispatch(closeMenu())}
+                imgRef={iconExit}
+                onClick={() => signOutUser()}
               />
+            </div>
+            <ThemeSwitch />
+            <div>
+              <div className="hide-mobile">
+                <Button
+                  className="board-btn btn--transparent"
+                  text="Hide Sidebar"
+                  type="primary-l"
+                  imgRef={iconEyeHide}
+                  onClick={() => dispatch(closeMenu())}
+                />
+              </div>
+              <div className="hide-mobile">
+                <Button
+                  className="board-btn btn--transparent"
+                  text="Sign Out"
+                  type="primary-l"
+                  imgRef={iconExit}
+                  onClick={() => signOutUser()}
+                />
+              </div>
             </div>
           </div>
         </div>

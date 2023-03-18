@@ -12,6 +12,12 @@
 
   background-color: transparent;
 
+  & > img {
+    max-height: 18px;
+    filter: invert(60%) sepia(26%) saturate(259%) hue-rotate(177deg)
+      brightness(90%) contrast(87%);
+  }
+
   &:hover {
     background-color: var(--clr-primary-200);
 

@@ -5,6 +5,7 @@ export const connectUser = createAction(
   'session/connectUser',
   (userID: string) => ({ payload: { userID } })
 )
+export const disconnectUser = createAction('session/disconnectUser')
 
 export const setUserDatas = createAction(
   'session/setUserDatas',

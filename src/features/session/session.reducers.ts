@@ -1,5 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setUserDatas, updateBoardsShort, connectUser } from './session.actions'
+import {
+  setUserDatas,
+  updateBoardsShort,
+  connectUser,
+  disconnectUser,
+} from './session.actions'
 
 export interface BoardShort {
   id: string
@@ -20,6 +25,10 @@ const sessionReducer = createReducer(initialSessionState, (builder) => {
   builder
     .addCase(connectUser, (state, action) => {
       state.userID = action.payload.userID
+    })
+    .addCase(disconnectUser, (state) => {
+      state.userID = null
+      state.boardsShort = []
     })
     .addCase(setUserDatas, (state, action) => {
       if (action.payload) {
