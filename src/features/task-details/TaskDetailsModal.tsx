@@ -10,13 +10,14 @@ import Select from '../../components/atoms/Select/Select'
 import { updateTaskAndSave } from '../board/boards.thunk'
 import TaskMenu from '../menus/TaskMenu'
 import Modal from '../modal/Modal'
-import useGetAppState from '../useGetAppState'
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { TaskType } from '../board/boards.reducer'
 
 function TaskDetailsModal() {
   const dispatch = useAppDispatch()
-  const { task, currentColumnsNames } = useGetAppState()
+  const { task } = useAppSelector((s) => s.taskDetails)
+  const { currentColumnsNames } = useAppSelector((s) => s.boards)
+
   const taskRef = useRef<TaskType>()
   taskRef.current = task
   const [initialTask] = useState<TaskType>(task)

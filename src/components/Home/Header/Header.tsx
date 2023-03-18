@@ -1,16 +1,14 @@
 import chevron from '../../../assets/icon-chevron-down.svg'
 import plus from '../../../assets/icon-add-task-mobile.svg'
 import Button from '../../atoms/Button/Button'
-import { useAppDispatch } from '../../../features/app.store'
+import { useAppDispatch, useAppSelector } from '../../../features/app.store'
 import MiscMenu from '../../../features/menus/MiscMenu'
 import { closeMenu, openMenu } from '../../../features/sidebar/sidebar.actions'
 import { openTaskFormModal } from '../../../features/taskForm/taskForm.actions'
-import useGetAppState from '../../../features/useGetAppState'
 
 function Header() {
   const dispatch = useAppDispatch()
-
-  const { menuIsOpen } = useGetAppState()
+  const { menuIsOpen } = useAppSelector((s) => s.sidebar)
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())

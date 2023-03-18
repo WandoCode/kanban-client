@@ -1,17 +1,14 @@
-import { useAppDispatch } from '../app.store'
+import { useAppDispatch, useAppSelector } from '../app.store'
 import { toggleMiscMenu } from './menus.actions'
 import EllipsisMenu from '../../components/molecules/EllipsisMenu'
-import {
-  openBoardFormModal,
-  closeBoardFormModal,
-} from '../board-form/boardForm.actions'
-import useGetAppState from '../useGetAppState'
+import { openBoardFormModal } from '../board-form/boardForm.actions'
+
 import { openConfirmDelete } from '../confirm-delete/confirmDelete.actions'
 
 function MiscMenu() {
   const dispatch = useAppDispatch()
-
-  const { miscMenuIsOpen, boards, currentBoardId } = useGetAppState()
+  const { miscMenuIsOpen } = useAppSelector((s) => s.menus)
+  const { boards, currentBoardId } = useAppSelector((s) => s.boards)
 
   const onOpenEditBoard = () => {
     if (!boards) return

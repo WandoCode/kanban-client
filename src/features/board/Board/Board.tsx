@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../../app.store'
+import { useAppDispatch, useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import Column from './Column'
 import {
@@ -6,20 +6,20 @@ import {
   setTaskDetails,
 } from '../../task-details/taskDetails.actions'
 import { TaskType } from '../boards.reducer'
-import useGetAppState from '../../useGetAppState'
+
 import { openBoardFormModal } from '../../board-form/boardForm.actions'
 
 function Board() {
   const dispatch = useAppDispatch()
 
+  const { menuIsOpen } = useAppSelector((s) => s.sidebar)
   const {
-    menuIsOpen,
     columnsArrayByStatus,
     currentColumnsNames,
     currentColumns,
     boards,
     currentBoardId,
-  } = useGetAppState()
+  } = useAppSelector((s) => s.boards)
 
   const handleOpenTask = (task: TaskType) => {
     dispatch(setTaskDetails(task))

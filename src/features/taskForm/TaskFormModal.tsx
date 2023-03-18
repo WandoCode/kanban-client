@@ -1,7 +1,7 @@
 import Button from '../../components/atoms/Button/Button'
 import Select from '../../components/atoms/Select/Select'
 import Modal from '../modal/Modal'
-import { useAppDispatch } from '../app.store'
+import { useAppDispatch, useAppSelector } from '../app.store'
 import InputText from '../../components/atoms/Input/InputText'
 import {
   updateInput,
@@ -16,16 +16,13 @@ import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
 import InputWithCancel from '../../components/molecules/InputWithCancel'
 import { removeSubtask, addSubtask } from './taskForm.actions'
-import useGetAppState from '../useGetAppState'
 
 function TaskFormModal() {
   const dispatch = useAppDispatch()
-  const {
-    taskFormDatas,
-    isEditingTaskForm,
-    taskFormErrors,
-    currentColumnsNames,
-  } = useGetAppState()
+  const { taskFormDatas, isEditingTaskForm, taskFormErrors } = useAppSelector(
+    (s) => s.taskForm
+  )
+  const { currentColumnsNames } = useAppSelector((s) => s.boards)
 
   useEffect(() => {
     if (isEditingTaskForm) return
