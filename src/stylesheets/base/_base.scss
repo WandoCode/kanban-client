@@ -44,3 +44,8 @@ fieldset {
 button {
   cursor: pointer;
 }
+
+input,
+textarea {
+  caret-color: var(--clr-primary-400);
+}

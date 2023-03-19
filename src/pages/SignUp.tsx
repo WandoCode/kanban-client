@@ -7,7 +7,9 @@ const SignUp = () => {
       <section className="sign-form">
         <div className="sign-form__top">
           <img className="sign-form__icon" src={signupIcon} alt="User" />
-          <h1 className="heading-xl sign-form__title">Create an account!</h1>
+          <h1 className="heading-xl fc-neutral-600 sign-form__title">
+            Create an account!
+          </h1>
         </div>
         <SignForm signup={true} />
       </section>
