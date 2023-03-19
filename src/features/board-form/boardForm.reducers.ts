@@ -27,6 +27,7 @@ interface InitialState {
 }
 
 const emptyColumn = { name: '', color: '#49c4e5' }
+
 const initialState: InitialState = {
   boardFormModalIsOpen: false,
   isEditing: false,

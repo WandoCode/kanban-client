@@ -21,6 +21,7 @@ import {
   updateBoardAndSave,
   changeBoard,
 } from '../board/boards.thunk'
+import { BoardFormDatas } from './boardForm.reducers'
 
 const BoardFormModal = () => {
   const dispatch = useAppDispatch()
@@ -45,6 +46,25 @@ const BoardFormModal = () => {
     dispatch(addColumn())
   }
 
+  const cleanEmptyColumnFields = () => {
+    const formCopy: BoardFormDatas = JSON.parse(JSON.stringify(formDatas))
+
+    const emptyColumnFieldsIndex: number[] = []
+    formCopy.columns.forEach((field, i) => {
+      if (field.name.length === 0) emptyColumnFieldsIndex.push(i)
+    })
+
+    if (emptyColumnFieldsIndex.length > 0) {
+      emptyColumnFieldsIndex.sort((a, b) => b - a)
+
+      emptyColumnFieldsIndex.forEach((colInd) => {
+        formCopy.columns.splice(colInd, 1)
+      })
+    }
+
+    return formCopy
+  }
+
   const handleSubmit = () => {
     const invalidFields = validateForm()
 
@@ -52,9 +72,11 @@ const BoardFormModal = () => {
     else {
       dispatch(setErrors([]))
 
+      const cleanBoard = cleanEmptyColumnFields()
+
       const newBoard = {
-        name: formDatas.boardName,
-        columns: formDatas.columns,
+        name: cleanBoard.boardName,
+        columns: cleanBoard.columns,
         tasks: [],
       }
 
@@ -85,11 +107,6 @@ const BoardFormModal = () => {
       const element = formDatas[fieldName]
       if (fieldName === 'boardName' && element.length === 0)
         errors.push('boardName')
-      if (fieldName === 'columns') {
-        element.forEach((column: ColumnType, i: number) => {
-          if (column.name.length === 0) errors.push(`column-${i}`)
-        })
-      }
     }
 
     return errors
