@@ -9,7 +9,7 @@ import boardsReducer from './board/boards.reducer'
 import taskFormReducer from './taskForm/taskForm.reducers'
 import boardFormReducer from './board-form/boardForm.reducers'
 import confirmDeleteReducer from './confirm-delete/confirmDelete.reducer'
-import signInReducer from './sign-in/signIn.reducer'
+import signFormReducer from './signForm/signForm.reducer'
 
 const store = configureStore({
   reducer: {
@@ -22,7 +22,7 @@ const store = configureStore({
     boards: boardsReducer,
     boardForm: boardFormReducer,
     confirmDelete: confirmDeleteReducer,
-    signIn: signInReducer,
+    signForm: signFormReducer,
   },
 })
 

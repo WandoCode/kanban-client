@@ -14,9 +14,9 @@ import { resetBoards } from '../board/boards.actions'
 import localStore from '../../store/localStore'
 import { connectUser } from './session.actions'
 import {
-  resetSignInForm,
-  setSignInFormHasError,
-} from '../sign-in/signIn.actions'
+  resetSignForm,
+  setSignFormHasError,
+} from '../signForm/signForm.actions'
 
 export function fetchUserDetails(
   userID: string
@@ -61,6 +61,31 @@ export function signOutUser(): ThunkAction<
   }
 }
 
+export function createUserOrNotifyError(): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> {
+  return async function createUserOrNotifyErrorThunk(dispatch, getState) {
+    const state = getState()
+    const { formDatas } = state.signForm
+
+    const user = await authStore.createNewUser(
+      formDatas.email,
+      formDatas.password
+    )
+
+    if (user) {
+      await boardsStore.createUserDetails(user.uid)
+      localStore.saveUser(user)
+      dispatch(connectUser(user.uid))
+
+      dispatch(resetSignForm())
+    } else dispatch(setSignFormHasError(true, 'connexion'))
+  }
+}
+
 export function logInUserOrNotifyError(): ThunkAction<
   void,
   RootState,
@@ -69,7 +94,7 @@ export function logInUserOrNotifyError(): ThunkAction<
 > {
   return async function logInUserOrNotifyErrorThunk(dispatch, getState) {
     const state = getState()
-    const { formDatas } = state.signIn
+    const { formDatas } = state.signForm
 
     let user
     if (window.location.hostname === 'localhost') {
@@ -84,8 +109,8 @@ export function logInUserOrNotifyError(): ThunkAction<
       localStore.saveUser(user)
       dispatch(connectUser(user.uid))
 
-      dispatch(resetSignInForm())
-    } else dispatch(setSignInFormHasError(true))
+      dispatch(resetSignForm())
+    } else dispatch(setSignFormHasError(true, 'connexion'))
   }
 }
 

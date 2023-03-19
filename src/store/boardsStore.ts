@@ -16,6 +16,15 @@ import {
 } from '../features/board/boards.reducer'
 
 export const boardsStore = {
+  createUserDetails: async (userID: string): Promise<Session | undefined> => {
+    try {
+      const detailsRef = doc(db, userID, 'details')
+      await setDoc(detailsRef, { userID, boardsShort: [] })
+    } catch (error) {
+      console.error('Impossible to find the details for the given user', error)
+    }
+    return undefined
+  },
   getUserDetails: async (userID: string): Promise<Session | undefined> => {
     try {
       const detailsRef = doc(db, userID, 'details')

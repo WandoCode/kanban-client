@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import SignIn from './pages/SignIn'
 import ProtectedRoute from './components/utils/ProtectedRoute'
 import PublicRoute from './components/utils/PublicRoute'
+import SignUp from './pages/SignUp'
 
 const Router = () => {
   return (
@@ -23,6 +24,14 @@ const Router = () => {
             element={
               <PublicRoute>
                 <SignIn />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <PublicRoute>
+                <SignUp />
               </PublicRoute>
             }
           />

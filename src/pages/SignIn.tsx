@@ -1,5 +1,5 @@
 import signinIcon from '../assets/icon-exit.svg'
-import SignInForm from '../features/sign-in/SignIn/SignInForm'
+import SignForm from '../features/signForm/SignForm/SignForm'
 
 const SignIn = () => {
   return (
@@ -12,7 +12,7 @@ const SignIn = () => {
             Sign In your account
           </h2>
         </div>
-        <SignInForm />
+        <SignForm />
       </section>
     </div>
   )
