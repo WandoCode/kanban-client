@@ -40,4 +40,14 @@
     filter: brightness(0) saturate(100%) invert(47%) sepia(15%) saturate(2464%)
       hue-rotate(204deg) brightness(82%) contrast(88%);
   }
+
+  &--destructive:hover {
+    background-color: var(--clr-primary-600);
+    color: var(--clr-primary-800);
+
+    & > img {
+      filter: invert(38%) sepia(11%) saturate(7472%) hue-rotate(329deg)
+        brightness(113%) contrast(83%);
+    }
+  }
 }

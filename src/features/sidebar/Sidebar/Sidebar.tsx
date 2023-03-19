@@ -71,9 +71,9 @@ export default function Sidebar() {
               </div>
               <div className="hide-mobile">
                 <Button
-                  className="board-btn btn--transparent"
+                  className="board-btn board-btn--destructive btn--transparent"
                   text="Sign Out"
-                  type="primary-l"
+                  type="destructive"
                   imgRef={iconExit}
                   onClick={() => signOut()}
                 />
