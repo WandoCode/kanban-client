@@ -9,19 +9,22 @@ import { SubtaskType } from '../board/boards.reducer'
 
 import { updateInput, removeSubtask, addSubtask } from './taskForm.actions'
 
+export interface TaskFormDatas {
+  title: string
+  description: string
+  subtasks: SubtaskType[]
+  status: string
+  taskId: string
+  [key: string]: any
+}
+
 interface AddNewTaskType {
   taskFormModalIsOpen: boolean
   taskFormErrors: string[]
   isEditingTaskForm: boolean
-  taskFormDatas: {
-    title: string
-    description: string
-    subtasks: SubtaskType[]
-    status: string
-    taskId: string
-    [key: string]: any
-  }
+  taskFormDatas: TaskFormDatas
 }
+
 const emptySubtask: SubtaskType = { title: '', isCompleted: false }
 
 const initialFormDatas = {

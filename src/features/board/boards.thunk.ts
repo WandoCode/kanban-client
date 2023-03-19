@@ -6,6 +6,7 @@ import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
 import { BoardsDatasType, TaskType, BoardType } from './boards.reducer'
 import { updateUserBoardsAndSave } from '../session/session.thunks'
 import { getBoardsProperties } from '../../utils/object'
+import { TaskFormDatas } from '../taskForm/taskForm.reducers'
 
 export function fetchUserBoards(): ThunkAction<
   void,
@@ -93,12 +94,13 @@ export function addTaskAndSave(
 }
 
 export function updateTaskAndSave(
-  fromEditing: boolean
+  fromEditing: boolean,
+  updatedTask: TaskFormDatas
 ): ThunkAction<void, RootState, unknown, AnyAction> {
   return async function updateTaskAndSaveThunk(dispatch, getState) {
     const state = getState()
     const task = state.taskDetails.task
-    const formDatas = state.taskForm.taskFormDatas
+
     const userID = state.session.userID
     const { boards, currentBoardId } = state.boards
 
@@ -106,7 +108,7 @@ export function updateTaskAndSave(
 
     const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
-    const newTask = fromEditing ? formDatas : task
+    const newTask = fromEditing ? updatedTask : task
 
     const taskIndex = copyBoards[currentBoardId].tasks.findIndex((t) => {
       return t.taskId === newTask.taskId

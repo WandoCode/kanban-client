@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { SubtaskType } from '../board/boards.reducer'
 import InputWithCancel from '../../components/molecules/InputWithCancel'
 import { removeSubtask, addSubtask } from './taskForm.actions'
+import { TaskFormDatas } from './taskForm.reducers'
 
 function TaskFormModal() {
   const dispatch = useAppDispatch()
@@ -29,6 +30,25 @@ function TaskFormModal() {
     dispatch(updateInput('status', currentColumnsNames[0]))
   }, [])
 
+  const cleanEmptySubtasks = () => {
+    const formCopy: TaskFormDatas = JSON.parse(JSON.stringify(taskFormDatas))
+
+    const emptySubtasksIndex: number[] = []
+    formCopy.subtasks.forEach((subtask, i) => {
+      if (subtask.title.length === 0) emptySubtasksIndex.push(i)
+    })
+
+    if (emptySubtasksIndex.length > 0) {
+      emptySubtasksIndex.sort((a, b) => b - a)
+
+      emptySubtasksIndex.forEach((colInd) => {
+        formCopy.subtasks.splice(colInd, 1)
+      })
+    }
+
+    return formCopy
+  }
+
   const handleSubmit = () => {
     const invalidFields = validateNewTaskForm()
 
@@ -37,10 +57,12 @@ function TaskFormModal() {
     } else {
       dispatch(setErrors([]))
 
+      const cleanTask = cleanEmptySubtasks()
+
       if (isEditingTaskForm) {
-        dispatch(updateTaskAndSave(true))
+        dispatch(updateTaskAndSave(true, cleanTask))
       } else {
-        const task = { ...taskFormDatas, taskId: uuidv4() }
+        const task = { ...cleanTask, taskId: uuidv4() }
         dispatch(addTaskAndSave(task))
       }
       dispatch(closeTaskFormModal())
@@ -54,12 +76,6 @@ function TaskFormModal() {
 
       if (fieldName === 'title' && input.length === 0) {
         invalidFields.push(fieldName)
-      }
-
-      if (fieldName === 'subtasks') {
-        input.forEach((el: SubtaskType, i: number) => {
-          if (el.title.length === 0) invalidFields.push(`subtask-${i}`)
-        })
       }
     }
 
