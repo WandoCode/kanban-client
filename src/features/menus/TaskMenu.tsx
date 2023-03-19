@@ -11,13 +11,18 @@ function TaskMenu() {
   const { task } = useAppSelector((s) => s.taskDetails)
 
   const onDeleteTask = () => {
-    dispatch(closeModalTaskDetails())
+    closeModal()
     dispatch(openConfirmDelete('task'))
   }
 
   const onEditTask = () => {
-    dispatch(closeModalTaskDetails())
+    closeModal()
     dispatch(openTaskFormModal(true, task))
+  }
+
+  const closeModal = () => {
+    dispatch(toggleTaskMenu())
+    dispatch(closeModalTaskDetails())
   }
 
   const menuItemsWithHandler = [

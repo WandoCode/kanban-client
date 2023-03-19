@@ -15,11 +15,11 @@ function App() {
   }, [])
 
   useEffect(() => {
-    // const env = process.env.NODE_ENV
-    // if (env === 'development' && userID) {
-    //   // Fill DB with mock datas while in devlopement
-    //   boardsStore.initMockDatas(userID)
-    // }
+    const env = process.env.NODE_ENV
+    if (env === 'development' && userID) {
+      // Fill DB with mock datas while in devlopement
+      boardsStore.initMockDatas(userID)
+    }
   }, [userID])
 
   return (

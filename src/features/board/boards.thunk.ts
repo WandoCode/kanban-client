@@ -90,7 +90,7 @@ export function addTaskAndSave(
 
 export function updateTaskAndSave(
   fromEditing: boolean,
-  updatedTask: TaskFormDatas
+  updatedTask?: TaskFormDatas
 ): ThunkAction<void, RootState, unknown, AnyAction> {
   return async function updateTaskAndSaveThunk(dispatch, getState) {
     const state = getState()
@@ -104,6 +104,8 @@ export function updateTaskAndSave(
     const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
     const newTask = fromEditing ? updatedTask : task
+
+    if (!newTask) return
 
     const taskIndex = copyBoards[currentBoardId].tasks.findIndex((t) => {
       return t.taskId === newTask.taskId
