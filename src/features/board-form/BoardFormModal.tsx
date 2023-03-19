@@ -14,7 +14,6 @@ import {
   updateColumncolor,
 } from './boardForm.actions'
 import Button from '../../components/atoms/Button/Button'
-import { ColumnType } from '../board/boards.reducer'
 import { v4 as uuidv4 } from 'uuid'
 import {
   addBoardAndSave,

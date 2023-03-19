@@ -17,6 +17,7 @@ export function fetchUserBoards(): ThunkAction<
   return async function fetchUserBoardsThunk(dispatch, getState) {
     const state = getState()
     const { boardsShort, userID } = state.session
+    const { currentBoardId } = state.boards
 
     if (!boardsShort || !userID) return
 
@@ -24,19 +25,13 @@ export function fetchUserBoards(): ThunkAction<
 
     if (boards && boardsShort.length !== 0) {
       // At the openning, the first board is displayed
-      const currentBoardId = boardsShort[0].id
+      const boardId = currentBoardId ? currentBoardId : boardsShort[0].id
 
       const { columns, columnsNames, columnsArrayByStatus } =
-        getBoardsProperties(boards, currentBoardId)
+        getBoardsProperties(boards, boardId)
 
       dispatch(
-        setBoards(
-          boards,
-          currentBoardId,
-          columns,
-          columnsNames,
-          columnsArrayByStatus
-        )
+        setBoards(boards, boardId, columns, columnsNames, columnsArrayByStatus)
       )
     }
   }
@@ -147,6 +142,7 @@ export function addBoardAndSave(
       newBoards[newBoard.id] = newBoard
       const { columns, columnsNames, columnsArrayByStatus } =
         getBoardsProperties(newBoards, newBoard.id)
+
       dispatch(
         setBoards(
           newBoards,
@@ -157,7 +153,6 @@ export function addBoardAndSave(
         )
       )
       dispatch(updateUserBoardsAndSave(userID, newBoards))
-      // TODO: pour un utilisateur sans board, il faut dans la db au minimum les données 'détails' avec les arrays boardsShort et columns vide et l'id correct
     } else {
       const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
