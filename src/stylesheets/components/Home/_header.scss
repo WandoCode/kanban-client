@@ -22,7 +22,7 @@
     width: 25px;
     height: 100%;
 
-    background-image: url('../../../../public/logo-mobile.svg');
+    background-image: url('../assets/logo-mobile.svg');
     background-repeat: no-repeat;
     background-position: 0 50%;
 
@@ -31,7 +31,7 @@
 
       border-right: 1px solid var(--clr-neutral-300);
 
-      background-image: url('../../../../public/logo-dark.svg');
+      background-image: url('../assets/logo-dark.svg');
       transition: min-width $opening-duration;
     }
 
