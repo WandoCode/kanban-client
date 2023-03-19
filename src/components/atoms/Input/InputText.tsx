@@ -2,13 +2,14 @@ import { ChangeEvent } from 'react'
 
 interface Props {
   value: string
-  placeholder: string
+  placeholder?: string
   label?: string
   showLabel?: boolean
   id: string
   errorText: string
   hasError: boolean
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  password?: boolean
 }
 
 function InputText({
@@ -20,6 +21,7 @@ function InputText({
   id,
   errorText,
   onChange,
+  password = false,
 }: Props) {
   const labelClassName = () => {
     const base = 'input-text__label text-bold fc-neutral-450'
@@ -38,7 +40,7 @@ function InputText({
       </label>
       <div className="input-text__input-wrapper">
         <input
-          type="text"
+          type={password ? 'password' : 'text'}
           value={value}
           name={id}
           id={id}

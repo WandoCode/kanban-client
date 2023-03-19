@@ -3,14 +3,12 @@ import BoardsList from './BoardsList'
 import iconEyeHide from '../../../assets/icon-hide-sidebar.svg'
 import iconExit from '../../../assets/icon-exit.svg'
 import ThemeSwitch from './ThemeSwitch'
-import { getAuth, signOut } from 'firebase/auth'
 import { useAppDispatch, useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
 import { openBoardFormModal } from '../../board-form/boardForm.actions'
-import { disconnectUser } from '../../session/session.actions'
-import { resetBoards } from '../../board/boards.actions'
+import { signOutUser } from '../../session/session.thunks'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
@@ -31,11 +29,8 @@ export default function Sidebar() {
     dispatch(changeBoard(newBoardID))
   }
 
-  const signOutUser = () => {
-    const auth = getAuth()
-    signOut(auth)
-    dispatch(disconnectUser())
-    dispatch(resetBoards())
+  const signOut = () => {
+    dispatch(signOutUser())
   }
 
   return (
@@ -60,7 +55,7 @@ export default function Sidebar() {
                 text="Sign Out"
                 type="primary-l"
                 imgRef={iconExit}
-                onClick={() => signOutUser()}
+                onClick={() => signOut()}
               />
             </div>
             <ThemeSwitch />
@@ -80,7 +75,7 @@ export default function Sidebar() {
                   text="Sign Out"
                   type="primary-l"
                   imgRef={iconExit}
-                  onClick={() => signOutUser()}
+                  onClick={() => signOut()}
                 />
               </div>
             </div>

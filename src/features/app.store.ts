@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import generalStateReducer from './generalState/generalState.reducer'
 import sessionReducer from './session/session.reducers'
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
-// import boardReducer from './board/board.reducers'
 import menusReducer from './menus/menus.reducers'
 import sidebarReducer from './sidebar/sidebar.reducers'
 import taskDetailsReducer from './task-details/taskDetails.reducers'
@@ -10,6 +9,7 @@ import boardsReducer from './board/boards.reducer'
 import taskFormReducer from './taskForm/taskForm.reducers'
 import boardFormReducer from './board-form/boardForm.reducers'
 import confirmDeleteReducer from './confirm-delete/confirmDelete.reducer'
+import signInReducer from './sign-in/signIn.reducer'
 
 const store = configureStore({
   reducer: {
@@ -22,6 +22,7 @@ const store = configureStore({
     boards: boardsReducer,
     boardForm: boardFormReducer,
     confirmDelete: confirmDeleteReducer,
+    signIn: signInReducer,
   },
 })
 

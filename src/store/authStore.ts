@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth'
 import { auth } from './firebase'
+import { getAuth, signOut } from 'firebase/auth'
 
 const authStore = {
   createNewUser: async (email: string, password: string) => {
@@ -13,7 +14,7 @@ const authStore = {
         password
       )
       const user = userCredentials.user
-      return user.uid
+      return user
     } catch (error) {
       console.error('An error happend when creating the user: ', error)
     }
@@ -26,33 +27,29 @@ const authStore = {
         password
       )
       const user = userCredentials.user
-      return user.uid
+      return user
     } catch (error) {
       console.error('An error happend when loggin in the user: ', error)
     }
   },
-  connectMockUser: async () => {
+  logOutUser: async () => {
     try {
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        'max@gmail.com',
-        '123456'
-      )
-      const user = userCredentials.user
-      return user.uid
+      const auth = getAuth()
+      await signOut(auth)
     } catch (error) {
-      console.error('An error happend when creating the user: ', error)
+      console.error('An error happend when loggout the user: ', error)
     }
   },
-  initMockUser: async () => {
+
+  initMockUser: async (email: string, password: string) => {
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
-        'max@gmail.com',
-        '123456'
+        email,
+        password
       )
       const user = userCredentials.user
-      return user.uid
+      return user
     } catch (error) {
       console.error('An error happend when creating the user: ', error)
     }

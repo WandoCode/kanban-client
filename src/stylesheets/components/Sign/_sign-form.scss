@@ -1,4 +1,6 @@
 .sign-form {
+  display: grid;
+  gap: 1rem;
   width: 100%;
   max-width: 350px;
 
@@ -19,17 +21,14 @@
 
   &__icon {
     max-height: 25px;
-    margin-inline: auto;
     filter: invert(29%) sepia(72%) saturate(1179%) hue-rotate(218deg)
       brightness(106%) contrast(75%);
   }
 
-  &__title,
-  &__subtitle,
-  &__link {
-    width: fit-content;
-    margin-inline: auto;
-    margin-bottom: 0.5rem;
+  &__top {
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
   }
 
   &__form {
@@ -38,5 +37,11 @@
 
   &__bottom {
     display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+
+    & > button {
+      width: 100%;
+    }
   }
 }
