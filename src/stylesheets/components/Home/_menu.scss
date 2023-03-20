@@ -49,6 +49,10 @@
     transform: translateY(-100%);
     transition: transform $opening-duration;
 
+    @include breakpoint-down(small) {
+      margin-inline: 0.5rem;
+    }
+
     @include breakpoint(medium) {
       height: 100%;
 

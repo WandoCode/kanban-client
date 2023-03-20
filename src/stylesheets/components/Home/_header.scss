@@ -11,11 +11,19 @@
   border-bottom: 1px solid var(--clr-neutral-300);
   background-color: var(--clr-neutral-100);
 
+  @include breakpoint-down(small) {
+    padding-right: var(--padding-inline);
+  }
+
   &__right {
     align-items: center;
     gap: calc(var(--padding-inline) + 0.5rem);
     padding: 0;
     margin-left: var(--padding-inline);
+
+    @include breakpoint-down(small) {
+      gap: 5px;
+    }
   }
 
   &__logo-container {
@@ -55,6 +63,10 @@
     align-items: center;
     justify-content: flex-end;
     gap: rem(10);
+
+    @include breakpoint-down(small) {
+      gap: 5px;
+    }
 
     @include breakpoint(medium) {
       gap: rem(24);

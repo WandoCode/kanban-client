@@ -17,6 +17,9 @@ $column-width: 17.5rem;
   --padding-inline: 1rem;
   --header-height: 4rem;
 
+  @include breakpoint-down(small) {
+    --padding-inline: 0.5rem;
+  }
   @include breakpoint(medium) {
     --padding-inline: 1.5rem;
     --header-height: 5rem;
