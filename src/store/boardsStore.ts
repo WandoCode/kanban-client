@@ -4,16 +4,11 @@ import {
   collection,
   deleteDoc,
   doc,
-  DocumentData,
   getDoc,
   getDocs,
-  query,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
   runTransaction,
   setDoc,
   updateDoc,
-  where,
 } from 'firebase/firestore'
 import { Session, BoardShort } from '../features/session/session.reducers'
 import {

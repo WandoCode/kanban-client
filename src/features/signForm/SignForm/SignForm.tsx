@@ -38,7 +38,7 @@ const SignForm = ({ signup = false }: Props) => {
       <InputText
         value={formDatas.email}
         label="Email"
-        placeholder="smith@gmail.com"
+        placeholder="max@gmail.com"
         hasError={formError.email}
         errorText="Invalid email"
         id="email"
@@ -47,7 +47,7 @@ const SignForm = ({ signup = false }: Props) => {
       <InputText
         value={formDatas.password}
         password={true}
-        placeholder="*************"
+        placeholder="123456"
         label="Password"
         hasError={formError.samePassword}
         errorText="email and/or password incorrect"
