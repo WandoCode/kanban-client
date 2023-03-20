@@ -9,6 +9,7 @@ import { keepSessionAlive } from './features/session/session.thunks'
 function App() {
   const dispatch = useAppDispatch()
   const { userID } = useAppSelector((s) => s.session)
+  const { theme } = useAppSelector((s) => s.generalState)
 
   useEffect(() => {
     dispatch(keepSessionAlive())
@@ -23,7 +24,7 @@ function App() {
   }, [userID])
 
   return (
-    <div className="app">
+    <div className="app" id={theme}>
       <Router />
       <ModalsProvider />
     </div>
