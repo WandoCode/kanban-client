@@ -4,7 +4,7 @@ import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
 import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
 import { BoardsDatasType, TaskType, BoardType } from './boards.reducer'
-import { updateUserBoardsAndSave } from '../session/session.thunks'
+import { updateUserBoardsShortAndSave } from '../session/session.thunks'
 import { getBoardsProperties } from '../../utils/object'
 import { TaskFormDatas } from '../taskForm/taskForm.reducers'
 
@@ -80,7 +80,7 @@ export function addTaskAndSave(
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    await boardsStore.updateTask(
+    await boardsStore.updateTasks(
       userID,
       currentBoardId,
       copyBoards[currentBoardId].tasks
@@ -122,7 +122,7 @@ export function updateTaskAndSave(
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    await boardsStore.updateTask(
+    await boardsStore.updateTasks(
       userID,
       currentBoardId,
       copyBoards[currentBoardId].tasks
@@ -154,7 +154,7 @@ export function addBoardAndSave(
           columnsArrayByStatus
         )
       )
-      dispatch(updateUserBoardsAndSave(userID, newBoards))
+      dispatch(updateUserBoardsShortAndSave(userID, newBoards))
     } else {
       const copyBoards = JSON.parse(JSON.stringify(boards)) as BoardsDatasType
 
@@ -166,7 +166,7 @@ export function addBoardAndSave(
       dispatch(
         updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
       )
-      dispatch(updateUserBoardsAndSave(userID, copyBoards))
+      dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
     }
 
     await boardsStore.addBoard(userID, newBoard)
@@ -196,7 +196,7 @@ export function updateBoardAndSave(
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    dispatch(updateUserBoardsAndSave(userID, copyBoards))
+    dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
 
     await boardsStore.updateBoard(userID, updatedBoard)
   }
@@ -236,7 +236,7 @@ export function deleteBoardAndSave(): ThunkAction<
       )
     )
 
-    dispatch(updateUserBoardsAndSave(userID, copyBoards))
+    dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
 
     await boardsStore.deleteBoard(userID, deletedBoardId)
   }
@@ -273,7 +273,7 @@ export function deleteTaskAndSave(): ThunkAction<
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    await boardsStore.updateTask(
+    await boardsStore.updateTasks(
       userID,
       currentBoardId,
       copyBoards[currentBoardId].tasks

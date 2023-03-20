@@ -1,12 +1,19 @@
 import boardsJSON from '../__mock__/mockUser.json'
 import { db } from './firebase'
 import {
+  collection,
   deleteDoc,
   doc,
+  DocumentData,
   getDoc,
+  getDocs,
+  query,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
   runTransaction,
   setDoc,
   updateDoc,
+  where,
 } from 'firebase/firestore'
 import { Session, BoardShort } from '../features/session/session.reducers'
 import {
@@ -61,21 +68,13 @@ export const boardsStore = {
   ): Promise<BoardsDatasType | undefined> => {
     let boards: BoardsDatasType = {}
     try {
-      for (let i = 0; i < boardsShort.length; i++) {
-        const boardShort = boardsShort[i]
-        const boardRef = doc(db, userID, boardShort.id)
-        const boardSnap = await getDoc(boardRef)
+      const querySnapshot = await getDocs(collection(db, userID))
 
-        if (boardSnap.exists()) {
-          const board = boardSnap.data() as BoardType
-          boards[boardShort.id] = board
-        } else {
-          console.error(
-            'Impossible to find the board for the given user. Board: ',
-            boardShort.name
-          )
+      querySnapshot.forEach((doc) => {
+        if (doc.id !== 'details') {
+          boards[doc.id] = doc.data() as BoardType
         }
-      }
+      })
 
       return boards
     } catch (error) {
@@ -83,7 +82,11 @@ export const boardsStore = {
     }
     return undefined
   },
-  updateTask: async (userID: string, boardID: string, newTasks: TaskType[]) => {
+  updateTasks: async (
+    userID: string,
+    boardID: string,
+    newTasks: TaskType[]
+  ) => {
     try {
       const docRef = doc(db, userID, boardID)
       await updateDoc(docRef, { tasks: newTasks })

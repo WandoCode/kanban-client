@@ -29,11 +29,11 @@ export function fetchUserDetails(
   }
 }
 
-export function updateUserBoardsAndSave(
+export function updateUserBoardsShortAndSave(
   userID: string,
   boards: BoardsDatasType
 ): ThunkAction<void, RootState, unknown, AnyAction> {
-  return async function updateUserBoardsAndSaveThunk(dispatch) {
+  return async function updateUserBoardsShortAndSaveThunk(dispatch) {
     const newBoardsShort: BoardShort[] = []
 
     for (const boardName in boards) {
