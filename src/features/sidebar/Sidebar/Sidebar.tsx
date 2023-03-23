@@ -27,6 +27,7 @@ export default function Sidebar() {
   }
   const onClickOpenBoard = (newBoardID: string) => {
     dispatch(changeBoard(newBoardID))
+    dispatch(closeMenu())
   }
 
   const signOut = () => {

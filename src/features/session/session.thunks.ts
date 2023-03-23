@@ -99,11 +99,14 @@ export function logInUserOrNotifyError(): ThunkAction<
         "You're in development mode. While using the hostname 'localhost', a new user is created when none is found into the test database."
       )
       user = await authStore.logginUser(formDatas.email, formDatas.password)
-      if (!user)
+      console.log(user)
+
+      if (!user) {
         console.warn(
           "No user found into test DB while on 'localhost': a new user has been created."
         )
-      user = await authStore.initMockUser(formDatas.email, formDatas.password)
+        user = await authStore.initMockUser(formDatas.email, formDatas.password)
+      }
     } else {
       user = await authStore.logginUser(formDatas.email, formDatas.password)
     }
