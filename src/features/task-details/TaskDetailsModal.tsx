@@ -56,9 +56,11 @@ function TaskDetailsModal() {
           <TaskMenu />
         </div>
         {task.description && (
-          <p className="fc-neutral-450">{task.description}</p>
+          <p className="modal-task-details__description fc-neutral-450">
+            {task.description}
+          </p>
         )}
-        <div>
+        <div className="modal-task-details__content">
           <h3 className="modal-add-task__subtasks-title text-bold fc-neutral-450">
             Subtasks ({getNbrCompletedSubtask(task)} of {task.subtasks.length})
           </h3>

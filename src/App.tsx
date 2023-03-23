@@ -23,8 +23,12 @@ function App() {
     }
   }, [userID])
 
+  useEffect(() => {
+    document.body.id = theme
+  }, [theme])
+
   return (
-    <div className="app" id={theme}>
+    <div className="app">
       <Router />
       <ModalsProvider />
     </div>

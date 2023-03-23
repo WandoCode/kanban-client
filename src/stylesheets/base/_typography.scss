@@ -64,6 +64,8 @@ body {
 }
 
 .input-text {
+  // color: var(--clr-neutral-800);
+
   &__input::placeholder {
     color: var(--clr-neutral-475);
   }
