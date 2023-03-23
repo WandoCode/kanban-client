@@ -9,9 +9,14 @@ import { openTaskFormModal } from '../../../features/taskForm/taskForm.actions'
 function Header() {
   const dispatch = useAppDispatch()
   const { menuIsOpen } = useAppSelector((s) => s.sidebar)
+  const { boards, currentBoardId } = useAppSelector((s) => s.boards)
 
   const toogleModalMenu = () => {
     menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
+  }
+
+  const getTitle = () => {
+    return boards ? boards[currentBoardId].name : ''
   }
 
   return (
@@ -22,7 +27,7 @@ function Header() {
         onClick={toogleModalMenu}
       >
         <div className="header__logo-container"></div>
-        <h1 className="heading-xl">Platform Launch</h1>
+        <h1 className="heading-xl">{getTitle()}</h1>
         <img src={chevron} alt="Chevron" />
       </button>
 
@@ -35,7 +40,7 @@ function Header() {
               : 'header__logo-container'
           }
         ></div>
-        <h1 className="heading-xl">Platform Launch</h1>
+        <h1 className="heading-xl">{getTitle()}</h1>
       </div>
 
       <div className="header__left ">

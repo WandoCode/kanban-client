@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
+import { SignFormErrorsValues } from './signForm.reducer'
 
 export const updateSignFormDatas = createAction(
   'signForm/updateSignFormDatas',
@@ -7,10 +8,10 @@ export const updateSignFormDatas = createAction(
   })
 )
 
-export const setSignFormHasError = createAction(
+export const setSignFormErrors = createAction(
   'signForm/setSignFormHasError',
-  (hasError: boolean, errorName: string) => ({
-    payload: { hasError, errorName },
+  (errors: SignFormErrorsValues[]) => ({
+    payload: { errors },
   })
 )
 

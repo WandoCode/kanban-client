@@ -13,10 +13,7 @@ import authStore from '../../store/authStore'
 import { resetBoards } from '../board/boards.actions'
 import localStore from '../../store/localStore'
 import { connectUser } from './session.actions'
-import {
-  resetSignForm,
-  setSignFormHasError,
-} from '../signForm/signForm.actions'
+import { resetSignForm, setSignFormErrors } from '../signForm/signForm.actions'
 
 export function fetchUserDetails(
   userID: string
@@ -82,7 +79,7 @@ export function createUserOrNotifyError(): ThunkAction<
       dispatch(connectUser(user.uid))
 
       dispatch(resetSignForm())
-    } else dispatch(setSignFormHasError(true, 'connexion'))
+    } else dispatch(setSignFormErrors(['connexion']))
   }
 }
 
@@ -98,9 +95,15 @@ export function logInUserOrNotifyError(): ThunkAction<
 
     let user
     if (window.location.hostname === 'localhost') {
+      console.warn(
+        "You're in development mode. While using the hostname 'localhost', a new user is created when none is found into the test database."
+      )
       user = await authStore.logginUser(formDatas.email, formDatas.password)
       if (!user)
-        user = await authStore.initMockUser(formDatas.email, formDatas.password)
+        console.warn(
+          "No user found into test DB while on 'localhost': a new user has been created."
+        )
+      user = await authStore.initMockUser(formDatas.email, formDatas.password)
     } else {
       user = await authStore.logginUser(formDatas.email, formDatas.password)
     }
@@ -110,7 +113,7 @@ export function logInUserOrNotifyError(): ThunkAction<
       dispatch(connectUser(user.uid))
 
       dispatch(resetSignForm())
-    } else dispatch(setSignFormHasError(true, 'connexion'))
+    } else dispatch(setSignFormErrors(['connexion']))
   }
 }
 

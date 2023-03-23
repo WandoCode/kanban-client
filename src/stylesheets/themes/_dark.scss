@@ -1,3 +1,5 @@
+@use '../abstracts/' as *;
+
 #dark {
   color: var(--clr-neutral-100);
 
@@ -21,6 +23,16 @@
   & .header {
     border-color: var(--clr-neutral-500);
     background-color: var(--clr-neutral-600);
+
+    &__logo-container {
+      @include breakpoint(medium) {
+        background-image: url('../assets/logo-light.svg');
+      }
+    }
+
+    & h1 {
+      color: var(--clr-neutral-100);
+    }
   }
 
   & .menu {

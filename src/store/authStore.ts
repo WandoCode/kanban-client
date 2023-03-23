@@ -16,7 +16,7 @@ const authStore = {
       const user = userCredentials.user
       return user
     } catch (error) {
-      console.error('An error happend when creating the user: ', error)
+      console.warn('An error happend when creating the user: ', error)
     }
   },
   logginUser: async (email: string, password: string) => {
@@ -29,7 +29,7 @@ const authStore = {
       const user = userCredentials.user
       return user
     } catch (error) {
-      console.error('An error happend when loggin in the user: ', error)
+      console.warn('An error happend when loggin in the user: ', error)
     }
   },
   logOutUser: async () => {
@@ -51,7 +51,7 @@ const authStore = {
       const user = userCredentials.user
       return user
     } catch (error) {
-      console.error('An error happend when creating the user: ', error)
+      console.warn('An error happend when creating the user: ', error)
     }
   },
 }

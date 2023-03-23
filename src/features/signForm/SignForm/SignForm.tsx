@@ -2,12 +2,17 @@ import InputText from '../../../components/atoms/Input/InputText'
 import { useAppDispatch, useAppSelector } from '../../app.store'
 import Button from '../../../components/atoms/Button/Button'
 import { Link } from 'react-router-dom'
-import { updateSignFormDatas, resetErrorSignForm } from '../signForm.actions'
+import {
+  updateSignFormDatas,
+  resetErrorSignForm,
+  setSignFormErrors,
+} from '../signForm.actions'
 import {
   logInUserOrNotifyError,
   createUserOrNotifyError,
 } from '../../session/session.thunks'
 import { useEffect } from 'react'
+import { SignFormErrorsValues } from '../signForm.reducer'
 
 interface Props {
   signup?: boolean
@@ -25,12 +30,42 @@ const SignForm = ({ signup = false }: Props) => {
   }, [])
 
   const logUser = async () => {
+    const errors = validateForm()
+
+    if (errors.length !== 0) {
+      dispatch(setSignFormErrors(errors))
+      return
+    }
     dispatch(logInUserOrNotifyError())
     dispatch(resetErrorSignForm())
   }
 
   const createUser = () => {
+    const errors = validateForm()
+
+    if (errors.length !== 0) {
+      dispatch(setSignFormErrors(errors))
+      return
+    }
+
     dispatch(createUserOrNotifyError())
+  }
+
+  const validateForm = () => {
+    const errors: SignFormErrorsValues[] = []
+
+    if (!formDatas.email.match(/[A-Z-_.+]{2,}@[A-Z-_+]{2,}\.[A-Z]{1,}/i))
+      errors.push('email')
+
+    if (formDatas.password.length === 0) errors.push('emptyPassword')
+
+    if (signup && formDatas.confirmation !== formDatas.password)
+      errors.push('samePassword')
+
+    if (signup && formDatas.confirmation.length === 0)
+      errors.push('emptyConfirmation')
+
+    return errors
   }
 
   return (
@@ -49,7 +84,7 @@ const SignForm = ({ signup = false }: Props) => {
         password={true}
         placeholder="123456"
         label="Password"
-        hasError={formError.samePassword}
+        hasError={formError.samePassword || formError.emptyPassword}
         errorText="email and/or password incorrect"
         id="password"
         onChange={(e) =>
@@ -62,7 +97,7 @@ const SignForm = ({ signup = false }: Props) => {
           password={true}
           placeholder="*************"
           label="Confirm password"
-          hasError={formError.samePassword}
+          hasError={formError.samePassword || formError.emptyConfirmation}
           errorText="email and/or password incorrect"
           id="confirmation"
           onChange={(e) =>
@@ -90,6 +125,11 @@ const SignForm = ({ signup = false }: Props) => {
             </Link>
             <Button text="Login" type="primary-l" onClick={logUser} />
           </>
+        )}
+        {formError.connexion && (
+          <p className="fc-primary-800">
+            Wrong user and/or pasword. Try again.
+          </p>
         )}
       </div>
     </form>

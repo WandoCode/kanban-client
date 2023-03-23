@@ -1,10 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { resetErrorSignForm } from './signForm.actions'
-import {
-  updateSignFormDatas,
-  resetSignForm,
-  setSignFormHasError,
-} from './signForm.actions'
+import { resetErrorSignForm, setSignFormErrors } from './signForm.actions'
+import { updateSignFormDatas, resetSignForm } from './signForm.actions'
 
 export interface SignFormData {
   email: string
@@ -12,22 +8,25 @@ export interface SignFormData {
   confirmation: string
   [x: string]: string
 }
-export interface ErrorSignForm {
-  email: boolean
-  samePassword: boolean
-  connexion: boolean
-  [x: string]: boolean
-}
+
+export type SignFormErrorsValues =
+  | 'email'
+  | 'samePassword'
+  | 'connexion'
+  | 'emptyPassword'
+  | 'emptyConfirmation'
 
 export interface SignForm {
   formDatas: SignFormData
-  formError: ErrorSignForm
+  formError: Record<SignFormErrorsValues, boolean>
 }
 
-const initialErrorForm = {
+const initialErrorForm: Record<SignFormErrorsValues, boolean> = {
   email: false,
   samePassword: false,
   connexion: false,
+  emptyPassword: false,
+  emptyConfirmation: false,
 }
 const initialState: SignForm = {
   formDatas: {
@@ -45,10 +44,15 @@ const signFormReducer = createReducer(initialState, (builder) => {
 
       state.formDatas[fieldName] = newValue
     })
-    .addCase(setSignFormHasError, (state, action) => {
-      const { hasError, errorName } = action.payload
+    .addCase(setSignFormErrors, (state, action) => {
+      const errors = action.payload.errors
 
-      state.formError[errorName] = hasError
+      const newFormErrorsCopy = { ...initialErrorForm }
+      for (const errorName in newFormErrorsCopy) {
+        if (errors.includes(errorName as SignFormErrorsValues))
+          newFormErrorsCopy[errorName as SignFormErrorsValues] = true
+      }
+      state.formError = newFormErrorsCopy
     })
     .addCase(resetSignForm, () => initialState)
     .addCase(resetErrorSignForm, (state) => {
