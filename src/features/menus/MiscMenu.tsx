@@ -47,3 +47,5 @@ function MiscMenu() {
 }
 
 export default MiscMenu
+
+// TODO: impossible de supprimer un board quand c'est le dernier!
