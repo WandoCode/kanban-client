@@ -30,7 +30,9 @@ export function updateUserBoardsShortAndSave(
   userID: string,
   boards: BoardsDatasType
 ): ThunkAction<void, RootState, unknown, AnyAction> {
-  return async function updateUserBoardsShortAndSaveThunk(dispatch) {
+  return async function updateUserBoardsShortAndSaveThunk(dispatch, getState) {
+    const state = getState()
+    const isDemoUser = state.session.isDemoUser
     const newBoardsShort: BoardShort[] = []
 
     for (const boardName in boards) {
@@ -38,7 +40,8 @@ export function updateUserBoardsShortAndSave(
       newBoardsShort.push({ id: board.id, name: board.name })
     }
 
-    await boardsStore.updateUserBoardsShort(userID, newBoardsShort)
+    if (!isDemoUser)
+      await boardsStore.updateUserBoardsShort(userID, newBoardsShort)
 
     dispatch(updateBoardsShort(newBoardsShort))
   }
@@ -75,8 +78,8 @@ export function createUserOrNotifyError(): ThunkAction<
 
     if (user) {
       await boardsStore.createUserDetails(user.uid)
-      localStore.saveUser(user.uid)
-      dispatch(connectUser(user.uid))
+      localStore.saveUser(user.uid, false)
+      dispatch(connectUser(user.uid, false))
 
       dispatch(resetSignForm())
     } else dispatch(setSignFormErrors(['connexion']))
@@ -92,6 +95,8 @@ export function logInUserOrNotifyError(): ThunkAction<
   return async function logInUserOrNotifyErrorThunk(dispatch, getState) {
     const state = getState()
     const { formDatas } = state.signForm
+    const isDemoUser =
+      formDatas.email === 'max@gmail.com' && formDatas.password === '123456'
 
     let user
     if (window.location.hostname === 'localhost') {
@@ -111,8 +116,8 @@ export function logInUserOrNotifyError(): ThunkAction<
     }
 
     if (user) {
-      localStore.saveUser(user.uid)
-      dispatch(connectUser(user.uid))
+      localStore.saveUser(user.uid, isDemoUser)
+      dispatch(connectUser(user.uid, isDemoUser))
 
       dispatch(resetSignForm())
     } else dispatch(setSignFormErrors(['connexion']))
@@ -126,8 +131,8 @@ export function keepSessionAlive(): ThunkAction<
   AnyAction
 > {
   return async function keepSessionAliveThunk(dispatch) {
-    const userId = localStore.getUser()
+    const user = localStore.getUser()
 
-    if (userId) dispatch(connectUser(userId))
+    if (user) dispatch(connectUser(user.userId, user.isDemoUser))
   }
 }

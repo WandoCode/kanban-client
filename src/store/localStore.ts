@@ -1,10 +1,14 @@
 const localStore = {
-  saveUser: (userId: string) => {
-    localStorage.setItem('sessionUser', JSON.stringify(userId))
+  saveUser: (userId: string, isDemoUser = true) => {
+    const user = {
+      userId,
+      isDemoUser,
+    }
+    localStorage.setItem('sessionUser', JSON.stringify(user))
   },
   getUser: () => {
-    const userId = localStorage.getItem('sessionUser')
-    if (userId) return JSON.parse(userId)
+    const user = localStorage.getItem('sessionUser')
+    if (user) return JSON.parse(user)
     return null
   },
   removeUser: () => {

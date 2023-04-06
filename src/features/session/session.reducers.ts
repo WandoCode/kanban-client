@@ -13,11 +13,13 @@ export interface BoardShort {
 
 export interface Session {
   userID: string | null
+  isDemoUser: boolean
   boardsShort: BoardShort[]
 }
 
 const initialSessionState: Session = {
   userID: '',
+  isDemoUser: false,
   boardsShort: [],
 }
 
@@ -25,6 +27,7 @@ const sessionReducer = createReducer(initialSessionState, (builder) => {
   builder
     .addCase(connectUser, (state, action) => {
       state.userID = action.payload.userID
+      state.isDemoUser = action.payload.isDemoUser
     })
     .addCase(disconnectUser, (state) => {
       state.userID = null

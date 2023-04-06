@@ -69,6 +69,7 @@ export function addTaskAndSave(
     const state = getState()
     const userID = state.session.userID
     const { boards, currentBoardId } = state.boards
+    const { isDemoUser } = state.session
 
     if (!boards || !userID) return
 
@@ -85,11 +86,12 @@ export function addTaskAndSave(
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    await boardsStore.updateTasks(
-      userID,
-      currentBoardId,
-      copyBoards[currentBoardId].tasks
-    )
+    if (!isDemoUser)
+      await boardsStore.updateTasks(
+        userID,
+        currentBoardId,
+        copyBoards[currentBoardId].tasks
+      )
   }
 }
 
@@ -100,6 +102,7 @@ export function updateTaskAndSave(
   return async function updateTaskAndSaveThunk(dispatch, getState) {
     const state = getState()
     const task = state.taskDetails.task
+    const { isDemoUser } = state.session
 
     const userID = state.session.userID
     const { boards, currentBoardId } = state.boards
@@ -127,11 +130,12 @@ export function updateTaskAndSave(
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    await boardsStore.updateTasks(
-      userID,
-      currentBoardId,
-      copyBoards[currentBoardId].tasks
-    )
+    if (!isDemoUser)
+      await boardsStore.updateTasks(
+        userID,
+        currentBoardId,
+        copyBoards[currentBoardId].tasks
+      )
   }
 }
 
@@ -142,6 +146,7 @@ export function addBoardAndSave(
     const state = getState()
     const userID = state.session.userID
     const { boards } = state.boards
+    const { isDemoUser } = state.session
 
     if (!userID) return
     if (!boards) {
@@ -174,7 +179,7 @@ export function addBoardAndSave(
       dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
     }
 
-    await boardsStore.addBoard(userID, newBoard)
+    if (!isDemoUser) await boardsStore.addBoard(userID, newBoard)
   }
 }
 
@@ -183,7 +188,7 @@ export function updateBoardAndSave(
 ): ThunkAction<void, RootState, unknown, AnyAction> {
   return async function updateBoardAndSaveThunk(dispatch, getState) {
     const state = getState()
-    const userID = state.session.userID
+    const { isDemoUser, userID } = state.session
     const { boards } = state.boards
 
     if (!boards || !userID) return
@@ -203,7 +208,7 @@ export function updateBoardAndSave(
 
     dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
 
-    await boardsStore.updateBoard(userID, updatedBoard)
+    if (!isDemoUser) await boardsStore.updateBoard(userID, updatedBoard)
   }
 }
 
@@ -215,7 +220,7 @@ export function deleteBoardAndSave(): ThunkAction<
 > {
   return async function deleteBoardAndSaveThunk(dispatch, getState) {
     const state = getState()
-    const userID = state.session.userID
+    const { isDemoUser, userID } = state.session
     const { boards, currentBoardId } = state.boards
 
     if (!boards || !userID) return
@@ -245,7 +250,8 @@ export function deleteBoardAndSave(): ThunkAction<
     }
 
     dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
-    await boardsStore.deleteBoard(userID, deletedBoardId)
+
+    if (!isDemoUser) await boardsStore.deleteBoard(userID, deletedBoardId)
   }
 }
 
@@ -258,7 +264,7 @@ export function deleteTaskAndSave(): ThunkAction<
   return async function deleteTaskAndSaveThunk(dispatch, getState) {
     const state = getState()
     const task = state.taskDetails.task
-    const userID = state.session.userID
+    const { isDemoUser, userID } = state.session
     const { boards, currentBoardId } = state.boards
 
     if (!boards || !userID) return
@@ -280,10 +286,11 @@ export function deleteTaskAndSave(): ThunkAction<
       updateBoards(copyBoards, columns, columnsNames, columnsArrayByStatus)
     )
 
-    await boardsStore.updateTasks(
-      userID,
-      currentBoardId,
-      copyBoards[currentBoardId].tasks
-    )
+    if (!isDemoUser)
+      await boardsStore.updateTasks(
+        userID,
+        currentBoardId,
+        copyBoards[currentBoardId].tasks
+      )
   }
 }

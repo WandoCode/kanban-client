@@ -3,7 +3,7 @@ import { Session, BoardShort } from './session.reducers'
 
 export const connectUser = createAction(
   'session/connectUser',
-  (userID: string) => ({ payload: { userID } })
+  (userID: string, isDemoUser: boolean) => ({ payload: { userID, isDemoUser } })
 )
 export const disconnectUser = createAction('session/disconnectUser')
 
