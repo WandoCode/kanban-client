@@ -5,6 +5,7 @@ import ModalsProvider from './features/modal/ModalsProvider'
 import Router from './Router'
 import { useAppSelector, useAppDispatch } from './features/app.store'
 import { keepSessionAlive } from './features/session/session.thunks'
+import { Licence } from './components/utils/Licence'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -31,6 +32,7 @@ function App() {
     <div className="app">
       <Router />
       <ModalsProvider />
+      <Licence />
     </div>
   )
 }
