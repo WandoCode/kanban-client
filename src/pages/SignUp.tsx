@@ -3,7 +3,7 @@ import SignForm from '../features/signForm/SignForm/SignForm'
 
 const SignUp = () => {
   return (
-    <div className="sign-up sign-form__wrapper">
+    <main className="sign-up sign-form__wrapper">
       <section className="sign-form">
         <div className="sign-form__top">
           <img className="sign-form__icon" src={signupIcon} alt="User" />
@@ -13,7 +13,7 @@ const SignUp = () => {
         </div>
         <SignForm signup={true} />
       </section>
-    </div>
+    </main>
   )
 }
 

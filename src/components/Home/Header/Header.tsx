@@ -20,7 +20,7 @@ function Header() {
   }
 
   return (
-    <div className="header">
+    <header className="header">
       {/* Only mobile */}
       <button
         className="header__right hide-desktop btn--transparent"
@@ -68,7 +68,7 @@ function Header() {
         {/* All screen sizes */}
         <MiscMenu />
       </div>
-    </div>
+    </header>
   )
 }
 

@@ -56,7 +56,7 @@ function Board() {
   }
 
   return (
-    <div className={sidebarIsOpen ? 'board board--menu-open' : 'board'}>
+    <main className={sidebarIsOpen ? 'board board--menu-open' : 'board'}>
       {currentColumnsNames.length > 0 ? (
         <div className="board__columns">
           {columnsDOM()}
@@ -77,7 +77,7 @@ function Board() {
           />
         </div>
       )}
-    </div>
+    </main>
   )
 }
 

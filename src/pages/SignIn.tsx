@@ -3,7 +3,7 @@ import SignForm from '../features/signForm/SignForm/SignForm'
 
 const SignIn = () => {
   return (
-    <div className="sign-in sign-form__wrapper">
+    <main className="sign-in sign-form__wrapper">
       <section className="sign-form">
         <p className="text-bold fc-neutral-400">
           NB: to test the app, create a new account or use the placeholders in
@@ -20,7 +20,7 @@ const SignIn = () => {
         </div>
         <SignForm />
       </section>
-    </div>
+    </main>
   )
 }
 
