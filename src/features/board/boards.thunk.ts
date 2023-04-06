@@ -2,7 +2,12 @@ import { ThunkAction } from 'redux-thunk'
 import { RootState } from '../app.store'
 import { AnyAction } from 'redux'
 import { boardsStore } from '../../store/boardsStore'
-import { setBoards, applyChangeBoard, updateBoards } from './boards.actions'
+import {
+  setBoards,
+  applyChangeBoard,
+  updateBoards,
+  resetBoards,
+} from './boards.actions'
 import { BoardsDatasType, TaskType, BoardType } from './boards.reducer'
 import { updateUserBoardsShortAndSave } from '../session/session.thunks'
 import { getBoardsProperties } from '../../utils/object'
@@ -221,23 +226,25 @@ export function deleteBoardAndSave(): ThunkAction<
     delete copyBoards[currentBoardId]
 
     const firstBoardId = Object.keys(copyBoards)[0]
-    const { columns, columnsNames, columnsArrayByStatus } = getBoardsProperties(
-      copyBoards,
-      firstBoardId
-    )
 
-    dispatch(
-      setBoards(
-        copyBoards,
-        firstBoardId,
-        columns,
-        columnsNames,
-        columnsArrayByStatus
+    if (firstBoardId) {
+      const { columns, columnsNames, columnsArrayByStatus } =
+        getBoardsProperties(copyBoards, firstBoardId)
+
+      dispatch(
+        setBoards(
+          copyBoards,
+          firstBoardId,
+          columns,
+          columnsNames,
+          columnsArrayByStatus
+        )
       )
-    )
+    } else {
+      dispatch(resetBoards())
+    }
 
     dispatch(updateUserBoardsShortAndSave(userID, copyBoards))
-
     await boardsStore.deleteBoard(userID, deletedBoardId)
   }
 }
