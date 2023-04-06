@@ -14,10 +14,10 @@ export default function Sidebar() {
   const dispatch = useAppDispatch()
   const { currentBoardId } = useAppSelector((s) => s.boards)
   const { boardsShort } = useAppSelector((s) => s.session)
-  const { menuIsOpen } = useAppSelector((s) => s.sidebar)
+  const { sidebarIsOpen } = useAppSelector((s) => s.sidebar)
 
   const menuClassName = () => {
-    return menuIsOpen ? 'menu menu--open' : 'menu menu--close'
+    return sidebarIsOpen ? 'menu menu--open' : 'menu menu--close'
   }
 
   const handleClose = (e: MouseEvent<HTMLDivElement>) => {

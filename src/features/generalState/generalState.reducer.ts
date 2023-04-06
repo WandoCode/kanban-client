@@ -3,7 +3,6 @@ import { setTheme } from './generalState.actions'
 
 const initialState = {
   theme: 'light',
-  menuIsOpen: true,
 }
 
 const generalStateReducer = createReducer(initialState, (builder) => {

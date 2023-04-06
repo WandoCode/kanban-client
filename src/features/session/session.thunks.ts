@@ -75,7 +75,7 @@ export function createUserOrNotifyError(): ThunkAction<
 
     if (user) {
       await boardsStore.createUserDetails(user.uid)
-      localStore.saveUser(user)
+      localStore.saveUser(user.uid)
       dispatch(connectUser(user.uid))
 
       dispatch(resetSignForm())
@@ -112,7 +112,7 @@ export function logInUserOrNotifyError(): ThunkAction<
     }
 
     if (user) {
-      localStore.saveUser(user)
+      localStore.saveUser(user.uid)
       dispatch(connectUser(user.uid))
 
       dispatch(resetSignForm())
@@ -127,8 +127,8 @@ export function keepSessionAlive(): ThunkAction<
   AnyAction
 > {
   return async function keepSessionAliveThunk(dispatch) {
-    const user = localStore.getUser()
+    const userId = localStore.getUser()
 
-    if (user) dispatch(connectUser(user.uid))
+    if (userId) dispatch(connectUser(userId))
   }
 }

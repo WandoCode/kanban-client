@@ -12,7 +12,7 @@ import { openBoardFormModal } from '../../board-form/boardForm.actions'
 function Board() {
   const dispatch = useAppDispatch()
 
-  const { menuIsOpen } = useAppSelector((s) => s.sidebar)
+  const { sidebarIsOpen } = useAppSelector((s) => s.sidebar)
   const {
     columnsArrayByStatus,
     currentColumnsNames,
@@ -56,7 +56,7 @@ function Board() {
   }
 
   return (
-    <div className={menuIsOpen ? 'board board--menu-open' : 'board'}>
+    <div className={sidebarIsOpen ? 'board board--menu-open' : 'board'}>
       {currentColumnsNames.length > 0 ? (
         <div className="board__columns">
           {columnsDOM()}

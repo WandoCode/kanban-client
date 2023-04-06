@@ -1,12 +1,10 @@
-import { User } from 'firebase/auth'
-
 const localStore = {
-  saveUser: (user: User) => {
-    localStorage.setItem('sessionUser', JSON.stringify(user))
+  saveUser: (userId: string) => {
+    localStorage.setItem('sessionUser', JSON.stringify(userId))
   },
   getUser: () => {
-    const userStr = localStorage.getItem('sessionUser')
-    if (userStr) return JSON.parse(userStr)
+    const userId = localStorage.getItem('sessionUser')
+    if (userId) return JSON.parse(userId)
     return null
   },
   removeUser: () => {

@@ -8,11 +8,11 @@ import { openTaskFormModal } from '../../../features/taskForm/taskForm.actions'
 
 function Header() {
   const dispatch = useAppDispatch()
-  const { menuIsOpen } = useAppSelector((s) => s.sidebar)
+  const { sidebarIsOpen } = useAppSelector((s) => s.sidebar)
   const { boards, currentBoardId } = useAppSelector((s) => s.boards)
 
   const toogleModalMenu = () => {
-    menuIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
+    sidebarIsOpen ? dispatch(closeMenu()) : dispatch(openMenu())
   }
 
   const getTitle = () => {
@@ -35,7 +35,7 @@ function Header() {
       <div className="header__right hide-mobile">
         <div
           className={
-            menuIsOpen
+            sidebarIsOpen
               ? 'header__logo-container header__logo-container--menuOpen'
               : 'header__logo-container'
           }
