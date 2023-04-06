@@ -14,6 +14,14 @@ const localStore = {
   removeUser: () => {
     localStorage.removeItem('sessionUser')
   },
+  saveTheme: (theme: 'light' | 'dark') => {
+    localStorage.setItem('theme', JSON.stringify({ theme }))
+  },
+  getTheme: () => {
+    const theme = localStorage.getItem('theme')
+    if (theme) return JSON.parse(theme)
+    return null
+  },
 }
 
 export default localStore

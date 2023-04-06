@@ -3,13 +3,25 @@ import lightIcon from '../../assets/icon-light-theme.svg'
 import darkIcon from '../../assets/icon-dark-theme.svg'
 import { useAppDispatch, useAppSelector } from '../app.store'
 import { setTheme } from './generalState.actions'
+import { useEffect } from 'react'
+import localStore from '../../store/localStore'
 
 function ThemeSwitch() {
   const dispatch = useAppDispatch()
   const { theme } = useAppSelector((s) => s.generalState)
 
+  useEffect(() => {
+    const theme = localStore.getTheme()
+    console.log(theme)
+
+    if (theme) dispatch(setTheme(theme.theme))
+  }, [])
+
   const toogleValue = () => {
-    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+
+    localStore.saveTheme(newTheme)
+    dispatch(setTheme(newTheme))
   }
 
   return (
