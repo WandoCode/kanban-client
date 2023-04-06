@@ -6,10 +6,15 @@ import Board from '../features/board/Board/Board'
 import Sidebar from '../features/sidebar/Sidebar/Sidebar'
 import { fetchUserBoards } from '../features/board/boards.thunk'
 import FloatingShowSidebar from '../features/sidebar/FloatingShowSidebar'
+import { setDemoUserModal } from '../features/generalState/generalState.actions'
 
 function Home() {
   const dispatch = useAppDispatch()
-  const { userID, boardsShort } = useAppSelector((s) => s.session)
+  const { userID, boardsShort, isDemoUser } = useAppSelector((s) => s.session)
+
+  useEffect(() => {
+    if (isDemoUser) dispatch(setDemoUserModal(isDemoUser))
+  }, [])
 
   useEffect(() => {
     if (userID) {
@@ -27,7 +32,6 @@ function Home() {
   return (
     <div className="home">
       <FloatingShowSidebar />
-
       <Sidebar />
       <Header />
       <Board />

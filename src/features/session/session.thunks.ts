@@ -56,6 +56,7 @@ export function signOutUser(): ThunkAction<
   return async function signOutUserThunk(dispatch) {
     await authStore.logOutUser()
     localStore.removeUser()
+
     dispatch(disconnectUser())
     dispatch(resetBoards())
   }

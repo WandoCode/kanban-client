@@ -1,14 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setTheme } from './generalState.actions'
+import { setTheme, setDemoUserModal } from './generalState.actions'
 
 const initialState = {
   theme: 'light',
+  modalDemoUserIsOpen: true,
 }
 
 const generalStateReducer = createReducer(initialState, (builder) => {
-  builder.addCase(setTheme, (state, action) => {
-    state.theme = action.payload.newTheme
-  })
+  builder
+    .addCase(setTheme, (state, action) => {
+      state.theme = action.payload.newTheme
+    })
+    .addCase(setDemoUserModal, (state, action) => {
+      state.modalDemoUserIsOpen = action.payload.modalDemoUserIsOpen
+    })
 })
 
 export default generalStateReducer

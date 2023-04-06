@@ -31,6 +31,7 @@ const sessionReducer = createReducer(initialSessionState, (builder) => {
     })
     .addCase(disconnectUser, (state) => {
       state.userID = null
+      state.isDemoUser = false
       state.boardsShort = []
     })
     .addCase(setUserDatas, (state, action) => {
