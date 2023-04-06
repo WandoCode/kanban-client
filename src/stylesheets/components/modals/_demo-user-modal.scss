@@ -1,0 +1,8 @@
+.demo-user-modal {
+  display: grid;
+  gap: 1rem;
+
+  & > button {
+    margin-top: 1rem;
+  }
+}
