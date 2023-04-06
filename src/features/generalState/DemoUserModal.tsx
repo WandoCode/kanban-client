@@ -12,7 +12,7 @@ export const DemoUserModal = () => {
   }
 
   return (
-    <Modal closeModal={closeDemoUserModal} withCloseButton={true}>
+    <Modal closeModal={closeDemoUserModal}>
       <div className="demo-user-modal">
         <h2 className="heading-l">Demo account</h2>
         <p className="fc-neutral-500">

@@ -12,6 +12,7 @@
   border-radius: 12px;
   background-color: var(--clr-primary-400);
   box-shadow: 0 0 0px 3px var(--clr-primary-400);
+  outline: 2px solid var(--clr-primary-400); // Reduce slightly the gap between the swith and its shaddow (on firefox)
 
   & img {
     height: 12px;

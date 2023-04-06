@@ -143,4 +143,10 @@
       color: var(--clr-neutral-400);
     }
   }
+
+  .demo-user-modal {
+    & p {
+      color: var(--clr-neutral-300);
+    }
+  }
 }
