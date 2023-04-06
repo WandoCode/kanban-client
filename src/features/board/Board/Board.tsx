@@ -68,7 +68,7 @@ function Board() {
       ) : (
         <div className="board__empty">
           <h2 className="heading-l fc-neutral-400">
-            This board is empty. Create a new column to get started.
+            This workspace is empty. Create a new board to get started.
           </h2>
           <Button
             text="+ Add New Column"
