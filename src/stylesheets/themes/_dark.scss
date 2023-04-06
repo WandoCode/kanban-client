@@ -27,6 +27,7 @@
     &__logo-container {
       @include breakpoint(medium) {
         background-image: url('../assets/logo-light.svg');
+        border-color: var(--clr-neutral-500);
       }
     }
 
@@ -113,6 +114,7 @@
 
   .ellipsis-menu {
     &__menu {
+      background-color: var(--clr-neutral-600);
       & > *:last-child {
         color: var(--clr-primary-800);
 
