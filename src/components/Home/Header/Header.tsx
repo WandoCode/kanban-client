@@ -26,7 +26,7 @@ function Header() {
         className="header__right hide-desktop btn--transparent"
         onClick={toogleModalMenu}
       >
-        <div className="header__logo-container"></div>
+        <span className="header__logo-container"></span>
         <h1 className="heading-xl">{getTitle()}</h1>
         <img src={chevron} alt="Chevron" />
       </button>
