@@ -3,7 +3,7 @@ import { setTheme, setDemoUserModal } from './generalState.actions'
 
 const initialState = {
   theme: 'light',
-  modalDemoUserIsOpen: true,
+  modalDemoUserIsOpen: false,
 }
 
 const generalStateReducer = createReducer(initialState, (builder) => {
