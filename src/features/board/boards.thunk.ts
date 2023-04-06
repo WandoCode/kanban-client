@@ -21,7 +21,7 @@ export function fetchUserBoards(): ThunkAction<
 > {
   return async function fetchUserBoardsThunk(dispatch, getState) {
     const state = getState()
-    const { boardsShort, userID } = state.session
+    const { boardsShort, userID, isDemoUser } = state.session
     const { currentBoardId } = state.boards
 
     if (!boardsShort || !userID) return

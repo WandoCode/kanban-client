@@ -21,6 +21,7 @@ import {
   changeBoard,
 } from '../board/boards.thunk'
 import { BoardFormDatas } from './boardForm.reducers'
+import { ColumnType } from '../board/boards.reducer'
 
 const BoardFormModal = () => {
   const dispatch = useAppDispatch()
@@ -104,8 +105,16 @@ const BoardFormModal = () => {
 
     for (const fieldName in formDatas) {
       const element = formDatas[fieldName]
+
       if (fieldName === 'boardName' && element.length === 0)
         errors.push('boardName')
+
+      if (fieldName === 'columns') {
+        const hasAtLeastOneColmunWithName = element.some(
+          (col: ColumnType) => col.name.length > 0
+        )
+        if (!hasAtLeastOneColmunWithName) errors.push('columns')
+      }
     }
 
     return errors
@@ -138,7 +147,7 @@ const BoardFormModal = () => {
           {formDatas.columns.map((column, i) => (
             <InputWithCancel
               key={`column-${i}`}
-              hasError={formErrors.includes(`column-${i}`)}
+              hasError={formErrors.includes(`columns`)}
               onChangeValue={(name) => onChangeValue(i, name)}
               handleRemove={() => handleRemoveColumn(i)}
               placeholder={'e.g. Todo'}
