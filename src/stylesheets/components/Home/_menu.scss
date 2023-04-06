@@ -122,6 +122,16 @@
   &__heading {
     padding-left: calc(var(--padding-inline) + 0.5rem);
   }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+
+    & > button {
+      background-color: transparent;
+      border: none;
+    }
+  }
 }
 
 @keyframes slide-out {

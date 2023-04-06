@@ -9,6 +9,7 @@ import { closeMenu } from '../sidebar.actions'
 import { changeBoard } from '../../board/boards.thunk'
 import { openBoardFormModal } from '../../board-form/boardForm.actions'
 import { signOutUser } from '../../session/session.thunks'
+import crossIcon from '../../../assets/icon-cross.svg'
 
 export default function Sidebar() {
   const dispatch = useAppDispatch()
@@ -38,9 +39,18 @@ export default function Sidebar() {
       <div className="menu__event-close" onClick={handleClose}>
         <div className="menu__wrapper">
           <div className="menu__sup">
-            <h2 className="menu__heading heading-s">
-              All boards ({boardsShort.length})
-            </h2>
+            <div className="menu__top">
+              <h2 className="menu__heading heading-s">
+                All boards ({boardsShort.length})
+              </h2>
+              <button
+                className="hide-desktop"
+                onClick={() => dispatch(closeMenu())}
+              >
+                <img src={crossIcon} alt=" " />
+                <span className="visually-hidden">Close menu</span>
+              </button>
+            </div>
             <BoardsList
               boards={boardsShort}
               onClickOpenBoard={onClickOpenBoard}

@@ -1,11 +1,13 @@
 import { PropsWithChildren, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import Button from '../../components/atoms/Button/Button'
 
 interface Props extends PropsWithChildren {
   closeModal: () => void
+  withCloseButton?: boolean
 }
 
-function Modal({ closeModal, children }: Props) {
+function Modal({ closeModal, withCloseButton = false, children }: Props) {
   const modalRef = useRef<HTMLDivElement>(null)
 
   const modalRoot = document.getElementById('modal-root')
@@ -38,7 +40,18 @@ function Modal({ closeModal, children }: Props) {
   else
     return createPortal(
       <div className="modal" ref={modalRef} tabIndex={0}>
-        <div className="modal__content">{children}</div>
+        <div className="modal__content">
+          {children}
+
+          {withCloseButton && (
+            <Button
+              className="modal__close-btn"
+              type="secondary"
+              text="Close"
+              onClick={() => closeModal()}
+            />
+          )}
+        </div>
       </div>,
       modalRoot
     )

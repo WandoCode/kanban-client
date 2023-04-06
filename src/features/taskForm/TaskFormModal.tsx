@@ -99,7 +99,10 @@ function TaskFormModal() {
   }
 
   return (
-    <Modal closeModal={() => dispatch(closeTaskFormModal())}>
+    <Modal
+      closeModal={() => dispatch(closeTaskFormModal())}
+      withCloseButton={true}
+    >
       <form className="modal-add-task">
         <h2 className="heading-l">
           {isEditingTaskForm ? 'Edit Task' : 'Add New Task'}

@@ -125,7 +125,7 @@ const BoardFormModal = () => {
   }
 
   return (
-    <Modal closeModal={onCloseModal}>
+    <Modal closeModal={onCloseModal} withCloseButton={true}>
       <form className="board-form modal-add-task">
         <h2 className="heading-l">
           {isEditing ? 'Edit Board' : 'Add New Board'}

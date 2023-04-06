@@ -49,7 +49,7 @@ function TaskDetailsModal() {
   }
 
   return (
-    <Modal closeModal={closeModal}>
+    <Modal closeModal={closeModal} withCloseButton={true}>
       <div className="modal-task-details modal-add-task">
         <div className="modal-task-details__header">
           <h2 className="heading-l">{task.title}</h2>
