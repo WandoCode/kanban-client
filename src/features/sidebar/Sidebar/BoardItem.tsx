@@ -21,6 +21,7 @@ function BoardItem({ board, onClick, currentBoard }: Props) {
   const handleClick = () => {
     onClick(board.id)
   }
+
   return (
     <li key={board.id}>
       <Button
