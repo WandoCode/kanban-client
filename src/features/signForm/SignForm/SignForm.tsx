@@ -85,7 +85,7 @@ const SignForm = ({ signup = false }: Props) => {
         placeholder="123456"
         label="Password"
         hasError={formError.samePassword || formError.emptyPassword}
-        errorText="email and/or password incorrect"
+        errorText="Email/password incorrect"
         id="password"
         onChange={(e) =>
           dispatch(updateSignFormDatas(e.target.value, 'password'))
@@ -98,7 +98,7 @@ const SignForm = ({ signup = false }: Props) => {
           placeholder="*************"
           label="Confirm password"
           hasError={formError.samePassword || formError.emptyConfirmation}
-          errorText="email and/or password incorrect"
+          errorText="Email/password incorrect"
           id="confirmation"
           onChange={(e) =>
             dispatch(updateSignFormDatas(e.target.value, 'confirmation'))
