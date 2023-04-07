@@ -6,6 +6,7 @@ import {
   updateSignFormDatas,
   resetErrorSignForm,
   setSignFormErrors,
+  resetSignForm,
 } from '../signForm.actions'
 import {
   logInUserOrNotifyError,
@@ -27,6 +28,7 @@ const SignForm = ({ signup = false }: Props) => {
       dispatch(updateSignFormDatas('max@gmail.com', 'email'))
       dispatch(updateSignFormDatas('123456', 'password'))
     }
+    dispatch(resetSignForm())
   }, [])
 
   const logUser = async () => {
