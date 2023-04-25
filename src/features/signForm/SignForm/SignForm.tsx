@@ -56,7 +56,7 @@ const SignForm = ({ signup = false }: Props) => {
   const validateForm = () => {
     const errors: SignFormErrorsValues[] = []
 
-    if (!formDatas.email.match(/[A-Z-_.+]{2,}@[A-Z-_+]{2,}\.[A-Z]{1,}/i))
+    if (!formDatas.email.match(/[A-Z1-9-_.+]{2,}@[A-Z1-9-_+]{2,}\.[A-Z]{1,}/i))
       errors.push('email')
 
     if (formDatas.password.length === 0) errors.push('emptyPassword')
